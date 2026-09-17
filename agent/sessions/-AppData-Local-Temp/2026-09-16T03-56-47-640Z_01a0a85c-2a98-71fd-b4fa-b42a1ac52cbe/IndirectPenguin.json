@@ -1,0 +1,31 @@
+{
+  "summary": "Scholar's config resolves to stateRoot C:\\Users\\basam\\.pi\\agent\\scholar (bootstrap pointer config.json), obsidianRoot (vault) C:\\Users\\basam\\Desktop\\Basam's_Vault, libraryRoot C:\\Users\\basam\\Desktop\\SIPI_Silicon (from the vault-local catalog, not the bootstrap). Exactly one section note in the whole vault holds review receipts: 'Griffiths E&M/Sections/1.2 - Differential Calculus.md' (pages 32-43, 20 '###' topics), carrying three receipts (teaching, source, visual), all status=changes with failure.code='cancelled' and the REVIEW_CHECKPOINT_MESSAGE carrier text, and NO diagnostics block at all. Saved completed checks: teaching 11, source 1, visual 14 batches (26 model requests finished) before the pass was interrupted; planned load is source 3 / teaching 21 / visual >=14 packets against a hard concurrency cap of 6 workers and a single 45-minute shared deadline. Because no receipt carries diagnostics (elapsedMs/modelTurns/toolCalls) and no session log stores per-role timing, per-role time cannot be summed from disk; the only measurable wall clock is the review window 04:35:28Z -> 04:44:04.805Z (~8.6 min) on 2026-09-16, well under the 45-min ceiling, so the stop was an interruption, not the backstop.",
+  "files": [
+    {
+      "path": "C:\\Users\\basam\\.pi\\agent\\scholar\\config.json",
+      "description": "Resolved Scholar state bootstrap: schemaVersion 3 + obsidianRoot only (no libraryRoot, no currentBookId)."
+    },
+    {
+      "path": "C:\\Users\\basam\\Desktop\\Basam's_Vault\\Scholar\\Scholar Settings.md",
+      "description": "Vault-local catalog (kind:\"settings\") holding libraryRoot=C:\\Users\\basam\\Desktop\\SIPI_Silicon, currentBookId, and 3 library entries."
+    },
+    {
+      "path": "C:\\Users\\basam\\Desktop\\Basam's_Vault\\Scholar\\Books\\Griffiths E&M\\Sections\\1.2 - Differential Calculus.md",
+      "description": "Only note in the vault with review receipts (learnQuality.reviews, 3 role receipts + batches)."
+    },
+    {
+      "path": "C:\\Users\\basam\\.pi\\agent\\extensions\\scholar\\learn-review.ts",
+      "description": "Packet planner (planReviewAssignments) and reviewLearnDraft: roles, window sizes, shared deadline, checkpoint carrier (reviewCheckpoint, failure code 'cancelled')."
+    },
+    {
+      "path": "C:\\Users\\basam\\.pi\\agent\\extensions\\scholar\\review-layer.ts",
+      "description": "REVIEW_CONCURRENCY=6 worker pool, per-packet limits/deadline, diagnostic aggregation (elapsedMs/modelTurns/toolCalls), receipt construction."
+    },
+    {
+      "path": "C:\\Users\\basam\\.pi\\agent\\extensions\\scholar\\review-runtime.ts",
+      "description": "DEFAULT_REVIEWER_LIMITS incl. REVIEW_BACKSTOP_MS = 45*60_000 timeoutMs and REVIEW_STALL_MS = 180_000."
+    }
+  ],
+  "architecture": "Resolution chain (storage.ts): resolveScholarConfig() takes env PI_SCHOLAR_{LIBRARY,OBSIDIAN,STATE}_ROOT or overrides, defaulting stateRoot to ~/.pi/agent/scholar; loadConfig() reads <stateRoot>/config.json (bootstrap: obsidianRoot only, schema v3), then reads the vault catalog <vault>/Scholar/Scholar Settings.md for libraryRoot + currentBookId (readCatalogRecord also migrates legacy <vault>/Scholar/.scholar/catalog.json). Book state and all review receipts live in the vault: <vault>/Scholar/Books/<Note Directory>/<Book>.md, Sections/<n> - <title>.md. Review execution is in-process: planReviewAssignments() emits ReviewPackets (source = one per 4-page window; teaching = one per '###' topic + one coherence packet; visual = <=6 images per packet), and runReviewPass() runs them through a fixed pool of min(6, packets) workers under one shared deadlineAt (45 min), persisting finished checks as 'cancelled' checkpoint carriers while the run is live.",
+  "report": "# 1. Resolved configuration (exact paths, with evidence)\n\n| Item | Value | Evidence |\n|---|---|---|\n| stateRoot | `C:\\Users\\basam\\.pi\\agent\\scholar` | storage.ts:33 `DEFAULT_SCHOLAR_STATE_ROOT = join(homedir(), \".pi\", \"agent\", \"scholar\")` |\n| bootstrap config file | `C:\\Users\\basam\\.pi\\agent\\scholar\\config.json` | contents: `{\"schemaVersion\": 3, \"obsidianRoot\": \"C:\\\\Users\\\\basam\\\\Desktop\\\\Basam's_Vault\", \"updatedAt\": \"2026-09-14T02:28:13.175Z\"}` |\n| obsidianRoot (vault) | `C:\\Users\\basam\\Desktop\\Basam's_Vault` | same file; also storage.ts:84 `writeBootstrapConfig` writes only `obsidianRoot` |\n| libraryRoot | `C:\\Users\\basam\\Desktop\\SIPI_Silicon` | vault catalog `...\\Basam's_Vault\\Scholar\\Scholar Settings.md` JSON → `\"libraryRoot\": \"C:\\\\Users\\\\basam\\\\Desktop\\\\SIPI_Silicon\"` (storage.ts:338-342 loads it from the catalog, not the bootstrap) |\n| currentBookId | `987099ec…f63826` (Griffiths_E&M.pdf) | same catalog, `\"currentBookId\"` |\n| catalog entries | 3 PDFs (Calculus/Stewart, Griffiths_E&M, Bogatin) | same catalog `entries[]` |\n| vault workspace dirs | `<vault>\\Scholar\\Books\\`, `<vault>\\Scholar\\Scholar Settings.md` | storage.ts:61-81 `SCHOLAR_FOLDER=\"Scholar\"`, `VISIBLE_BOOKS_FOLDER=\"Books\"` |\n| legacy/empty state dir | `C:\\Users\\basam\\.pi\\agent\\scholar\\books\\` — **empty** | directory listing (0 entries) |\n\nNo `PI_SCHOLAR_*` env override values were needed; the resolved vault came from the bootstrap pointer.\n\n# 2. Review receipts on disk\n\nOnly **one** section note in the vault has receipts (grep for `learnQuality|\"reviews\"|\"failure\"` across `Basam's_Vault`): `Scholar\\Books\\Griffiths E&M\\Sections\\1.2 - Differential Calculus.md`. `learnQuality` begins at line 313; `learnQuality.reviews` is a 3-element array at line 616.\n\n| Note (page span) | ### topics | role | status | failure.code | diagnostics.elapsedMs | modelTurns | toolCalls | batches.length | advice findings in batches |\n|---|---|---|---|---|---|---|---|---|---|\n| Griffiths 1.2 (32-43) | 20 | teaching | changes | `cancelled` | **absent** | **absent** | **absent** | 11 | 13 |\n| Griffiths 1.2 (32-43) | 20 | source | changes | `cancelled` | **absent** | **absent** | **absent** | 1 | 4 |\n| Griffiths 1.2 (32-43) | 20 | visual | changes | `cancelled` | **absent** | **absent** | **absent** | 14 | 4 |\n\nPer-role citations (file lines): teaching `\"role\": \"teaching\"` 628 / `\"failure"
+}

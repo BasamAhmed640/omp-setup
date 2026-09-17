@@ -1,0 +1,52 @@
+diff --git a/README.md b/README.md
+index b469d03..43820f8 100644
+--- a/README.md
++++ b/README.md
+@@ -50,9 +50,10 @@ different surfaces.
+ 
+ ### Independent review restored (0.7.1)
+ 
+-Learn deliveries, Tutor explanations and questions, and the Exam form are inspected by an independent crew before they commit, using the current Pi model at a fixed low reviewer reasoning level.
++Learn lesson and Tutor explanation revisions are audited once, as they are saved, while the author continues working; proposed questions are inspected before they are shown, and the Exam form before it freezes. Each audit uses the current Pi model at a fixed low reviewer reasoning level.
+ Each check is one prepared request: the runner loads exactly that packet's page text, saved crops and lesson passages, so reviewers never spend turns fetching evidence and the visual check judges saved crops rather than full rendered pages. That is a deliberate trade of review depth for latency and token cost.
+-Findings come back as `[F-<key>]` requests that the author answers with `findingResponses`; each revision is reviewed once and finished checks are checkpointed and reused.
++Unresolved blocking findings come back as `[F-<key>]` blocks on the author's next Scholar tool result and are answered with `findingResponses`; a repair is resolved by the audit of its new revision, unchanged content is never re-audited, and no second review round runs.
++`lessonComplete` waits only for the outstanding audits of the current revisions, so a pending, failed, stale or unresolved audit cannot approve delivery. Approval stays controller-owned and hash-bound.
+ There is no wall-clock stop on preparation. The count limits are unchanged (8 rejections, 250 actions, 4 delivery-gap attempts), and the only clock is the bounded reviewer run itself.
+ 
+ ### Simplified study flow (0.7.0)
+diff --git a/command-syntax.ts b/command-syntax.ts
+index 0d9878c..7a08c37 100644
+--- a/command-syntax.ts
++++ b/command-syntax.ts
+@@ -7,7 +7,6 @@ export type ParsedScholarCommand = {
+   action: string;
+   value?: string;
+   submit?: true;
+-  continue?: true;
+ };
+ 
+ export function cleanArgument(value: string): string {
+@@ -26,13 +25,6 @@ export function parseScholarCommand(input: string): ParsedScholarCommand {
+   const action = match[1]!.toLowerCase();
+   let rawValue = match[2]?.trim();
+   let submit = false;
+-  let continueLearn = false;
+-  if (action === "learn" && rawValue && /(?:^|\s)continue$/i.test(rawValue)) {
+-    const target = rawValue.replace(/(?:^|\s)continue$/i, "").trim();
+-    if (!target || !/^["']/.test(target) || target.length > 1 && target.endsWith(target[0]!)) {
+-      continueLearn = true; rawValue = target;
+-    }
+-  }
+   if (action === "exam" && rawValue) {
+     // Recognize the verb before stripping quotes: "submit" can be a title.
+     const trailing = /(?:^|\s)submit$/i.exec(rawValue);
+@@ -47,7 +39,7 @@ export function parseScholarCommand(input: string): ParsedScholarCommand {
+   }
+   const value = rawValue ? cleanArgument(rawValue) : undefined;
+   if (value && ["close", "help"].includes(action)) return { action: "invalid" };
+-  return { action, ...(value ? { value } : {}), ...(submit ? { submit: true as const } : {}), ...(continueLearn ? { continue: true as const } : {}) };
++  return { action, ...(value ? { value } : {}), ...(submit ? { submit: true as const } : {}) };
+ }
+ 
+ export const SCHOLAR_COMMAND_ACTIONS = [

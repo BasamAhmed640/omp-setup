@@ -1,0 +1,50 @@
+ M AGENTS.md
+ M command-syntax.ts
+ M commands.ts
+ M learn-quality.ts
+ M learn-review.ts
+ M lesson.ts
+ M note-records.ts
+ M render/section.ts
+ M review-layer.ts
+ M tests/verify-scholar-exam-experience.mjs
+ M tests/verify-scholar-exam-scope-prompt.mjs
+ M tests/verify-scholar-explanation-presentation.mjs
+ M tests/verify-scholar-figure-coverage.mjs
+ M tests/verify-scholar-learn-review.mjs
+ M tests/verify-scholar-mode-figures.mjs
+ M tests/verify-scholar-note-design.mjs
+ M tests/verify-scholar-open-assessment.mjs
+ M tests/verify-scholar-projection.mjs
+ M tests/verify-scholar-reviewed-progress.mjs
+ M tests/verify-scholar-simple-learn.mjs
+ M tool-controller.ts
+?? tests/verify-scholar-audit-as-you-go.mjs
+?? tests/verify-scholar-resume-determinism.mjs
+----
+ AGENTS.md                                         |   6 +-
+ command-syntax.ts                                 |  10 +-
+ commands.ts                                       | 206 ++++++-----
+ learn-quality.ts                                  |  58 ++-
+ learn-review.ts                                   | 235 +++---------
+ lesson.ts                                         |  44 ++-
+ note-records.ts                                   |   9 +-
+ render/section.ts                                 |  20 +-
+ review-layer.ts                                   |   2 +-
+ tests/verify-scholar-exam-experience.mjs          |  43 +--
+ tests/verify-scholar-exam-scope-prompt.mjs        |  31 +-
+ tests/verify-scholar-explanation-presentation.mjs |   2 +-
+ tests/verify-scholar-figure-coverage.mjs          |  17 +-
+ tests/verify-scholar-learn-review.mjs             | 418 ++++++++++------------
+ tests/verify-scholar-mode-figures.mjs             |  31 +-
+ tests/verify-scholar-note-design.mjs              |  53 +++
+ tests/verify-scholar-open-assessment.mjs          |   7 +
+ tests/verify-scholar-projection.mjs               |   7 +
+ tests/verify-scholar-reviewed-progress.mjs        |   8 +-
+ tests/verify-scholar-simple-learn.mjs             |  60 ++--
+ tool-controller.ts                                | 369 ++++++++++++-------
+ 21 files changed, 864 insertions(+), 772 deletions(-)
+----
+15fe964 Make review cheap and fast, universal engines, beautiful notes
+c1a07e8 Ship v0.7.1: restore the independent review-and-repair flow
+869bbe1 Add AGENTS.md: invariants, verify commands, and layout for agent sessions

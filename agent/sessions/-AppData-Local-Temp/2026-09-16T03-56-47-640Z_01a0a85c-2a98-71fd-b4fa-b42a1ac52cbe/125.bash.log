@@ -1,0 +1,29 @@
+=== learn-review.ts anchors ===
+62:const SOURCE_WINDOW_PAGES = 4;
+63:const VISUAL_PACKET_IMAGES = 6;
+99:  const sourceWindowPages = smallWindow ? 2 : SOURCE_WINDOW_PAGES;
+100:  const visualPacketImages = smallWindow ? 2 : VISUAL_PACKET_IMAGES;
+121:    add("source", `source:${window[0]}`, `Crew assignment: source pages ${window.join(", ")}. Check that the lesson passages below deliver these pages faithfully, and report essential content on these pages that no passage explains. Other crew members cover the other pages, and a coherence check covers the whole lesson.`,
+124:  topics.forEach((topic, index) => add("teaching", `teaching:${index + 1}`, `Crew assignment: topic ${index + 1} of ${topics.length}, "${topic.heading}". Review only this topic's explanation against its source pages; the outline shows where it sits, and earlier topics may already define terms. The objective check plan and whole-lesson flow are reviewed by a separate coherence check.`,
+126:  add("teaching", "teaching:coherence", "Crew assignment: whole-lesson coherence. Using the outline, checklist, recap, key points and key equations, check topic order, gaps or repetition between topics, consistent notation and terminology, and the objective check plan. Other crew members check each topic against its pages; do not demand passages you cannot see.",
+133:  const pack = (topic: Topic | undefined, viewPages: number[], packetCrops: ScholarSnapshot[]) => {
+148:  for (const topic of topics) {
+154:  pack(undefined, sorted([...pages.filter(page => !viewed.has(page)), ...loose.map(crop => crop.page)]), loose);
+155:  packets.forEach((packet, index) => add("visual", `visual:${index + 1}`, packet.topic
+
+=== policies.ts source-prep bullets ===
+100:- Read the complete active section range before claiming coverage. Extract the primary claims, definitions, mechanisms, procedures, examples, equations, boundary conditions, figures, and misconceptions needed to substitute for reading.
+102:- Save the plan before drafting a long lesson: action=notes with top-level objectives and sourceCoverage (without lesson evidence yet). figureReviews, objectiveChecks, synthesis and keyPoints may each be saved independently; do not regenerate prose just to update metadata. Top-level objectives declare the section scope; lesson.objectives only associates that unit with already-declared objectives. Use coverageUpdates to change only the lesson/equation/figure pointers or exact excerpts for existing source item IDs. Copy excerpts from status with lessonId; a paraphrase is not an exact excerpt. A rejected notes call saves none of its fields unless the result explicitly says "Draft saved": correct the named fields without resending unrelated prose. Use action=status to inspect persisted work; do not use outline to repair Learn notes.
+103:- During initial source preparation, before the first practice or mastery question, read and view every active-section page. Save a tight literal crop of every source figure, graph, table, map, or diagram by default, including vector diagrams whose captions are absent from extracted text. Use the snapshotId returned by snapshot to account for each visual in notes.figureReviews; each page needs a visual observation and its figures list. After correcting a crop, update its figureReviews inventory entry and the lesson placement to the replacement snapshotId; old unused crops may remain in history but are not current review targets. Skip only genuinely decorative, duplicate, or fully redundant visuals, with a specific skipReason; an empty figures list means visual inspection found none belonging to this section. On a shared boundary page, use the actual section headings to establish ownership. Do not use internet images in Learn.
+106:- For a targeted repair, use notes.lessonPatch with the current id/expectedContentHash from status. edits:[{oldText,newText}] changes unique prose. To replace ONE complete equation callout, use calloutEdits:[{oldText,equation:{...all fields of that equation, preserving its existing id}}]. For a replacement crop, use calloutEdits:[{oldText,snapshotId,replacesSnapshotId}], then update figureReviews. oldText is the entire exact saved callout, not a substring. Other callouts remain unchanged. Update changed coverage evidence with coverageUpdates. Do not rewrite the full lesson for local corrections.
+
+=== learn-review verifier: page/window/packet assertions ===
+17:const { reviewOne, reviewLearnDraft, reviewLearnQuestion, currentReviewSnapshots, planReviewAssignments, reviewCheckpoint, REVIEW_CHECKPOINT_MESSAGE } = await load("learn-review.ts");
+125:  const plan = planReviewAssignments(options.section, options.book.source.fingerprint.sha256);
+333:  assert(events.some(event => event.batch === 7 && event.batches === 7), "progress reports finished checks out of the whole crew");
+368:  options.onCheckpoint = (role, batches) => checkpoints.push({ role, batches });
+374:  assert.equal(source.batches.length, 2);
+376:  assert.equal(saved.batches.length, 2, "finished windows were handed to the owner before the deadline");
+377:  const checkpoint = reviewCheckpoint(options.section, options.book, options.ctx, "source", saved.batches);
+388:  assert.equal(resumed.find(receipt => receipt.role === "source").batches.length, 3);
+427:  const plan32k = planReviewAssignments(opts.section, opts.book.source.fingerprint.sha256, 32_000);

@@ -1,0 +1,157 @@
++      }
++      if (!activeBook) {
++        coordinator.deactivateSession();
++        coordinator.persistSessionPointer();
++        await coordinator.setStatus(ctx);
++      }
+     }
+ 
+     if (typeof ctx.isIdle === "function" && !ctx.isIdle()) {
+@@ -457,7 +452,15 @@ export async function handleScholarCommand(
+     }
+ 
+     const bookId = coordinator.runtimeSession.bookId || activeConfig.currentBookId;
+-    let book = bookId ? await loadBookState(activeConfig, bookId).catch(() => undefined) : undefined;
++    let book: ScholarBook | undefined;
++    if (bookId) {
++      try {
++        book = await loadBookState(activeConfig, bookId);
++      } catch (error) {
++        ctx.ui.notify(loadFailureMessage(error, "the selected book"), "warning");
++        return;
++      }
++    }
+ 
+     if (parsed.action === "default") {
+       ctx.ui.notify(scholarGuide(book), "info");
+@@ -548,12 +551,19 @@ export async function handleScholarCommand(
+           // Already-submitted/graded requests follow the resume route below;
+           // they never parse the edited paper or replace the saved answers.
+         } else if (!parsed.value) {
+-          const resume = await chooseUnfinishedExam(book, ctx, activeConfig);
+-          if (resume.kind === "cancelled") return;
+-          if (resume.kind === "resume") {
+-            exam = resume.exam;
+-            ctx.ui.notify(`Resuming ${examResumeLabel(exam)}.`, "info");
++          // Bare `/scholar exam` never prompts: the most recently touched
++          // unfinished exam wins, and the rest are named rather than offered.
++          const unfinished = unfinishedExams(book);
++          if (!unfinished.length) {
++            ctx.ui.notify(`No unfinished exam to resume. Create one with /scholar exam "<scope>".\n\n${examScopeGuidance(book)}`, "info");
++            return;
+           }
++          exam = unfinished[0]!;
++          const others = unfinished.slice(1);
++          ctx.ui.notify(
++            `Resuming ${examResumeLabel(exam)}.${others.length ? `\nOther unfinished exams: ${others.map((item) => `${item.title} [${item.id}]`).join("; ")}.` : ""}`,
++            "info",
++          );
+         } else {
+           const found = findNamedExam(book, parsed.value);
+           if (found) {
+@@ -563,38 +573,36 @@ export async function handleScholarCommand(
+             } else {
+               ctx.ui.notify(`Resuming ${examResumeLabel(exam)}.`, "info");
+             }
++          } else {
++            const scope = await resolveExamScope(book, parsed.value, ctx);
++            if (!scope) return;
++            const now = new Date().toISOString();
++            const number = book.exams.length + 1;
++            const created: ScholarExam = {
++              id: `exam-${String(number).padStart(3, "0")}`,
++              title: `Exam ${String(number).padStart(2, "0")} — ${scope.description}`,
++              scope,
++              status: "draft",
++              questions: [],
++              rawResponses: [],
++              itemResults: [],
++              breakdown: [],
++              earnedPoints: 0,
++              maxPoints: 0,
++              percent: 0,
++              transcript: [],
++              createdAt: now,
++              updatedAt: now,
++            };
++            const mutation = await coordinator.mutateBook(book.id, (state) => {
++              state.exams.push(created);
++              state.currentExamId = created.id;
++            });
++            book = mutation.book;
++            exam = book.exams.find((item) => item.id === created.id)!;
++            ctx.ui.notify(`Started ${exam.title}.`, "info");
+           }
+         }
+-        if (!exam) {
+-          const scope = await resolveExamScope(book, parsed.value, ctx);
+-          if (!scope) return;
+-          const now = new Date().toISOString();
+-          const number = book.exams.length + 1;
+-          exam = {
+-            id: `exam-${String(number).padStart(3, "0")}`,
+-            title: `Exam ${String(number).padStart(2, "0")} — ${scope.description}`,
+-            scope,
+-            status: "draft",
+-            questions: [],
+-            rawResponses: [],
+-            itemResults: [],
+-            breakdown: [],
+-            earnedPoints: 0,
+-            maxPoints: 0,
+-            percent: 0,
+-            transcript: [],
+-            createdAt: now,
+-            updatedAt: now,
+-          };
+-          const created = exam;
+-          const mutation = await coordinator.mutateBook(book.id, (state) => {
+-            state.exams.push(created);
+-            state.currentExamId = created.id;
+-          });
+-          book = mutation.book;
+-          exam = book.exams.find((item) => item.id === created.id)!;
+-          ctx.ui.notify(`Started ${exam.title}.`, "info");
+-        }
+         if (exam.status === "active") {
+           const presented = await coordinator.toolController.presentExam(book.id, exam.id, ctx);
+           book = presented.book;
+@@ -604,7 +612,7 @@ export async function handleScholarCommand(
+             ctx.ui.notify(`${exam.title}\nAnswer and save in Obsidian: ${presented.path}\nThen /scholar exam "${exam.id}" submit`, "info");
+             return;
+=== command-syntax diff:
+diff --git a/command-syntax.ts b/command-syntax.ts
+index 0d9878c..7a08c37 100644
+--- a/command-syntax.ts
++++ b/command-syntax.ts
+@@ -7,7 +7,6 @@ export type ParsedScholarCommand = {
+   action: string;
+   value?: string;
+   submit?: true;
+-  continue?: true;
+ };
+ 
+ export function cleanArgument(value: string): string {
+@@ -26,13 +25,6 @@ export function parseScholarCommand(input: string): ParsedScholarCommand {
+   const action = match[1]!.toLowerCase();
+   let rawValue = match[2]?.trim();
+   let submit = false;
+-  let continueLearn = false;
+-  if (action === "learn" && rawValue && /(?:^|\s)continue$/i.test(rawValue)) {
+-    const target = rawValue.replace(/(?:^|\s)continue$/i, "").trim();
+-    if (!target || !/^["']/.test(target) || target.length > 1 && target.endsWith(target[0]!)) {
+-      continueLearn = true; rawValue = target;
+-    }
+-  }
+   if (action === "exam" && rawValue) {
+     // Recognize the verb before stripping quotes: "submit" can be a title.
+     const trailing = /(?:^|\s)submit$/i.exec(rawValue);
+@@ -47,7 +39,7 @@ export function parseScholarCommand(input: string): ParsedScholarCommand {
+   }
+   const value = rawValue ? cleanArgument(rawValue) : undefined;
+   if (value && ["close", "help"].includes(action)) return { action: "invalid" };
+-  return { action, ...(value ? { value } : {}), ...(submit ? { submit: true as const } : {}), ...(continueLearn ? { continue: true as const } : {}) };
++  return { action, ...(value ? { value } : {}), ...(submit ? { submit: true as const } : {}) };
+ }
+ 
+ export const SCHOLAR_COMMAND_ACTIONS = [

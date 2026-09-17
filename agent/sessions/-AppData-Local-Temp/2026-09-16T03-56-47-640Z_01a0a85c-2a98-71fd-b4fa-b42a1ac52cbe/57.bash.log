@@ -1,0 +1,24 @@
+--- EXPLANATION_POLICY last para ---
+- Before finalizing, perform one focused editorial review against the inspected source and the intended reader: find undefined terms, unexplained symbols, missing reasoning, omitted primary content, misleading analogies, and figures without an interpretation. Repair the specific passages in the saved lesson. Independent Learn reviewers then inspect the saved draft; they do not replace your responsibility as author. If the source is unclear, say what remains uncertain rather than filling a gap with an unsupported claim.`;
+
+--- learn bullet 1 (lessonComplete) ---
+- Complete the source-grounded explanations of every objective and essential equation/figure, perform the focused editorial review, and save repairs before setting notes.lessonComplete=true. For new Learn deliveries this automatically runs independent source, teaching and math/visual reviews in parallel against the actual source pages, crops and saved explanations, using the current Pi model and its supported thinking level. Read their concrete findings, repair the affected passages with the current expectedContentHash, update the checklist's exact evidence and resubmit. A resubmission after findings checks your recorded findingResponses instead of running the crew again; a fresh crew run happens only after an intentional revision of a committed lesson or a new /scholar learn activation. An interrupted, stale or unavailable review is never an approval.
+
+--- learn bullet 2 (execution failure) ---
+- An execution failure (provider, timeout, evidence or limit) stops this generation. Preserve the current draft and successful reviews; do not automatically retry, revise optional advice, or start another question. A stop is not cleared by chat: Scholar actions other than status stay blocked until the learner runs ${continueCommand}. After that command, inspect status and retry the unchanged draft first when only execution failures remain. Repeated lessonComplete submissions rejected for delivery gaps also stop preparation, so fix every named gap before resubmitting. Separate real blocking content findings from optional advice and stale findings attached to an older content hash.
+
+--- exam bullet ---
+- exam_build runs an independent assessment review of the frozen form before it activates. If it returns blocking findings, address each [F-<key>] and resubmit exam_build with findingResponses: [{ key, action: 'fixed' | 'declined', note }]; that resubmission checks your responses instead of running the crew again.
+
+--- tutor bullet ---
+- Saved tutor explanations and every practice/mastery question are independently reviewed before delivery. Repair blocking findings and supply findingResponses: [{ key, action: 'fixed' | 'declined', note }]; a question review that fails blocks the question, never the learner's answer.
+
+--- README new section ---
+### Independent review restored (0.7.1)
+
+Learn deliveries, Tutor explanations and questions, and the Exam form are inspected by an independent crew before they commit, using the current Pi model and its supported thinking level.
+Findings come back as `[F-<key>]` requests that the author answers with `findingResponses`; each revision is reviewed once and finished checks are checkpointed and reused.
+There is no wall-clock stop on preparation. The count limits are unchanged (8 rejections, 250 actions, 4 delivery-gap attempts), and the only clock is the bounded reviewer run itself.
+
+--- architecture line 40 ---
+Count-based action budgets, the reviewer's single bounded run inside `review-runtime.ts`, and tool isolation prevent runaway execution while ensuring model independence. There is no wall-clock stop on preparation; the only clock is that bounded reviewer run.

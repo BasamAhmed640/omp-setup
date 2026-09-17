@@ -1,0 +1,1009 @@
+URL: https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/main?recursive=1
+Content-Type: application/json
+Method: json
+
+---
+
+{
+  "sha": "5f248852e4eb1105f1e012ae3150fa13fc029fd9",
+  "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/5f248852e4eb1105f1e012ae3150fa13fc029fd9",
+  "tree": [
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "33d5048b2cb72b047f473b4853e2b90f6d6dbe8a",
+      "size": 310,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/33d5048b2cb72b047f473b4853e2b90f6d6dbe8a"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b51f8c505fbefed3619989727524972b423c7314",
+      "size": 47504,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/b51f8c505fbefed3619989727524972b423c7314"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "240e2351f136cf930a36764ff05f55c9290ff13f",
+      "size": 2938,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/240e2351f136cf930a36764ff05f55c9290ff13f"
+    },
+    {
+      "path": "appearance.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f09abd3f47e2827f609eb8d869403192ad8573ef",
+      "size": 7433,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/f09abd3f47e2827f609eb8d869403192ad8573ef"
+    },
+    {
+      "path": "book-service.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0faab2bae29446042826a322a9f0d2f562f70b62",
+      "size": 6372,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/0faab2bae29446042826a322a9f0d2f562f70b62"
+    },
+    {
+      "path": "command-syntax.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0d9878c4ba303873e5b182a9dc953c66cb0dd805",
+      "size": 8426,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/0d9878c4ba303873e5b182a9dc953c66cb0dd805"
+    },
+    {
+      "path": "commands.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "70cfbafa52b4ea8fdff3eaeb68e1c8b5f1de0d46",
+      "size": 31452,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/70cfbafa52b4ea8fdff3eaeb68e1c8b5f1de0d46"
+    },
+    {
+      "path": "commons-images.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d0e593d8cbec393ff8f6e6c4c233651226db402f",
+      "size": 13627,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/d0e593d8cbec393ff8f6e6c4c233651226db402f"
+    },
+    {
+      "path": "docs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ddf6eabd4f3a4fea5edb3381b4064055a280c571",
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/ddf6eabd4f3a4fea5edb3381b4064055a280c571"
+    },
+    {
+      "path": "docs/architecture.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4a0df4704372d87831079e4d0e684805116e9e30",
+      "size": 9077,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/4a0df4704372d87831079e4d0e684805116e9e30"
+    },
+    {
+      "path": "docs/hierarchy.mmd",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "53ac17cc9b4c91208363ed0cc7eafa24383739c1",
+      "size": 669,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/53ac17cc9b4c91208363ed0cc7eafa24383739c1"
+    },
+    {
+      "path": "domain.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4635c07d7e477cd5c40b60b382b722c78145ca5a",
+      "size": 27483,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/4635c07d7e477cd5c40b60b382b722c78145ca5a"
+    },
+    {
+      "path": "equation-presentation.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a407f84b90d6b921195e822aa1cbdb63bbf2b7f9",
+      "size": 8434,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/a407f84b90d6b921195e822aa1cbdb63bbf2b7f9"
+    },
+    {
+      "path": "exam-paper.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "336d68512b1e82416b89cd340d9a362d7a167e62",
+      "size": 3607,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/336d68512b1e82416b89cd340d9a362d7a167e62"
+    },
+    {
+      "path": "exam.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6a4d899ae56306e105130fe50fa3acdd3739861c",
+      "size": 27040,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/6a4d899ae56306e105130fe50fa3acdd3739861c"
+    },
+    {
+      "path": "figure-capture.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "595917231fb169ebd426d064009afd1822ad4e64",
+      "size": 3489,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/595917231fb169ebd426d064009afd1822ad4e64"
+    },
+    {
+      "path": "figure-coverage.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d8dff1f771ac1cb6add4763d8fd13fc60576df20",
+      "size": 11726,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/d8dff1f771ac1cb6add4763d8fd13fc60576df20"
+    },
+    {
+      "path": "history.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "287ca2d6ad9f04f0869fe189753f3fa58011782f",
+      "size": 4356,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/287ca2d6ad9f04f0869fe189753f3fa58011782f"
+    },
+    {
+      "path": "index.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "480769c8b27fba8f65155b4455462f1887bc5302",
+      "size": 30062,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/480769c8b27fba8f65155b4455462f1887bc5302"
+    },
+    {
+      "path": "ingest.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e7abe689ec62f193e207c6a05fa3c8e01b1e10d0",
+      "size": 25689,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/e7abe689ec62f193e207c6a05fa3c8e01b1e10d0"
+    },
+    {
+      "path": "input-lock.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2b1fb0c043ce74105ab4e4295ae2bdcb6257201a",
+      "size": 5766,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/2b1fb0c043ce74105ab4e4295ae2bdcb6257201a"
+    },
+    {
+      "path": "learn-quality.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a875561c738d433b7f6759aac0d1417d26cfc056",
+      "size": 18004,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/a875561c738d433b7f6759aac0d1417d26cfc056"
+    },
+    {
+      "path": "learn-review.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c0aed1561f0d58c103e498859924c2c46bd0a679",
+      "size": 13360,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/c0aed1561f0d58c103e498859924c2c46bd0a679"
+    },
+    {
+      "path": "lesson-figures.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5b597aa474c6ac2a0153b4910e4d1fd4b2159fdf",
+      "size": 3637,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/5b597aa474c6ac2a0153b4910e4d1fd4b2159fdf"
+    },
+    {
+      "path": "lesson.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ae27a42f96bea2543cd47ed8e057899e4162ac7",
+      "size": 26456,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/7ae27a42f96bea2543cd47ed8e057899e4162ac7"
+    },
+    {
+      "path": "loading-progress.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4b54babbd64b7029a471f0b7cb6048167820cca",
+      "size": 8948,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/d4b54babbd64b7029a471f0b7cb6048167820cca"
+    },
+    {
+      "path": "math-formatting.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "132e0894f6fc03bdac04680ab951b3ec7c1c2fb5",
+      "size": 2498,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/132e0894f6fc03bdac04680ab951b3ec7c1c2fb5"
+    },
+    {
+      "path": "modes.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "33e7ddf14faf480c7cd388d9216c04ab57a72c30",
+      "size": 3118,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/33e7ddf14faf480c7cd388d9216c04ab57a72c30"
+    },
+    {
+      "path": "note-records.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d96250cdd424c5c01185fdacd5d0a1e03d3390bc",
+      "size": 16138,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/d96250cdd424c5c01185fdacd5d0a1e03d3390bc"
+    },
+    {
+      "path": "note-storage.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "11d5271683d1524799a274fc79b0127fb199c7ce",
+      "size": 15012,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/11d5271683d1524799a274fc79b0127fb199c7ce"
+    },
+    {
+      "path": "npm-shrinkwrap.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bc5e5ee654b87d57f4966679157cc237e0fab0a1",
+      "size": 685,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/bc5e5ee654b87d57f4966679157cc237e0fab0a1"
+    },
+    {
+      "path": "obsidian-paths.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "317bdeb2083b3e7fd9d5a6089b3e9b8c901731a4",
+      "size": 9676,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/317bdeb2083b3e7fd9d5a6089b3e9b8c901731a4"
+    },
+    {
+      "path": "obsidian.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "46e4332be768e927ed5b7c24eb5f21b4aeda5b58",
+      "size": 25445,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/46e4332be768e927ed5b7c24eb5f21b4aeda5b58"
+    },
+    {
+      "path": "open-assessment.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c28373244560af2239de44df3bb56611e53fb48",
+      "size": 9536,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/3c28373244560af2239de44df3bb56611e53fb48"
+    },
+    {
+      "path": "outline-validation.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b725db91d5ff254d6993cd9abac913be7af341a6",
+      "size": 21298,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/b725db91d5ff254d6993cd9abac913be7af341a6"
+    },
+    {
+      "path": "package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da89cfb6cc9cdc00efc72d2575d1dd1b431df885",
+      "size": 2017,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/da89cfb6cc9cdc00efc72d2575d1dd1b431df885"
+    },
+    {
+      "path": "page-scope.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f5e5105895334b38e67589c0373a49d60212919",
+      "size": 2374,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/7f5e5105895334b38e67589c0373a49d60212919"
+    },
+    {
+      "path": "policies.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8308ce23ede45b8a8598976d51188db2b1f8b6eb",
+      "size": 32863,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/8308ce23ede45b8a8598976d51188db2b1f8b6eb"
+    },
+    {
+      "path": "question-grounding-schema.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "94ea882c7bab38b8db44e13f7d41f0c5f266fa3d",
+      "size": 1048,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/94ea882c7bab38b8db44e13f7d41f0c5f266fa3d"
+    },
+    {
+      "path": "question-grounding.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "423e038abe206647c95e9bf5a7fa2ab16ae34dd8",
+      "size": 16093,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/423e038abe206647c95e9bf5a7fa2ab16ae34dd8"
+    },
+    {
+      "path": "quiz-contract.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b45f230b1116c2299888d114c21d7bcc30c6aca5",
+      "size": 11594,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/b45f230b1116c2299888d114c21d7bcc30c6aca5"
+    },
+    {
+      "path": "quiz.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "508fda914f2150efeab17cef796b0ab6fd4a763b",
+      "size": 26514,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/508fda914f2150efeab17cef796b0ab6fd4a763b"
+    },
+    {
+      "path": "render",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a80e39a010026eedb8f78bcb9c010b23d1a4ad40",
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/a80e39a010026eedb8f78bcb9c010b23d1a4ad40"
+    },
+    {
+      "path": "render/assessment.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e381785685b56ba08f056140e915a499af58669d",
+      "size": 18995,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/e381785685b56ba08f056140e915a499af58669d"
+    },
+    {
+      "path": "render/callouts.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e7350eed3b27f922093a0036ae6bf21b4784cf14",
+      "size": 1372,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/e7350eed3b27f922093a0036ae6bf21b4784cf14"
+    },
+    {
+      "path": "render/common.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cdb454e1b9cdbf8662a261861b74e88b13335de3",
+      "size": 13992,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/cdb454e1b9cdbf8662a261861b74e88b13335de3"
+    },
+    {
+      "path": "render/navigation.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "637d81761f19ee8fbc92a2220f06622c9334fb61",
+      "size": 7330,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/637d81761f19ee8fbc92a2220f06622c9334fb61"
+    },
+    {
+      "path": "render/section.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0dcb085dd2ae2a07c0242cae95cb14966f83299d",
+      "size": 15872,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/0dcb085dd2ae2a07c0242cae95cb14966f83299d"
+    },
+    {
+      "path": "review-layer.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2745b58b242fa44ad99a8b54bfdac6291db14995",
+      "size": 29541,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/2745b58b242fa44ad99a8b54bfdac6291db14995"
+    },
+    {
+      "path": "review-runtime.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "999b4b04a19cb27930d9bb0b23cb623930c643e0",
+      "size": 25930,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/999b4b04a19cb27930d9bb0b23cb623930c643e0"
+    },
+    {
+      "path": "runtime-coordinator.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63f08dd7e7313ce58614c0bf7f076e3bb464fbb3",
+      "size": 38767,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/63f08dd7e7313ce58614c0bf7f076e3bb464fbb3"
+    },
+    {
+      "path": "runtime-session.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3b28b05fd49afd7472a9d22d3afc88000b673cb9",
+      "size": 10230,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/3b28b05fd49afd7472a9d22d3afc88000b673cb9"
+    },
+    {
+      "path": "scholar.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90a7ddfd398bb079cf5de65bc12793d6739db5b4",
+      "size": 8366,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/90a7ddfd398bb079cf5de65bc12793d6739db5b4"
+    },
+    {
+      "path": "state-schema.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d7b7e84281f7a76958798b6b26baf01e89d98e95",
+      "size": 61407,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/d7b7e84281f7a76958798b6b26baf01e89d98e95"
+    },
+    {
+      "path": "storage.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "149c2f5a39688c524494ea918d7e4d8a68b20173",
+      "size": 22191,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/149c2f5a39688c524494ea918d7e4d8a68b20173"
+    },
+    {
+      "path": "tests",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0bad71c1fa9a91c63574a8c077f784c2031a744b",
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/0bad71c1fa9a91c63574a8c077f784c2031a744b"
+    },
+    {
+      "path": "tests/lesson-fixture.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd7cc5ce5de29ed0d1b2c33738a80932b9fc1f89",
+      "size": 1550,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/fd7cc5ce5de29ed0d1b2c33738a80932b9fc1f89"
+    },
+    {
+      "path": "tests/note-fixture.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "21a5f5bc214700853630d1b53cb2ea7781578cda",
+      "size": 1592,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/21a5f5bc214700853630d1b53cb2ea7781578cda"
+    },
+    {
+      "path": "tests/run.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3276ed0cfa64bef25ea7a08ddcb64b021659f2fc",
+      "size": 2646,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/3276ed0cfa64bef25ea7a08ddcb64b021659f2fc"
+    },
+    {
+      "path": "tests/sdk.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7663213d9890091a1a52113f816341d060ad4d89",
+      "size": 5166,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/7663213d9890091a1a52113f816341d060ad4d89"
+    },
+    {
+      "path": "tests/verify-scholar-answer-feedback.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e30fc09998face3a69459dc1830da16a7be3dade",
+      "size": 19727,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/e30fc09998face3a69459dc1830da16a7be3dade"
+    },
+    {
+      "path": "tests/verify-scholar-appearance.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a967f56e6fbfd0fce78a946da0a03fde6c3241a",
+      "size": 23079,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/2a967f56e6fbfd0fce78a946da0a03fde6c3241a"
+    },
+    {
+      "path": "tests/verify-scholar-audit-fixes.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1ef7c2f36052f6debb511eab8ac5e6524e919df4",
+      "size": 12535,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/1ef7c2f36052f6debb511eab8ac5e6524e919df4"
+    },
+    {
+      "path": "tests/verify-scholar-book-hub.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "08d411ca4c7310455a132ba89c2de91dc95c4553",
+      "size": 12823,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/08d411ca4c7310455a132ba89c2de91dc95c4553"
+    },
+    {
+      "path": "tests/verify-scholar-boundaries.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1bfb4460f8d274e4c4c639361a28fe66a1341b5a",
+      "size": 8812,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/1bfb4460f8d274e4c4c639361a28fe66a1341b5a"
+    },
+    {
+      "path": "tests/verify-scholar-callout-boundaries.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ecc18e2e33f03e4668ccbe55761abe58f6c7a00b",
+      "size": 4526,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/ecc18e2e33f03e4668ccbe55761abe58f6c7a00b"
+    },
+    {
+      "path": "tests/verify-scholar-completion-practice.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "714a97b064cb449dcdc8fa15f90c91d689237ccb",
+      "size": 14978,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/714a97b064cb449dcdc8fa15f90c91d689237ccb"
+    },
+    {
+      "path": "tests/verify-scholar-design-hardening.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aed400138dd7aca858852dd870caf99f5a9d9b6c",
+      "size": 18733,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/aed400138dd7aca858852dd870caf99f5a9d9b6c"
+    },
+    {
+      "path": "tests/verify-scholar-diagnostics.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79b7e14eaa8dbd06929106e6ae85e062930a9999",
+      "size": 8379,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/79b7e14eaa8dbd06929106e6ae85e062930a9999"
+    },
+    {
+      "path": "tests/verify-scholar-engine-contract.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fb64456b59112c8a4322728b8ecb9cc8108d8ad5",
+      "size": 5301,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/fb64456b59112c8a4322728b8ecb9cc8108d8ad5"
+    },
+    {
+      "path": "tests/verify-scholar-equation-presentation.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "22f891fe46bce4ec40b3ae791a7f7a026e655e78",
+      "size": 6029,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/22f891fe46bce4ec40b3ae791a7f7a026e655e78"
+    },
+    {
+      "path": "tests/verify-scholar-exam-contract.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e5281792b3165f4bc318bd68178b6d0a35ad4753",
+      "size": 11786,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/e5281792b3165f4bc318bd68178b6d0a35ad4753"
+    },
+    {
+      "path": "tests/verify-scholar-exam-experience.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0459a279092f989e877ae70fd6d1457af313f4ad",
+      "size": 14624,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/0459a279092f989e877ae70fd6d1457af313f4ad"
+    },
+    {
+      "path": "tests/verify-scholar-exam-scope-prompt.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5b218f128d2ed36fc9bfd278fe6bbf063a18abd9",
+      "size": 6730,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/5b218f128d2ed36fc9bfd278fe6bbf063a18abd9"
+    },
+    {
+      "path": "tests/verify-scholar-exam-size.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d749b7d1562517929431b64435d550281adf0b5c",
+      "size": 11193,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/d749b7d1562517929431b64435d550281adf0b5c"
+    },
+    {
+      "path": "tests/verify-scholar-explanation-presentation.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fb88792ff9a17456f4c2271ca6e7d405f40f4c1b",
+      "size": 13510,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/fb88792ff9a17456f4c2271ca6e7d405f40f4c1b"
+    },
+    {
+      "path": "tests/verify-scholar-figure-coverage.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "387c61c66b60bb9707716e475c9e2eafae74c393",
+      "size": 27644,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/387c61c66b60bb9707716e475c9e2eafae74c393"
+    },
+    {
+      "path": "tests/verify-scholar-history.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dd715e4ea55c22a36ad88a7885d57caa4a8e0184",
+      "size": 14249,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/dd715e4ea55c22a36ad88a7885d57caa4a8e0184"
+    },
+    {
+      "path": "tests/verify-scholar-input-capability.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c0c5c14670f579e05e316d5098cc821ecb2731c",
+      "size": 9830,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/2c0c5c14670f579e05e316d5098cc821ecb2731c"
+    },
+    {
+      "path": "tests/verify-scholar-input-lock.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bfc6bda3df75df5febab014c716c6fb2f9c3da4a",
+      "size": 41315,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/bfc6bda3df75df5febab014c716c6fb2f9c3da4a"
+    },
+    {
+      "path": "tests/verify-scholar-learn-quality.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c9855ce9dd184a3084f3ce9e58d2e46644905262",
+      "size": 12836,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/c9855ce9dd184a3084f3ce9e58d2e46644905262"
+    },
+    {
+      "path": "tests/verify-scholar-learn-review-integration.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "50a1519415ba6e6f44665a27f08b64f6d4d3b0d8",
+      "size": 48465,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/50a1519415ba6e6f44665a27f08b64f6d4d3b0d8"
+    },
+    {
+      "path": "tests/verify-scholar-learn-review.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05cdaf4f1ae80b5f0f53eb1c8cb97ed49008213e",
+      "size": 32008,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/05cdaf4f1ae80b5f0f53eb1c8cb97ed49008213e"
+    },
+    {
+      "path": "tests/verify-scholar-lesson-delivery.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "65e32f49bc26424d15944fa5e88e74f64c35b014",
+      "size": 8204,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/65e32f49bc26424d15944fa5e88e74f64c35b014"
+    },
+    {
+      "path": "tests/verify-scholar-loading-progress.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "647a27927efc81c08549eee56383fca251fb730f",
+      "size": 5804,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/647a27927efc81c08549eee56383fca251fb730f"
+    },
+    {
+      "path": "tests/verify-scholar-marker-audit.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da28a13a62b29c754861cd74f70369c6517827a6",
+      "size": 10209,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/da28a13a62b29c754861cd74f70369c6517827a6"
+    },
+    {
+      "path": "tests/verify-scholar-materialization.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "52fcd88302764a2043feffda753d1a869067fb84",
+      "size": 7331,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/52fcd88302764a2043feffda753d1a869067fb84"
+    },
+    {
+      "path": "tests/verify-scholar-math-formatting.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a56b562a635130c0a5f93913971a7c6a6b68e7f4",
+      "size": 4607,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/a56b562a635130c0a5f93913971a7c6a6b68e7f4"
+    },
+    {
+      "path": "tests/verify-scholar-mode-figures.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e4b49e44ae8ce565339d853a666f85642ab4af49",
+      "size": 21746,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/e4b49e44ae8ce565339d853a666f85642ab4af49"
+    },
+    {
+      "path": "tests/verify-scholar-modes.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3cde115917d17eb2f3c0661948350592189da5ce",
+      "size": 7650,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/3cde115917d17eb2f3c0661948350592189da5ce"
+    },
+    {
+      "path": "tests/verify-scholar-note-authority.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "67b38f558b60859a45649c2e39e49598254748d3",
+      "size": 15790,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/67b38f558b60859a45649c2e39e49598254748d3"
+    },
+    {
+      "path": "tests/verify-scholar-note-design.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "89471cc7116ffa48e761a784f901cc1dcb06ec8d",
+      "size": 31452,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/89471cc7116ffa48e761a784f901cc1dcb06ec8d"
+    },
+    {
+      "path": "tests/verify-scholar-obsidian-exam.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dcbb1494d6f2cbbc25a72632266aeaece3333bf6",
+      "size": 49217,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/dcbb1494d6f2cbbc25a72632266aeaece3333bf6"
+    },
+    {
+      "path": "tests/verify-scholar-open-assessment.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6940acc04197f4678ae283fbc7b140b0e16b662f",
+      "size": 11658,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/6940acc04197f4678ae283fbc7b140b0e16b662f"
+    },
+    {
+      "path": "tests/verify-scholar-package.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f035ced8264c52de38fca9f26bb5c45f55d65da",
+      "size": 1320,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/7f035ced8264c52de38fca9f26bb5c45f55d65da"
+    },
+    {
+      "path": "tests/verify-scholar-presentation.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2e6e18cd81f4daa489a4ef564f60e7f7abd36a41",
+      "size": 11937,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/2e6e18cd81f4daa489a4ef564f60e7f7abd36a41"
+    },
+    {
+      "path": "tests/verify-scholar-projection-isolation.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f024e9ec5b3f72b97e1919a7d74dcb4e9078d086",
+      "size": 8890,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/f024e9ec5b3f72b97e1919a7d74dcb4e9078d086"
+    },
+    {
+      "path": "tests/verify-scholar-projection.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4bd9d5f6f45a1c65b22efa6adf77c939bdd52e8",
+      "size": 10685,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/d4bd9d5f6f45a1c65b22efa6adf77c939bdd52e8"
+    },
+    {
+      "path": "tests/verify-scholar-question-guard.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da84afe94fdbe6ad2999dda0b24fb75a61f934f0",
+      "size": 12766,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/da84afe94fdbe6ad2999dda0b24fb75a61f934f0"
+    },
+    {
+      "path": "tests/verify-scholar-question-math.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dabee8fd4de01c3a4f58a0941fb80cf54f21600e",
+      "size": 7987,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/dabee8fd4de01c3a4f58a0941fb80cf54f21600e"
+    },
+    {
+      "path": "tests/verify-scholar-question-resume.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e4d266f22c07e72989d2191608ab64bdc5e32a40",
+      "size": 16236,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/e4d266f22c07e72989d2191608ab64bdc5e32a40"
+    },
+    {
+      "path": "tests/verify-scholar-review-runtime.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9785d66942de43237bfca0ffdbb087fa6dbde00d",
+      "size": 21003,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/9785d66942de43237bfca0ffdbb087fa6dbde00d"
+    },
+    {
+      "path": "tests/verify-scholar-reviewed-progress.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "91440a266d3f98d0522ce5f5aa02b492f9348bd1",
+      "size": 12556,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/91440a266d3f98d0522ce5f5aa02b492f9348bd1"
+    },
+    {
+      "path": "tests/verify-scholar-round3-breakdown.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "04c9f27b0e56b0c545f4b645a54ba2ea98e628e6",
+      "size": 8716,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/04c9f27b0e56b0c545f4b645a54ba2ea98e628e6"
+    },
+    {
+      "path": "tests/verify-scholar-round3-diagnostics.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a51ca32470a856b5497b9b7736bf81dfe3824d49",
+      "size": 7993,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/a51ca32470a856b5497b9b7736bf81dfe3824d49"
+    },
+    {
+      "path": "tests/verify-scholar-round3-grading.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8ba142d9402bca2e2eef0bd512470b46712ae7a3",
+      "size": 12264,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/8ba142d9402bca2e2eef0bd512470b46712ae7a3"
+    },
+    {
+      "path": "tests/verify-scholar-round3-source.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "caa0997fb1155e3c002252099584619a583da526",
+      "size": 13457,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/caa0997fb1155e3c002252099584619a583da526"
+    },
+    {
+      "path": "tests/verify-scholar-routing.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f042b57a56ecee656e8e8e7e5e49a84728ae171a",
+      "size": 5301,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/f042b57a56ecee656e8e8e7e5e49a84728ae171a"
+    },
+    {
+      "path": "tests/verify-scholar-runtime-session.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9af4a3cf312df45a51d7cf230dbb24f35fb4e1c6",
+      "size": 8991,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/9af4a3cf312df45a51d7cf230dbb24f35fb4e1c6"
+    },
+    {
+      "path": "tests/verify-scholar-safety.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "78d22d34bfda24611dc6fca7591a55e62d035cae",
+      "size": 10759,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/78d22d34bfda24611dc6fca7591a55e62d035cae"
+    },
+    {
+      "path": "tests/verify-scholar-save-sync.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da57e293f639bf7578ea52f3a8656ce1423c7158",
+      "size": 15359,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/da57e293f639bf7578ea52f3a8656ce1423c7158"
+    },
+    {
+      "path": "tests/verify-scholar-second-pass.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "15f44f5b7074df880c81212fcee737762453e979",
+      "size": 13398,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/15f44f5b7074df880c81212fcee737762453e979"
+    },
+    {
+      "path": "tests/verify-scholar-transcript-recovery.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b47048c951587d9ab2ceab9d51d3b37dd20307a6",
+      "size": 2284,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/b47048c951587d9ab2ceab9d51d3b37dd20307a6"
+    },
+    {
+      "path": "tests/verify-scholar-ui-contract.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4fdecdbc10d7f1e5d50d40d06baafe303875468",
+      "size": 52773,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/d4fdecdbc10d7f1e5d50d40d06baafe303875468"
+    },
+    {
+      "path": "tests/verify-scholar-vault-authority.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e1bcdb02aab00a8d3eb70c29a940e251d294b5b4",
+      "size": 35198,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/e1bcdb02aab00a8d3eb70c29a940e251d294b5b4"
+    },
+    {
+      "path": "tool-actions",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "017d528d937f1314042b366ad22afebc18b9ef54",
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/017d528d937f1314042b366ad22afebc18b9ef54"
+    },
+    {
+      "path": "tool-actions/exam.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "319d5e528263271b0b5543f8665cda0fd185659d",
+      "size": 9749,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/319d5e528263271b0b5543f8665cda0fd185659d"
+    },
+    {
+      "path": "tool-actions/learning.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2bfafc9eec248dcb2a73eee709dd4ff6b20a8738",
+      "size": 25408,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/2bfafc9eec248dcb2a73eee709dd4ff6b20a8738"
+    },
+    {
+      "path": "tool-actions/outline.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "69258820929ddc5252e9e90eddc350d4ee6073a9",
+      "size": 9336,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/69258820929ddc5252e9e90eddc350d4ee6073a9"
+    },
+    {
+      "path": "tool-actions/source.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9392906f776237e55a80e65624f9020aeca1ca45",
+      "size": 10834,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/9392906f776237e55a80e65624f9020aeca1ca45"
+    },
+    {
+      "path": "tool-actions/visuals.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd9afb28cbaa5d9da471fc15485967dd7c612827",
+      "size": 16806,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/cd9afb28cbaa5d9da471fc15485967dd7c612827"
+    },
+    {
+      "path": "tool-contract.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "099591216d088622fb94424671b46c78e7bd4efe",
+      "size": 14073,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/099591216d088622fb94424671b46c78e7bd4efe"
+    },
+    {
+      "path": "tool-controller.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e552a6518976650603a49ae4c686eb4ac37fd8b",
+      "size": 61717,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/8e552a6518976650603a49ae4c686eb4ac37fd8b"
+    },
+    {
+      "path": "transcript-recovery.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ed4c909f0670a425f2318de37f34c11cff1492fe",
+      "size": 4658,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/ed4c909f0670a425f2318de37f34c11cff1492fe"
+    },
+    {
+      "path": "types.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b80f0e4abb12379b1660a38932d4b9f64ea43890",
+      "size": 12269,
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/blobs/b80f0e4abb12379b1660a38932d4b9f64ea43890"
+    }
+  ],
+  "truncated": false
+}

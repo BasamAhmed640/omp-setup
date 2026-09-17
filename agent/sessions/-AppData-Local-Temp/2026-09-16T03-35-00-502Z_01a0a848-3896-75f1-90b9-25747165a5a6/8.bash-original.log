@@ -1,0 +1,38 @@
+=== v0.7.0 commit message ===
+Ship v0.7.0: save lessons on coverage, ask 3 short questions, remove reviewers
+
+=== diff stat 5f24885..HEAD ===
+ AGENTS.md                                         |  96 ++++
+ README.md                                         |   8 +
+ commands.ts                                       |  24 +-
+ domain.ts                                         |  29 +-
+ index.ts                                          |   9 +-
+ learn-quality.ts                                  |   1 -
+ lesson.ts                                         |   5 +-
+ npm-shrinkwrap.json                               |   4 +-
+ package.json                                      |   2 +-
+ policies.ts                                       |  32 +-
+ render/section.ts                                 |  36 +-
+ runtime-coordinator.ts                            |  14 -
+ tests/verify-scholar-audit-fixes.mjs              |   5 +-
+ tests/verify-scholar-completion-practice.mjs      |   7 +-
+ tests/verify-scholar-engine-contract.mjs          |  14 +-
+ tests/verify-scholar-explanation-presentation.mjs |  12 +-
+ tests/verify-scholar-figure-coverage.mjs          |  11 +-
+ tests/verify-scholar-history.mjs                  |   2 +-
+ tests/verify-scholar-learn-quality.mjs            |   7 -
+ tests/verify-scholar-learn-review-integration.mjs | 653 ----------------------
+ tests/verify-scholar-lesson-delivery.mjs          |   9 +-
+ tests/verify-scholar-modes.mjs                    |   3 +-
+ tests/verify-scholar-note-design.mjs              |   4 +-
+ tests/verify-scholar-obsidian-exam.mjs            |  67 +--
+ tests/verify-scholar-question-guard.mjs           |  13 +-
+ tests/verify-scholar-reviewed-progress.mjs        |  26 +-
+ tests/verify-scholar-second-pass.mjs              |   4 +-
+ tests/verify-scholar-simple-learn.mjs             | 143 +++++
+ tests/verify-scholar-ui-contract.mjs              |   8 +-
+ tool-actions/learning.ts                          |   9 +-
+ tool-controller.ts                                | 285 +---------
+ 31 files changed, 385 insertions(+), 1157 deletions(-)
+=== verify count ===
+55

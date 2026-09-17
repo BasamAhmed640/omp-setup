@@ -1,0 +1,11 @@
+tests/verify-scholar-lesson-delivery.mjs:33:assert.throws(()=>lesson.commitLesson(section,book),/not ready/);
+tests/verify-scholar-lesson-delivery.mjs:45:assert(lesson.lessonReady(section,book.source.fingerprint.sha256));
+tests/verify-scholar-lesson-delivery.mjs:49:assert(lesson.lessonReady(section));
+tests/verify-scholar-lesson-delivery.mjs:64:assert(!lesson.lessonReady(section));
+tests/verify-scholar-lesson-delivery.mjs:68:assert(!lesson.lessonReady(section));
+tests/verify-scholar-lesson-delivery.mjs:69:lesson.commitLesson(section,book);assert(lesson.lessonReady(section));
+tests/verify-scholar-lesson-delivery.mjs:71:assert.equal(section.transcript.length,1);assert(!lesson.lessonReady(section));
+tests/verify-scholar-figure-coverage.mjs:216:    assert.equal(active(reloaded).learnQuality.version, 1, "fresh fixture uses the current quality contract");
+tests/verify-scholar-figure-coverage.mjs:217:    assert.deepEqual(active(reloaded).learnQuality.reviews.map(review => review.role), ["source", "teaching", "visual"]);
+tests/verify-scholar-history.mjs:173:  assert.equal(lesson.lessonReady(sectionOf(saved), saved.source.fingerprint.sha256), false);
+tests/lesson-fixture.mjs:17:    if (options.commit !== false) lesson.commitLesson(record, book);

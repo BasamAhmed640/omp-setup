@@ -1,0 +1,1423 @@
+## Completed (36)
+
+### bg_13 [bash] — completed
+Label: sed -i '4s/import { REVIEW_CHECKPOINT_MESSAGE, reviewerModelName, runReviewPass/import { reviewerModelName, runReview...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+import { reviewCheckpoint, reviewLearnDraft, reviewLearnQuestion, type LessonReviewRole } from "./learn-review.ts";
+import { reviewerModelName, runReviewPass, planExamReviewPackets, planTutorExplanationPacket, reviewTargetQuestion, type ReviewPacket, type ReviewPacketRole } from "./review-layer.ts";
+import { computeFindingKey, isFindingResponse, pruneReviewReceipts, reviewPassIssues, type ReviewBatchPass } from "./learn-quality.ts";
+[PASS] Any-model compatibility handles prose wrapping, follow-up recovery turn, small windows, and undeclared limits
+Scholar Learn review service: 21 checks passed with mock completions and injected evidence; no network or study-vault access.
+[PASS] a Learn book removed while its crop renders is never recreated by capture
+Scholar mode figures: 25 passed, 0 failed.
+
+Scholar obsidian-exam summary: 33 passed, 0 failed, 0 skipped.
+[PASS] eight consecutive rejections still stop delivery
+Scholar simple-learn summary: 5 passed, 0 failed.
+[PASS] status/ASCII fallback and headless runs work without cat-image or working-message APIs
+Scholar loading progress: 8 passed, 0 failed.
+
+
+Wall time: 36.35 seconds
+```
+
+### bg_14 [bash] — completed
+Label: grep -n "checkpoint\|reviews" tests/verify-scholar-simple-learn.mjs | head -30
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+76:      sourcePages: [1], objective, lessonId: "fixture-explanation", evidence: "A model connects an input to an observable result." }], reviews: [] },
+131:await check("lessonComplete commits after the source, teaching and visual reviews", async () => {
+139:  assert.equal(section.learnQuality.reviews.length, 3, "one approved receipt per review role");
+140:  for (const receipt of section.learnQuality.reviews) {
+
+
+Wall time: 0.12 seconds
+```
+
+### bg_15 [bash] — completed
+Label: grep -n "REVIEW_CHECKPOINT_MESSAGE\|learn-quality.ts" tests/verify-scholar-simple-learn.mjs | head
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+138:      status: "changes", findings: [], failure: { code: "cancelled", message: REVIEW_CHECKPOINT_MESSAGE }, batches: [] },
+
+
+Wall time: 0.13 seconds
+```
+
+### bg_16 [bash] — completed
+Label: sed -n '1,30p' tests/verify-scholar-simple-learn.mjs
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+// The restored Learn flow: lessonComplete runs the independent source, teaching and
+// visual review crew and commits only after all three pass; blocking findings come
+// back as [F-<key>] repair requests the author answers with findingResponses without
+// re-running the crew; three resolved short questions complete the section; multi-part
+// questions are refused; and the consecutive-rejection loop guard still stops delivery.
+// Synthetic in-memory records plus one real single-page PDF fixture; no vault or network access.
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { mkdirSync, mkdtempSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import { tmpdir } from "node:os";
+import { basename, dirname, join, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+import { extensionPath, piPackageRoot, jitiPath, resolvePiDependency, sdkAliases } from "./sdk.mjs";
+import { saveFixtureLesson } from "./lesson-fixture.mjs";
+
+const piRequire = createRequire(join(piPackageRoot, "package.json"));
+const { createJiti } = await import(pathToFileURL(jitiPath).href);
+const jiti = createJiti(import.meta.url, { moduleCache: false, alias: { ...sdkAliases,
+  "@earendil-works/pi-coding-agent": join(piPackageRoot, "dist", "index.js"),
+  "@earendil-works/pi-tui": piRequire.resolve("@earendil-works/pi-tui"),
+  typebox: piRequire.resolve("typebox"),
+} });
+const loadModule = name => jiti.import(join(dirname(extensionPath), name));
+const lesson = await loadModule("lesson.ts");
+const domain = await loadModule("domain.ts");
+const { createScholarToolController } = await loadModule("tool-controller.ts");
+const { ScholarRuntimeSession } = await loadModule("runtime-session.ts");
+
+const root = mkdtempSync(join(tmpdir(), "scholar-simple-learn-"));
+
+
+Wall time: 0.14 seconds
+```
+
+### bg_17 [bash] — completed
+Label: sed -i 's/const { isReviewReceipt, reviewGateIssues } = await load("learn-quality.ts");/const { isReviewReceipt, prun...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.2
+
+
+Wall time: 2.13 seconds
+```
+
+### bg_18 [bash] — failed
+Label: node tests/verify-scholar-learn-review.mjs 2>&1 | grep -A 25 "Pruning keeps"
+Delivery: not auto-delivered; recovered by this snapshot.
+Error: (no output)
+
+Wall time: 2.26 seconds
+
+Command exited with code 1
+
+### bg_19 [bash] — completed
+Label: node tests/verify-scholar-learn-review.mjs 2>&1 | sed -n '20,60p'
+Delivery: not auto-delivered; recovered by this snapshot.
+```
++   '2026-09-13T00:05:00.000Z',
+    '2026-09-13T00:03:00.000Z',
+-   '2026-09-13T00:05:00.000Z',
+-   '2026-09-13T00:09:00.000Z'
+  ]
+
+    at file:///C:/Users/basam/.pi/agent/extensions/scholar/tests/verify-scholar-learn-review.mjs:297:10
+    at check (file:///C:/Users/basam/.pi/agent/extensions/scholar/tests/verify-scholar-learn-review.mjs:80:40)
+    at file:///C:/Users/basam/.pi/agent/extensions/scholar/tests/verify-scholar-learn-review.mjs:282:7 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [ '2026-09-13T00:05:00.000Z', '2026-09-13T00:03:00.000Z' ],
+  expected: [
+    '2026-09-13T00:03:00.000Z',
+    '2026-09-13T00:05:00.000Z',
+    '2026-09-13T00:09:00.000Z'
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.2
+
+
+Wall time: 2.38 seconds
+```
+
+### bg_1 [bash] — completed
+Label: node tests/verify-scholar-learn-review.mjs 2>&1 | tail -3 && node tests/verify-scholar-simple-learn.mjs 2>&1 | tail -3
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+[PASS] Prepared evidence errors never reach the model or produce approval
+[PASS] Any-model compatibility handles prose wrapping, follow-up recovery turn, small windows, and undeclared limits
+Scholar Learn review service: 22 checks passed with mock completions and injected evidence; no network or study-vault access.
+[PASS] a multi-part question is rejected and a short one is accepted
+[PASS] eight consecutive rejections still stop delivery
+Scholar simple-learn summary: 5 passed, 0 failed.
+
+
+Wall time: 4.93 seconds
+```
+
+### bg_20 [bash] — completed
+Label: ls -la "Scholar Presentation Preview.md" 2>&1; ls -la "Preview assets" 2>&1 | head -5; ls -la ".obsidian/snippets/" 2>&1
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+-rwxrwxrwx 1 somebody somegroup 6862 Sep 12 14:34 Scholar Presentation Preview.md
+total 58496
+drwxrwxrwx 1 somebody somegroup     0 Sep 12 14:34 .
+drwxrwxrwx 1 somebody somegroup  4096 Sep 16 00:40 ..
+-rwxrwxrwx 1 somebody somegroup 54400 Sep  5 09:51 bogatin-design-flow.png
+total 15877
+drwxrwxrwx 1 somebody somegroup    0 Sep 12 19:40 .
+drwxrwxrwx 1 somebody somegroup 4096 Sep 12 19:40 ..
+-rwxrwxrwx 1 somebody somegroup 3415 Sep 12 14:34 scholar-presentation-preview.css
+-rwxrwxrwx 1 somebody somegroup 8366 Sep 12 19:40 scholar.css
+
+
+Wall time: 0.15 seconds
+```
+
+### bg_21 [bash] — completed
+Label: echo "files in Preview assets:" && find "Preview assets" -type f | wc -l && find "Preview assets" -type f
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+files in Preview assets:
+1
+Preview assets\bogatin-design-flow.png
+
+
+Wall time: 0.12 seconds
+```
+
+### bg_22 [bash] — failed
+Label: DEST="$TEMP/scholar-artifact-backup-20260916" && mkdir -p "$DEST/.obsidian/snippets" && mv "Scholar Presentation Prev...
+Delivery: not auto-delivered; recovered by this snapshot.
+Error: --- moved:
+sed: <script argument 1>:1:72: error: invalid regex 'C:Usersasam\AppData\Local\Temp/scholar-artifact-backup-20260916/': regex parse error:
+    (?s)C:Usersasam\AppData\Local\Temp/scholar-artifact-backup-20260916/
+                            ^^
+error: unrecognized escape sequence
+
+
+Wall time: 0.16 seconds
+
+Command exited with code 1
+
+### bg_23 [bash] — completed
+Label: DEST="$TEMP/scholar-artifact-backup-20260916"; find "$DEST" -type f; echo "--- vault root:"; ls -1 "/c/Users/basam/De...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+C:\Users\basam\AppData\Local\Temp/scholar-artifact-backup-20260916\.obsidian\snippets\scholar-presentation-preview.css
+C:\Users\basam\AppData\Local\Temp/scholar-artifact-backup-20260916\Preview assets\bogatin-design-flow.png
+C:\Users\basam\AppData\Local\Temp/scholar-artifact-backup-20260916\Scholar Presentation Preview.md
+--- vault root:
+.obsidian
+Scholar
+--- snippets:
+scholar.css
+
+
+Wall time: 0.12 seconds
+```
+
+### bg_24 [bash] — completed
+Label: grep -rn "scholar.css" --include=*.mjs tests/*.mjs | head -20 && echo "--- css head:" && head -30 scholar.css && echo...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+tests/verify-scholar-appearance.mjs:28:const snippet = (vault) => join(vault, ".obsidian", "snippets", "scholar.css");
+tests/verify-scholar-appearance.mjs:30:const shippedCss = await readFile(join(dirname(extensionPath), "scholar.css"), "utf8");
+tests/verify-scholar-appearance.mjs:47:  const cssUrl = pathToFileURL(join(dirname(extensionPath), "scholar.css")).href;
+tests/verify-scholar-appearance.mjs:70:  const cssUrl = pathToFileURL(join(dirname(extensionPath), "scholar.css")).href;
+tests/verify-scholar-appearance.mjs:200:  await check("unowned scholar.css is not overwritten or enabled", async () => {
+--- css head:
+/* Scholar built-in note styling. Managed by Scholar; use another snippet for overrides. */
+
+.scholar-note {
+  --file-line-width: 78ch;
+  --line-height-normal: 1.65;
+  --table-border-color: var(--background-modifier-border);
+  --table-header-background: var(--background-secondary);
+  --table-header-color: var(--text-muted);
+  --table-row-background-hover: var(--background-secondary);
+  color: var(--text-normal);
+}
+
+.scholar-note :is(h2, .HyperMD-header-2) {
+  margin-block-start: 2em;
+  padding-block-end: 0.45em;
+  border-bottom: 1px solid var(--background-modifier-border);
+  font-size: 1.12em;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.scholar-note h3 {
+  margin-block-start: 1.6em;
+  font-size: 1em;
+  font-weight: 650;
+}
+
+.scholar-note :is(p, li) { line-height: 1.65; }
+.scholar-note li + li { margin-block-start: 0.4em; }
+.scholar-note a.internal-link { text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+--- css classes:
+3:.scholar-note {
+13:.scholar-note :is(h2, .HyperMD-header-2) {
+22:.scholar-note h3 {
+28:.scholar-note :is(p, li) { line-height: 1.65; }
+29:.scholar-note li + li { margin-block-start: 0.4em; }
+30:.scholar-note a.internal-link { text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+32:.scholar-note .callout {
+43:.scholar-note .callout-title { color: var(--text-normal); font-weight: 650; gap: 0.6em; }
+44:.scholar-note .callout-content { color: var(--text-normal); }
+45:.scholar-note .callout-content > :last-child { margin-block-end: 0; }
+46:.scholar-note .callout-content > :first-child { margin-block-start: 0.6em; }
+47:.scholar-note .callout[data-callout="info"] { border-inline-start: 3px solid var(--interactive-accent); }
+48:.scholar-note .callout[data-callout="tip"] { border-inline-start: 3px solid var(--text-accent); }
+49:.scholar-note .callout[data-callout="success"] { border-inline-start: 3px solid var(--text-success); }
+50:.scholar-note .callout[data-callout="warning"] { border-inline-start: 3px solid var(--text-warning); }
+51:.scholar-note .callout[data-callout="question"] { border-inline-start: 3px solid var(--text-accent); }
+52:.scholar-note .callout[data-callout="failure"] { border-inline-start: 3px solid var(--text-error); }
+53:.scholar-note .callout.is-collapsed { background: transparent; }
+54:.scholar-note .callout.is-collapsed .callout-title { color: var(--text-muted); }
+55:.scholar-note .callout .callout { margin-block: 0.85rem; }
+58:.scholar-note .callout[data-callout="question"] {
+62:.scholar-note .callout[data-callout="question"] > .callout-title { font-size: 0.9em; color: var(--text-accent); }
+63:.scholar-note .callout[data-callout="question"] h4 {
+70:.scholar-note .callout[data-callout="question"] ol { padding-inline-start: 1.5em; }
+71:.scholar-note .callout[data-callout="question"] ol > li { padding-inline-start: 0.35em; margin-block: 0.6em; }
+72:.scholar-note .callout[data-callout="success"] {
+76:.scholar-note .callout[data-callout="warning"] {
+80:.scholar-note .callout[data-callout="note"] .math-block { font-size: 1.08em; }
+81:.scholar-note .callout.is-collapsed {
+88:.scholar-note .callout.is-collapsed > .callout-title { font-size: 0.82em; font-weight: 500; }
+90:.scholar-note .el-table { overflow-x: auto; }
+91:.scholar-note table { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+92:.scholar-note :is(th, td) { padding: 0.7em 0.85em; vertical-align: top; border-inline: none; }
+93:.scholar-note th { font-size: 0.8em; font-weight: 600; letter-spacing: 0.04em; }
+94:.scholar-note :is(th:first-child, td:first-child) { padding-inline-start: 0.65em; }
+95:.scholar-note :is(th:last-child, td:last-child) { padding-inline-end: 0.65em; }
+96:.scholar-note :is(.table-wrapper, .cm-table-widget) { max-width: 100%; overflow-x: auto; }
+97:.scholar-note:is(.scholar-book, .scholar-chapter) td:first-child { color: var(--text-muted); font-size: 0.85em; white-space: nowrap; }
+98:.scholar-note:is(.scholar-book, .scholar-chapter) tr:has(td:first-child strong) {
+101:.scholar-note:is(.scholar-book, .scholar-chapter) td:first-child strong {
+108:.scholar-note img { display: block; max-width: 100%; height: auto; margin-inline: auto; }
+109:.scholar-note .image-embed { display: block; max-width: 100%; margin: 1.25rem auto; }
+110:.scholar-note:is(.scholar-section, .scholar-tutor) { --file-line-width: 74ch; }
+111:.scholar-note:is(.scholar-section, .scholar-tutor) .image-embed {
+115:.scholar-note:is(.scholar-section, .scholar-tutor) .image-embed img {
+119:.scholar-note:is(.scholar-section, .scholar-tutor) .callout.is-collapsed {
+122:.scholar-note .callout[data-callout="example"] { padding: 1rem 1.2rem; }
+123:.scholar-note .callout[data-callout="example"] em { color: var(--text-muted); font-size: 0.9em; }
+124:.scholar-note :is(.math-block, .mermaid) { max-width: 100%; overflow-x: auto; padding-block: 0.75rem; }
+125:.scholar-note .mermaid { text-align: center; }
+126:.scholar-note .mermaid svg { display: block; margin-inline: auto; }
+127:.scholar-note pre { max-width: 100%; overflow-x: auto; border: 1px solid var(--background-modifier-border); border-radius: 0.5rem; }
+130:.scholar-exam-paper { --file-line-width: 76ch; }
+131:.scholar-exam-paper .inline-title { display: none; }
+132:.scholar-exam-paper .metadata-container { display: none; }
+133:.scholar-exam-paper .callout[data-callout="question"] { margin-block-start: 2.4rem; }
+134:.scholar-exam-paper .contains-task-list { padding-inline-start: 0; }
+135:.scholar-exam-paper .task-list-item {
+143:.scholar-exam-paper .task-list-item-checkbox { margin-inline-start: -1.7rem; margin-inline-end: 0.6rem; cursor: pointer; }
+144:.scholar-exam-paper .task-list-item:hover { border-color: var(--text-accent); }
+
+
+Wall time: 0.13 seconds
+```
+
+### bg_25 [bash] — completed
+Label: cat render/callouts.ts && echo "=== common.ts 120-200:" && sed -n '120,200p' render/common.ts
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+/** Native Markdown framing only; never rewrites the mathematical or teaching content. */
+export function callout(type: string, title: string, body: string): string {
+  return `> [!${type}] ${title}\n>\n${body.replace(/\r\n/g, "\n").split("\n").map(line => line ? `> ${line}` : ">").join("\n")}\n`;
+}
+
+const OUTCOMES: Record<string, string> = { Correct: "pass", "Needs review": "review", "Knowledge gap": "unsure" };
+export const FEEDBACK_START = "<!-- scholar:feedback:start -->";
+export const FEEDBACK_END = "<!-- scholar:feedback:end -->";
+
+/** Read both the original heading format and the new native question frame. */
+export function unframeQuestion(chunk: string): string {
+  if (!/^> \[!question\] Question \d+\b/.test(chunk)) return chunk;
+  const lines = chunk.replace(/^> \[!question\] (Question[^\n]*)/, "### $1").split("\n");
+  let feedback = false, result = false;
+  return lines.map((line, index) => {
+    if (index) line = line.replace(/^> ?/, "");
+    if (line.trim() === FEEDBACK_START) { result = true; return ""; }
+    if (line.trim() === FEEDBACK_END) { result = feedback = false; return ""; }
+    const label = result && /^> \[!(?:success|warning)\] (Correct|Needs review|Knowledge gap)\s*$/.exec(line)?.[1];
+    if (label) { feedback = true; return `*${OUTCOMES[label]}*`; }
+    return feedback ? line.replace(/^> ?/, "") : line;
+  }).join("\n");
+}
+=== common.ts 120-200:
+    case "review":
+      return "⚠️";
+    case "learning":
+      return "🟡";
+    default:
+      return "⬜";
+  }
+}
+
+export function statusLabel(status: SectionStatus): string {
+  switch (status) {
+    case "complete":
+      return "Complete";
+    case "review":
+      return "Needs review";
+    case "learning":
+      return "In progress";
+    default:
+      return "Not started";
+  }
+}
+
+export function progress(completed: number, total: number): { percent: number; bar: string } {
+  const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const filled = Math.max(0, Math.min(10, Math.round(percent / 10)));
+  return { percent, bar: `${"█".repeat(filled)}${"░".repeat(10 - filled)}` };
+}
+
+export function frontmatter(lines: string[]): string {
+  const noteType = lines.find((line) => /^type: scholar-(home|book|chapter|section|exam|exam-paper|answer-key|tutor)$/.test(line))?.slice(6);
+  return [
+    "---", ...lines, "cssclasses:", "  - alvar-learning", "  - scholar-note",
+    ...(noteType ? [`  - ${noteType}`] : []), "tags:", "  - scholar", "---",
+  ].join("\n");
+}
+
+export function generatedDocument(header: string, body: string): string {
+  return `${header}\n${GENERATED_START}\n${body.trim()}\n${GENERATED_END}\n`;
+}
+
+export function removeLeadingFrontmatter(content: string): string {
+  return content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
+}
+
+/**
+ * Raised only when a note's generated boundary is genuinely ambiguous, so the
+ * caller cannot tell Scholar's own output from the reader's writing. The body
+ * travels with the error: recovery quarantines that text rather than losing it.
+ */
+export class GeneratedMarkerError extends Error {
+  /** The note body, marker-neutralized, ready to place in a quarantine block. */
+  readonly quarantineBody: string;
+
+  constructor(reason: string, quarantineBody = "") {
+    super(`Scholar found ${reason}.`);
+    this.name = "GeneratedMarkerError";
+    this.quarantineBody = quarantineBody;
+  }
+}
+
+export const QUARANTINE_START = "<!-- scholar:quarantine:start -->";
+export const QUARANTINE_END = "<!-- scholar:quarantine:end -->";
+
+/**
+ * Defuse every Scholar comment marker in recovered text.
+ *
+ * Quarantined text is written back into a live note, so any marker it still
+ * contains would be parsed on the next projection and re-break the note it was
+ * meant to rescue. Escaping the opening delimiter leaves the text readable
+ * while making the line unmatchable as a marker.
+ */
+export function neutralizeScholarMarkers(text: string): string {
+  return text.replace(/<!--(\s*\/?\s*scholar:)/gi, "&lt;!--$1");
+}
+
+const QUARANTINE_NOTICE = [
+  "> [!warning] Recovered text",
+  "> Scholar could not read this note's generated markers, so it rebuilt the note",
+  "> and kept the earlier text here. Move anything worth keeping above this block,",
+  "> then delete the block.",
+];
+
+
+Wall time: 0.11 seconds
+```
+
+### bg_26 [bash] — completed
+Label: grep -n "statusGlyph\|statusLabel\|progress(\|callout(\|\\*in progress\|\\*\\*Progress" render/section.ts render/navi...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+render/section.ts:7:import { block, collapsedRecord, frontmatter, generatedDocument, markdownText, pageRange, readableOutcome, statusLabel, tableText, titleCase, wikiEmbed, wikiLink, yaml } from "./common.ts";
+render/section.ts:100:      return [callout("example", `Figure · PDF page ${snapshot.page}`, [
+render/section.ts:237:    `*${statusLabel(section.status)}${current ? " · Current section" : ""} · ${pageRange(section.startPage, section.endPage)}*`, "",
+render/section.ts:239:      : section.status !== "not-started" ? [`**Progress:** ${lessonProgress}${pendingChecks ? ` · ${pendingChecks} short ${pendingChecks === 1 ? "question" : "questions"} remaining` : ""}. Details are in the Learning record below.`, ""] : []),
+render/navigation.ts:11:  return `${completed}/${sections.length} · ${progress(completed, sections.length).percent}%`;
+render/navigation.ts:56:    `progress: ${progress(sections.filter((section) => section.status === "complete").length, sections.length).percent}`,
+render/navigation.ts:83:    `progress: ${progress(chapter.sections.filter((section) => section.status === "complete").length, chapter.sections.length).percent}`,
+render/assessment.ts:167:  return [callout("question", `Question ${index + 1}`, [
+render/assessment.ts:169:    callout(result?.outcome === "correct" ? "success" : "warning", title, lines.join("\n")),
+equation-presentation.ts:90:  return { id, markdown: callout("note", `Key equation · ${title}`, body).trimEnd() };
+
+
+Wall time: 0.16 seconds
+```
+
+### bg_27 [bash] — completed
+Label: sed -n '1,70p' render/navigation.ts
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+import { bookHomePath, chapterNotePath, examNotePath, scholarHomePath, sectionNotePath, tutorNotePath } from "../obsidian-paths.ts";
+import { allSections, deriveStatus, type ScholarBook, type ScholarChapter, type ScholarConfig, type SectionStatus } from "../types.ts";
+import { block, frontmatter, generatedDocument, isSectionMaterialized, markdownText, pageRange, progress, tableText, tableWikiLink, wikiLink, yaml } from "./common.ts";
+
+function stateLabel(status: SectionStatus): string {
+  return status === "complete" ? "Complete" : status === "review" ? "Review" : status === "learning" ? "In progress" : "Not started";
+}
+
+function completion(sections: ScholarChapter["sections"]): string {
+  const completed = sections.filter((section) => section.status === "complete").length;
+  return `${completed}/${sections.length} · ${progress(completed, sections.length).percent}%`;
+}
+
+function rowStatus(status: SectionStatus, current: boolean): string {
+  return current ? `**Current · ${stateLabel(status)}**` : stateLabel(status);
+}
+
+export function renderScholarHome(config: ScholarConfig, books: ScholarBook[]): string {
+  const ordered = [...books].sort((a, b) => a.metadata.title.localeCompare(b.metadata.title));
+  const sections = books.flatMap(allSections);
+  const rows = ordered.map((book) => {
+    const parts = allSections(book);
+    return `| ${rowStatus(deriveStatus(parts), config.currentBookId === book.id)} | ${tableWikiLink(scholarHomePath(config), bookHomePath(config, book), book.metadata.title)} | ${completion(parts)} |`;
+  });
+  return generatedDocument(frontmatter(["type: scholar-home"]), [
+    "> [!info] Scholar library",
+    `> ${books.length} ${books.length === 1 ? "book" : "books"} · ${completion(sections)} sections complete`, "",
+    ...(rows.length ? ["| Status | Book | Completed sections |", "| --- | --- | --- |", ...rows] : ["Your library is ready. Open a supported book in Scholar to begin."]),
+  ].join("\n"));
+}
+
+export function renderBook(config: ScholarConfig, book: ScholarBook): string {
+  const notePath = bookHomePath(config, book);
+  const sections = allSections(book);
+  const state = deriveStatus(sections);
+  const chapters = [...book.chapters].sort((a, b) => a.order - b.order);
+  const chapterRows = chapters.map((chapter) => {
+    const label = chapter.number ? `Chapter ${chapter.number}: ${chapter.title}` : chapter.title;
+    const current = chapter.sections.some((section) => section.id === book.currentSectionId);
+    return `| ${rowStatus(deriveStatus(chapter.sections), current)} | ${tableWikiLink(notePath, chapterNotePath(config, book, chapter), label)} | ${pageRange(chapter.startPage, chapter.endPage)} | ${completion(chapter.sections)} |`;
+  });
+  const examRows = [...(book.exams || [])].sort((a, b) => a.createdAt.localeCompare(b.createdAt)).map((exam) =>
+    `| ${exam.id === book.currentExamId ? "**Current · " : ""}${tableText(exam.status === "submitted" ? "Awaiting grading" : exam.status === "graded" ? "Graded" : exam.status === "active" ? "In progress" : "Ready")}${exam.id === book.currentExamId ? "**" : ""} | ${tableWikiLink(notePath, examNotePath(config, book, exam), exam.title)} |`);
+  const tutorRows = [...(book.tutorSessions || [])].sort((a, b) => a.createdAt.localeCompare(b.createdAt)).map((session) =>
+    `| ${session.id === book.currentTutorId ? "**Current · " : ""}${tableText(session.status === "active" ? "In progress" : "Closed")}${session.id === book.currentTutorId ? "**" : ""} | ${tableWikiLink(notePath, tutorNotePath(config, book, session), session.title)} |`);
+  const notice = book.outlineStatus === "ready" ? "" : book.outlineStatus === "needs-ocr"
+    ? "This book needs OCR before Scholar can teach it reliably."
+    : book.outlineStatus === "needs-review" ? "Review the detected chapter and section outline before learning."
+    : book.outlineStatus === "pending" && chapters.length ? "Scholar is validating the provisional outline against source checkpoints."
+    : "Scholar is preparing the book outline.";
+  return generatedDocument(frontmatter([
+    "type: scholar-book", `book_id: ${yaml(book.id)}`, `title: ${yaml(book.metadata.title)}`,
+    ...(book.metadata.authors.length ? ["authors:", ...book.metadata.authors.map((author) => `  - ${yaml(author)}`)] : ["authors: []"]),
+    ...(book.metadata.edition ? [`edition: ${yaml(book.metadata.edition)}`] : []),
+    `source_file: ${yaml(book.source.fileName)}`, `outline_status: ${yaml(book.outlineStatus)}`, `status: ${yaml(state)}`,
+    `progress: ${progress(sections.filter((section) => section.status === "complete").length, sections.length).percent}`,
+    `created: ${yaml(book.createdAt)}`, `updated: ${yaml(book.updatedAt)}`,
+  ]), [
+    `> [!${state === "complete" ? "success" : state === "review" || book.outlineStatus === "needs-review" || book.outlineStatus === "needs-ocr" ? "warning" : "info"}] ${stateLabel(state)}`,
+    `> ${completion(sections)} sections complete`,
+    ...(notice ? [">", `> ${notice}`] : []), "",
+    wikiLink(notePath, scholarHomePath(config), "Scholar Home"), "",
+    ...(book.metadata.authors.length ? [`**Author${book.metadata.authors.length === 1 ? "" : "s"}:** ${book.metadata.authors.map(markdownText).join(", ")}`] : []),
+    ...(book.metadata.edition ? [`**Edition:** ${markdownText(book.metadata.edition)}`] : []),
+    `**Source:** ${markdownText(book.source.fileName)}`, "",
+    ...block("## Chapters", chapterRows.length ? ["| Status | Chapter | Source | Completed sections |", "| --- | --- | --- | --- |", ...chapterRows] : []),
+    ...block("## Exams", examRows.length ? ["| Status | Exam |", "| --- | --- |", ...examRows] : []),
+    ...block("## Tutor sessions", tutorRows.length ? ["| Status | Session |", "| --- | --- |", ...tutorRows] : []),
+  ].join("\n"));
+}
+
+
+Wall time: 0.18 seconds
+```
+
+### bg_28 [bash] — completed
+Label: sed -n '70,95p' render/navigation.ts && echo "=== section.ts 85-115 + 225-260:" && sed -n '85,115p;225,262p' render/s...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+}
+
+export function renderChapter(config: ScholarConfig, book: ScholarBook, chapter: ScholarChapter): string {
+  const notePath = chapterNotePath(config, book, chapter);
+  const state = deriveStatus(chapter.sections);
+  const rows = [...chapter.sections].sort((a, b) => a.order - b.order).map((section) => {
+    const label = section.number ? `${section.number} ${section.title}` : section.title;
+    const name = isSectionMaterialized(book, section)
+      ? tableWikiLink(notePath, sectionNotePath(config, book, chapter, section), label) : tableText(label);
+    return `| ${rowStatus(section.status, section.id === book.currentSectionId)} | ${name} | ${pageRange(section.startPage, section.endPage)} |`;
+  });
+  return generatedDocument(frontmatter([
+    "type: scholar-chapter", `book_id: ${yaml(book.id)}`, `chapter_id: ${yaml(chapter.id)}`, `status: ${yaml(state)}`,
+    `progress: ${progress(chapter.sections.filter((section) => section.status === "complete").length, chapter.sections.length).percent}`,
+  ]), [
+    `> [!${state === "complete" ? "success" : state === "review" ? "warning" : "info"}] ${stateLabel(state)}`,
+    `> ${pageRange(chapter.startPage, chapter.endPage)} · ${completion(chapter.sections)} sections complete`, "",
+    wikiLink(notePath, bookHomePath(config, book), book.metadata.title), "",
+    ...block("## Sections", rows.length ? ["| Status | Section | Source |", "| --- | --- | --- |", ...rows] : []),
+    ...(!rows.length ? ["Sections will appear when Scholar has prepared this chapter's outline."] : []),
+  ].join("\n"));
+}
+=== section.ts 85-115 + 225-260:
+    const text = markdownText(value);
+    const comparable = comparableTranscriptText(text);
+    if (!text || shown.has(comparable)) return [];
+    shown.add(comparable);
+    return [text];
+  });
+}
+
+export function sourceFigureLines(config: ScholarConfig, book: ScholarBook, notePath: string, snapshots: ScholarSnapshot[]): string[] {
+  const seen = new Set<string>();
+  return [...snapshots]
+    .sort((left, right) => left.page - right.page || left.id.localeCompare(right.id))
+    .flatMap((snapshot) => {
+      if (seen.has(snapshot.assetFile)) return [];
+      seen.add(snapshot.assetFile);
+      return [callout("example", `Figure · PDF page ${snapshot.page}`, [
+        wikiEmbed(notePath, snapshotAssetPath(config, book, snapshot), 640), "",
+        markdownText(snapshot.caption), "",
+        `*Source: ${markdownText(book.source.fileName).replace(/\n/g, " ")} · PDF viewer page ${snapshot.page}.*`, "",
+      ].join("\n")), ""];
+    });
+}
+
+/** Collect rendered native embeds, not filenames mentioned in prose or code examples. */
+function nativeEmbedTargets(markdown: string): Set<string> {
+  let fence: { marker: string; length: number } | undefined;
+  const visible = markdown.split(/\r?\n/).filter(line => {
+    const unquoted = line.replace(/^(?: {0,3}> ?)+/, "");
+    const delimiter = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(unquoted);
+    if (fence) {
+      if (delimiter && delimiter[1]![0] === fence.marker && delimiter[1]!.length >= fence.length && !delimiter[2]!.trim()) fence = undefined;
+    ]),
+    ...collapsedRecord("Learning record", [
+      ...block("### Learning objectives", objectives),
+      ...block("### Understanding checks", checks),
+      ...block("### Remaining work", otherRemaining.map(item => `- ${markdownText(item)}`)),
+    ]),
+    ...assessmentQuestionBlock(section.attempts),
+  ];
+  return generatedDocument(frontmatter([
+    "type: scholar-section", `book_id: ${yaml(book.id)}`, `chapter_id: ${yaml(chapter.id)}`, `section_id: ${yaml(section.id)}`,
+    `status: ${yaml(section.status)}`, `current: ${current}`, `created: ${yaml(section.createdAt)}`, `updated: ${yaml(section.updatedAt)}`,
+  ]), [
+    `*${statusLabel(section.status)}${current ? " · Current section" : ""} · ${pageRange(section.startPage, section.endPage)}*`, "",
+    ...(section.status === "complete" ? ["**Section complete.** Reopen for practice anytime; practice does not change your earned completion.", ""]
+      : section.status !== "not-started" ? [`**Progress:** ${lessonProgress}${pendingChecks ? ` · ${pendingChecks} short ${pendingChecks === 1 ? "question" : "questions"} remaining` : ""}. Details are in the Learning record below.`, ""] : []),
+    wikiLink(notePath, chapterNotePath(config, book, chapter), chapterLabel), "",
+    ...(content.some((line) => line.trim()) ? content : ["This section is ready. Notes will appear as you work through it."]),
+  ].join("\n"));
+}
+
+
+Wall time: 0.08 seconds
+```
+
+### bg_29 [bash] — completed
+Label: grep -n "export function" render/assessment.ts && echo "=== " && sed -n '100,165p' render/assessment.ts
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+47:export function tutorSourceFigures(book: ScholarBook, session: TutorSession): ScholarSnapshot[] {
+60:export function calloutLines(prefix: string, value: string): string[] {
+65:export function scopeLines(
+104:export function examAnswerNoteText(config: ScholarConfig, book: ScholarBook, exam: ScholarExam): string {
+142:export function displayedCorrectAnswer(question: ExamQuestion): string {
+147:export function gradedQuestionLines(question: ExamQuestion, result: ExamItemResult | undefined, index: number, figures = ""): string[] {
+181:export function renderExamAnswerKey(config: ScholarConfig, book: ScholarBook, exam: ScholarExam): string {
+234:export function renderExam(config: ScholarConfig, book: ScholarBook, exam: ScholarExam): string {
+271:export function renderTutorSession(config: ScholarConfig, book: ScholarBook, session: TutorSession): string {
+=== 
+  return lines;
+}
+
+/** The complete editable paper is learner-owned; generatedDocument must not wrap it. */
+export function examAnswerNoteText(config: ScholarConfig, book: ScholarBook, exam: ScholarExam): string {
+  const notePath = examAnswerNotePath(config, book, exam);
+  const totalPoints = exam.questions.reduce((sum, question) => sum + question.maxPoints, 0);
+  const openCount = exam.questions.filter((question) => question.format === "open").length;
+  const snapshots = book.chapters.flatMap((chapter) => chapter.sections.flatMap((section) =>
+    exam.scope.sectionIds.includes(section.id) ? section.snapshots || [] : []));
+  return [
+    frontmatter([
+      "type: scholar-exam-paper", `book_id: ${yaml(book.id)}`, `book_instance_id: ${yaml(book.instanceId)}`,
+      `exam_id: ${yaml(exam.id)}`, `form_fingerprint: ${yaml(examFormFingerprint(exam))}`,
+      "answer_format: checkboxes-v1",
+    ]), "",
+    `# ${markdownText(exam.title)}`, "",
+    wikiLink(notePath, bookHomePath(config, book), book.metadata.title), "",
+    `**${exam.questions.length} questions · ${breakdownPoints(totalPoints)} points** · ${exam.questions.length - openCount} multiple choice · ${openCount} written response`, "",
+    "> [!info] Before you begin",
+    "> Click the checkboxes to select answers. Choose one unless a question says **select all that apply**.",
+    "> Write open responses in **Live Preview**. Save, then submit in Pi when finished. Blank answers receive 0 points; grading and the answer key come after submission.", "",
+    ...collapsedRecord("Exam scope", scopeLines(config, book, notePath, exam.scope)),
+    ...block("## Source figures", sourceFigureLines(config, book, notePath, recordSourceFigures(exam.snapshots, snapshots))),
+    ...block("## Visual references", referenceImageLines(config, book, notePath, exam.images)),
+    ...exam.questions.flatMap((question, index) => [
+      "", `> [!question] Question ${index + 1} · ${breakdownPoints(question.maxPoints)} ${question.maxPoints === 1 ? "point" : "points"}`,
+      ">",
+      ...markdownText(question.prompt).split("\n").map((line) => `> ${line}`), ">",
+      ...referencedFigureLines(config, book, notePath, question.prompt, recordSourceFigures(exam.snapshots, snapshots)).split("\n").map(line => `> ${line}`), ">",
+      `> *${question.format === "open" ? "Written response · Show your reasoning."
+        : Array.isArray(question.correctAnswer) && question.correctAnswer.length > 1 ? "Select all that apply." : "Select one answer."}*`,
+      ...examAnswerRegionLines(question).map(line => line ? `> ${line}` : ">"), "",
+    ]), "", "---", "", "## Submit", "",
+    "Save your changes in Obsidian, then run this exact command in Pi:", "",
+    "```text", `/scholar exam ${JSON.stringify(exam.id)} submit`, "```", "",
+    "Pi will confirm your answered/blank count. Submission is final; later edits do not change your score.", "",
+    wikiLink(notePath, examNotePath(config, book, exam), "Exam status and results"), "",
+    EXAM_PAPER_COMPLETE, "",
+  ].join("\n");
+}
+
+export function displayedCorrectAnswer(question: ExamQuestion): string {
+  const values = Array.isArray(question.correctAnswer) ? question.correctAnswer : question.correctAnswer === undefined ? [] : [question.correctAnswer];
+  return values.map((value) => question.options?.find((option) => option.value === value)?.label ?? value).map(markdownText).filter(Boolean).join(", ");
+}
+
+export function gradedQuestionLines(question: ExamQuestion, result: ExamItemResult | undefined, index: number, figures = ""): string[] {
+  const correctAnswer = displayedCorrectAnswer(question);
+  const lines = [
+    ...(result ? [`**Score:** ${breakdownPoints(result.earnedPoints)}/${breakdownPoints(result.maxPoints)} · ${markdownText(result.outcome)}`, ""] : []),
+    ...(correctAnswer ? [`**Correct answer:** ${correctAnswer}`, ""] : []),
+    ...(question.explanation ? [`**Explanation:** ${markdownText(question.explanation)}`, ""] : []),
+    ...(question.claim.trim() ? [`**Claim:** ${markdownText(question.claim)}`] : []),
+    ...(question.dimensions.length ? [`**Dimensions:** ${question.dimensions.map(markdownText).join(", ")}`] : []),
+    ...(question.requiredEvidence.length ? ["", "**Required evidence:**", "", ...question.requiredEvidence.map((item) => `- ${markdownText(item)}`)] : []),
+    ...(question.rubric?.length ? ["", "**Rubric:**", "", ...question.rubric.map((atom) => {
+      const evidence = unknownMarkdown(atom.requiredEvidence);
+      return `- ${markdownText(atom.criterion)} — ${breakdownPoints(atom.points)} point${atom.points === 1 ? "" : "s"}${evidence ? `; ${evidence}` : ""}`;
+    })] : []),
+  ];
+  if (result?.diagnosticSummary) lines.push("", `**Diagnosis:** ${markdownText(result.diagnosticSummary)}`);
+  if (result?.feedback) lines.push("", `**Feedback:** ${markdownText(result.feedback)}`);
+  if (result?.firstDecisiveError) lines.push("", `**First decisive error:** ${markdownText(result.firstDecisiveError)}`);
+  if (result?.correctReasoning) lines.push("", `**Correct reasoning:** ${markdownText(result.correctReasoning)}`);
+  if (result?.transferableLesson) lines.push("", `**Transferable lesson:** ${markdownText(result.transferableLesson)}`);
+
+
+Wall time: 0.11 seconds
+```
+
+### bg_30 [bash] — completed
+Label: sed -n '234,330p' render/assessment.ts
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+export function renderExam(config: ScholarConfig, book: ScholarBook, exam: ScholarExam): string {
+  const notePath = examNotePath(config, book, exam);
+  const graded = exam.status === "graded" || Boolean(exam.gradedAt);
+  const submitted = exam.status === "submitted";
+  const points = exam.questions.reduce((sum, question) => sum + question.maxPoints, 0);
+  const submittedResponses = exam.questions.filter((question) => {
+    const response = exam.rawResponses.find((item) => item.questionId === question.id)?.response;
+    return Array.isArray(response) ? response.some((value) => value.trim()) : Boolean(response?.trim());
+  }).length;
+  return generatedDocument(frontmatter([
+    "type: scholar-exam", `book_id: ${yaml(book.id)}`, `exam_id: ${yaml(exam.id)}`, `status: ${yaml(exam.status)}`,
+    `created: ${yaml(exam.createdAt)}`, ...(exam.startedAt ? [`started: ${yaml(exam.startedAt)}`] : []),
+    ...(exam.submittedAt ? [`submitted: ${yaml(exam.submittedAt)}`] : []),
+    ...(exam.gradedAt ? [`graded: ${yaml(exam.gradedAt)}`] : []), `updated: ${yaml(exam.updatedAt)}`,
+  ]), [
+    graded
+      ? `> [!success] Exam graded · ${breakdownPoints(exam.earnedPoints)}/${breakdownPoints(exam.maxPoints)} · ${breakdownPoints(exam.percent)}%`
+      : `> [!info] ${submitted ? "Submitted · Awaiting grading" : exam.questions.length ? "Exam · Not yet submitted" : "Exam · Preparing questions"}`,
+    `> ${exam.questions.length} ${exam.questions.length === 1 ? "question" : "questions"} · ${breakdownPoints(points)} ${points === 1 ? "point" : "points"}`,
+    ...(submitted || graded ? [`> Submitted completeness: ${submittedResponses}/${exam.questions.length} answered · ${exam.questions.length - submittedResponses} blank`] : []),
+    ...(!graded && !submitted && exam.questions.length ? [">", "> Answer and save the paper in Obsidian, then submit once in Pi."] : []),
+    "", wikiLink(notePath, bookHomePath(config, book), book.metadata.title), "",
+    ...block("## Scope", scopeLines(config, book, notePath, exam.scope, { includeSections: false })),
+    ...block("## Source figures", sourceFigureLines(config, book, notePath, exam.snapshots || [])),
+    ...(exam.questions.length ? block("## Answer paper", [
+      wikiLink(notePath, examAnswerNotePath(config, book, exam), "Open your answer paper"), "",
+      submitted || graded
+        ? "Your submitted answers are saved. Later edits to the paper do not change this submission."
+        : `Save in Obsidian, then run \`/scholar exam ${JSON.stringify(exam.id)} submit\` in Pi.`,
+    ]) : []),
+    ...(graded ? [
+      ...block("## Competency profile", competencyTable(exam)),
+      ...block("## Answer key", [`Review every question and its reasoning in ${wikiLink(notePath, answerKeyNotePath(config, book, exam), `${exam.title} — Answer Key`)}.`]),
+    ] : []),
+  ].join("\n"));
+}
+
+export function renderTutorSession(config: ScholarConfig, book: ScholarBook, session: TutorSession): string {
+  const notePath = tutorNotePath(config, book, session);
+  const images = referenceImageLines(config, book, notePath, session.images);
+  const authored = transcriptBlock(session.transcript || [], session.attempts).trim();
+  const lesson = authored ? authored.split("\n") : [];
+  const summary = uniqueSupplementLines(session.synthesis ? [session.synthesis] : [], lesson);
+  const keyPoints = uniqueSupplementLines(session.keyPoints, [...lesson, ...summary]);
+  const snapshots = book.chapters.flatMap((chapter) => chapter.sections.flatMap((section) => {
+    const selected = session.scope.sectionIds.length ? session.scope.sectionIds.includes(section.id)
+      : session.scope.chapterIds.length ? session.scope.chapterIds.includes(chapter.id) : true;
+    return selected ? section.snapshots || [] : [];
+  }));
+  const commitWarnings: string[] = [];
+  for (const review of session.review?.receipts || []) {
+    if (review.failure) {
+      commitWarnings.push(`> [!warning] Not independently reviewed: ${review.role} (${review.failure.code})`);
+    }
+  }
+  const content = [
+    ...commitWarnings,
+    ...(commitWarnings.length ? [""] : []),
+    ...(lesson.length ? block("## Lesson", lesson) : [session.synthesis?.trim()
+      ? "A recap is saved below. The full explanation has not been saved yet."
+      : "This session is ready. The lesson and practice will appear as you work.", ""]),
+    ...supplementalSourceFigureLines(config, book, notePath, recordSourceFigures(session.snapshots, snapshots), authored),
+    ...block("## Visual references", images),
+    ...collapsedRecord("Recap", [
+      ...block("### Session summary", summary),
+      ...block("### Key points", keyPoints.map((point) => `- ${point}`)),
+    ]),
+    ...collapsedRecord("Practice scope", scopeLines(config, book, notePath, session.scope)),
+    ...assessmentQuestionBlock(session.attempts),
+  ];
+  return generatedDocument(frontmatter([
+    "type: scholar-tutor", `book_id: ${yaml(book.id)}`, `tutor_id: ${yaml(session.id)}`, `status: ${yaml(session.status)}`,
+    `created: ${yaml(session.createdAt)}`, ...(session.closedAt ? [`closed: ${yaml(session.closedAt)}`] : []), `updated: ${yaml(session.updatedAt)}`,
+  ]), [
+    `*Tutor · ${session.status === "active" ? "In progress" : "Closed"} · Assisted practice*`,
+    "", "Practice does not change Exam scores or Learn completion.",
+    "", wikiLink(notePath, bookHomePath(config, book), book.metadata.title), "",
+    ...(content.some((line) => line.trim()) ? content : ["This session is ready. The model and practice will appear as you work."]),
+  ].join("\n"));
+}
+
+
+Wall time: 0.12 seconds
+```
+
+### bg_2 [bash] — completed
+Label: grep -rn "Progress:\|Section complete\|Scholar library\|Exam graded\|Not yet submitted\|Tutor · \|in progress · Curre...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+tests/verify-scholar-completion-practice.mjs:136:  assert.match(JSON.stringify(final), /Section complete/);
+tests/verify-scholar-completion-practice.mjs:142:  assert.match(await readFile(note, "utf8"), /Section complete/);
+tests/verify-scholar-exam-experience.mjs:122:  /Not yet submitted/.test(activeNote)
+tests/verify-scholar-explanation-presentation.mjs:39:  `> [!example] Figure · PDF page 1\n>\n> ${embed}\n>\n> *Illustrative fixture, PDF page 1.*\n\nFollow the input arrows together. The output points perpendicular to both; reversing their order reverses the output arrow.`,
+tests/verify-scholar-explanation-presentation.mjs:50:assert.equal(callouts.filter(token => token.text.startsWith("[!example] Figure")).length, 1,
+tests/verify-scholar-explanation-presentation.mjs:87:assert.equal(marked.lexer(placed).filter(token => token.type === "blockquote" && token.text.startsWith("[!example] Figure")).length, 1);
+tests/verify-scholar-explanation-presentation.mjs:118:const progressLine = preLesson.split("\n").find(line => line.startsWith("**Progress:**"));
+tests/verify-scholar-explanation-presentation.mjs:140:assert.match(learnPolicy, /Diagnostic and practice results cannot satisfy missing mastery checks|Never announce completion unless it says Section complete/);
+tests/verify-scholar-note-design.mjs:149:  assert.ok(samples.tutor.includes("*Tutor · In progress · Assisted practice*") && samples.tutor.includes("does not change Exam scores or Learn completion"));
+tests/verify-scholar-note-design.mjs:269:  assert.doesNotMatch(samples["exam-submitted"], /\/scholar exam|submit once|Not yet submitted/);
+tests/verify-scholar-note-design.mjs:273:  assert.ok(receipt.includes("Exam graded · 3/7 · 42.8571%") && receipt.includes("## Answer key"));
+tests/verify-scholar-presentation.mjs:66:  assert.equal(blocks.filter(t=>t.text.startsWith("[!example] Figure")).length,0);
+tests/verify-scholar-review-runtime.mjs:287:  assert.deepEqual(await runReviewer(options(undefined, { onProgress: async () => { throw new Error("Async UI is closed"); } })), pass);
+tests/verify-scholar-review-runtime.mjs:356:    thinkingLevel: "high", onProgress: event => events.push(event) })), pass);
+tests/verify-scholar-review-runtime.mjs:369:    thinkingLevel: "high", signal: owner.signal, onProgress: event => events.push(event) })), "cancelled");
+=== source callout sites:
+equation-presentation.ts:90:  return { id, markdown: callout("note", `Key equation · ${title}`, body).trimEnd() };
+lesson-figures.ts:45:    const expanded = alreadyFramed ? figure : callout("example", `Figure · PDF page ${snapshot.page}`, figure).trimEnd();
+render/section.ts:100:      return [callout("example", `Figure · PDF page ${snapshot.page}`, [
+
+
+Wall time: 0.18 seconds
+```
+
+### bg_3 [bash] — completed
+Label: grep -rn '\[!example\]\|\[!info\]\|\[!note\] Key equation\|\[!success\]\|\[!warning\]' --include=*.mjs tests/*.mjs | ...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+tests/verify-scholar-equation-presentation.mjs:73:  { title: "Equation\n> [!info]- Scholar details" }, { meaning: "<!-- scholar:lesson:fake -->" },
+tests/verify-scholar-explanation-presentation.mjs:39:  `> [!example] Figure · PDF page 1\n>\n> ${embed}\n>\n> *Illustrative fixture, PDF page 1.*\n\nFollow the input arrows together. The output points perpendicular to both; reversing their order reverses the output arrow.`,
+tests/verify-scholar-explanation-presentation.mjs:40:  "> [!note] Key equation · Reversing the order\n>\n> $$\n> \\mathbf B\\times\\mathbf A = -(\\mathbf A\\times\\mathbf B)\n> $$\n>\n> **Symbols:** $\\mathbf A$ → first input vector; $\\mathbf B$ → second input vector.\n>\n> The minus sign reverses direction without changing magnitude. This order-reversal property is called anti-commutativity.\n>\n> *Illustrative fixture, PDF page 1.*",
+tests/verify-scholar-explanation-presentation.mjs:42:  "> [!example] Explanatory schematic · Following the change\n>\n> ```mermaid\n> flowchart LR\n> A[Swap input order] --> B[Reverse output direction]\n> ```\n>\n> The arrow describes the consequence of one operation. It does not describe a physical cause.\n> *Illustrative fixture, PDF page 1.*",
+tests/verify-scholar-explanation-presentation.mjs:50:assert.equal(callouts.filter(token => token.text.startsWith("[!example] Figure")).length, 1,
+tests/verify-scholar-explanation-presentation.mjs:57:assert.ok(callouts.some(token => token.text.startsWith("[!note] Key equation") && token.text.includes("$$")));
+tests/verify-scholar-explanation-presentation.mjs:58:assert.ok(callouts.some(token => token.text.startsWith("[!example] Explanatory schematic") && token.text.includes("```mermaid")));
+tests/verify-scholar-explanation-presentation.mjs:87:assert.equal(marked.lexer(placed).filter(token => token.type === "blockquote" && token.text.startsWith("[!example] Figure")).length, 1);
+tests/verify-scholar-explanation-presentation.mjs:88:const framed = resolveLessonFigures(`> [!example] Original source figure\n>\n> ${token}\n>\n> Explain the labels together.`, section, book, [1], config);
+tests/verify-scholar-lesson-delivery.mjs:77:assert.throws(()=>lesson.saveLesson(section,book,input("code-math","Interpret direction","> [!note] Key equation\n> `t = l / v`")),/display math/);
+tests/verify-scholar-lesson-delivery.mjs:82:assert.equal(lesson.lessonMarkdownIssues("> [!note] Key equation\n> $$\n> t = \\frac{l}{v}\n> $$\n> Meaning: a longer path takes longer.").length,0);
+tests/verify-scholar-marker-audit.mjs:52:assert.equal(preservedUserContent(`${frontmatter}${START}\n> [!info] partial\n\n`, true), "");
+tests/verify-scholar-marker-audit.mjs:70:assert.equal(twice.split("[!warning] Recovered text").length - 1, 1, "the notice is not duplicated");
+tests/verify-scholar-math-formatting.mjs:34:  const original = ["[!note] Key equation", String.raw`\[`, String.raw`t = \frac{\ell}{v}`, String.raw`\]`, String.raw`Symbols: \(t\) → delay.`].map(line => prefix + line).join("\n");
+tests/verify-scholar-math-formatting.mjs:48:for (const malformed of ["$\\theta", "$$x = 2", "$$\n\n$$", "> [!note] Key equation\n> ```latex\n> $$x=2$$\n> ```", "> [!note] Key equation\n> `$$x=2$$`", "The product is `A·B = AB cos(theta)`.", "The result is \\mathbf A.", "> $$\n> x=2\n$$", "\\(\\theta", "\\[\nx=2"]) {
+tests/verify-scholar-math-formatting.mjs:51:for (const valid of ["$x$ and $y$", "$$x = 2$$", "> [!note] Key equation\n> $$t = \\frac{l}{v}$$", "```js\nconst f = x => x * 2;\n```", "A cost of \\$5 and a factor $2\\pi$."]) assert.equal(issues(valid).length, 0, `${valid}: ${issues(valid)}`);
+tests/verify-scholar-note-design.mjs:87:  assert.ok(note.includes("> [!warning] Needs review") && note.includes("> [!success] Correct"));
+tests/verify-scholar-note-design.mjs:126:      assert.equal(note.includes("> [!success] Correct"), hasHistory, label);
+tests/verify-scholar-note-design.mjs:233:    assert.ok(questions.includes("> [!warning] Needs review"));
+tests/verify-scholar-note-design.mjs:241:    assert.ok(note.includes("> [!success] Correct\n> **Feedback:** First paragraph of open-response feedback.\n>\n> Second paragraph preserves the reasoning."));
+tests/verify-scholar-presentation.mjs:41:  "> [!note] Key equation · Propagation delay\n> $$t_d = \\frac{\\ell}{v}$$\n>\n> **Symbols:** $t_d$ → delay; $\\ell$ → path length; $v$ → propagation speed.\n>\n> **Meaning:** For a uniform path with fixed speed, doubling its length doubles its delay.\n>\n> *Source: illustrative fixture, PDF page 1.*",
+tests/verify-scholar-presentation.mjs:43:  "> [!example] Explanatory schematic · What determines delay\n> ```mermaid\n> flowchart TD\n>   A[Path length] --> C[Propagation delay]\n>   B[Propagation speed] --> C\n> ```\n>\n> Read both inputs together: neither length nor speed alone determines the delay.\n> *Illustrative fixture, PDF page 1.*",
+tests/verify-scholar-presentation.mjs:60:  assert.equal(notes.questionChunks(text).length,2);assert.ok(text.includes("> > [!success] Correct"));
+tests/verify-scholar-presentation.mjs:66:  assert.equal(blocks.filter(t=>t.text.startsWith("[!example] Figure")).length,0);
+=== section.ts figure fns:
+    if (delimiter) { fence = { marker: delimiter[1]![0]!, length: delimiter[1]!.length }; return false; }
+    return true;
+  }).join("\n").replace(/(`+)([^\n]*?)\1/g, "");
+  return new Set([...visible.matchAll(/!\[\[([^\]\n|]+)(?:\|[^\]\n]*)?\]\]/g)].map(match => embedTargetKey(match[1]!)));
+}
+
+function embedTargetKey(value: string): string {
+  try { value = decodeURIComponent(value); } catch { /* Keep literal percent signs in asset names. */ }
+  return value.replace(/\\/g, "/").replace(/^\.\//, "").normalize("NFC").toLowerCase();
+}
+
+/** Figures placed in the lesson stay there; remaining captures are optional references. */
+export function supplementalSourceFigureLines(config: ScholarConfig, book: ScholarBook, notePath: string, snapshots: ScholarSnapshot[], lesson: string): string[] {
+  const embedded = nativeEmbedTargets(lesson);
+  const supplemental = snapshots.filter(snapshot => {
+    const assetPath = snapshotAssetPath(config, book, snapshot);
+    const candidates = [snapshot.assetFile, relative(resolve(notePath, ".."), assetPath), relative(config.obsidianRoot, assetPath)];
+    return !candidates.some(candidate => embedded.has(embedTargetKey(candidate)));
+  });
+  return collapsedRecord("Source references", sourceFigureLines(config, book, notePath, supplemental));
+}
+
+/** Only explicit source figure labels establish association; page proximity does not. */
+export function referencedFigureLines(config: ScholarConfig, book: ScholarBook, notePath: string, text: string, snapshots: ScholarSnapshot[]): string {
+  const labels = new Set([...text.matchAll(/\b(?:Figure|Fig\.)\s+(\d+(?:[.\-–]\d+)*[a-z]?)(?!\w|[.\-–]\d)/gi)].map(match => match[1]!.toLowerCase().replace(/–/g, "-")));
+  const seen = new Set<string>();
+  return snapshots.flatMap(snapshot => {
+    const label = /\b(?:Figure|Fig\.)\s+(\d+(?:[.\-–]\d+)*[a-z]?)(?!\w|[.\-–]\d)/i.exec(snapshot.caption)?.[1]?.toLowerCase().replace(/–/g, "-");
+    if (!label || !labels.has(label) || seen.has(snapshot.assetFile) || text.includes(snapshot.assetFile)) return [];
+    seen.add(snapshot.assetFile);
+    return [wikiEmbed(notePath, snapshotAssetPath(config, book, snapshot), 640), "", markdownText(snapshot.caption), "", `*Source: ${markdownText(book.source.fileName)} · PDF viewer page ${snapshot.page}.*`, ""];
+  }).join("\n");
+}
+
+export function assessmentSummaryLine(attempt: AssessmentAttempt): string {
+  const source = attempt.grounding?.sourcePages.length
+    ? ` · PDF ${attempt.grounding.sourcePages.length === 1 ? "page" : "pages"} ${attempt.grounding.sourcePages.join(", ")}` : "";
+  return `- **${titleCase(attempt.kind)}** — ${readableOutcome(attempt.outcome)}${source}`;
+
+
+Wall time: 0.14 seconds
+```
+
+### bg_5 [bash] — completed
+Label: sed -i 's/import { block, frontmatter, generatedDocument, isSectionMaterialized, markdownText, pageRange, progress, t...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+5
+9:function completion(sections: ScholarChapter["sections"]): string {
+
+
+Wall time: 0.17 seconds
+```
+
+### bg_6 [bash] — completed
+Label: sed -n '85,95p' equation-presentation.ts && echo "=== lesson-figures 40-50:" && sed -n '40,50p' lesson-figures.ts && ...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+    throw new Error(`Key equation ${id} sourcePages must be unique pages in this lesson's source scope.`);
+  }
+  const body = ["$$", latex, "$$", "", `**Symbols:** ${definitions.join("; ")}`,
+    "", `**Assumptions:** ${assumptions}`, "", `**Meaning:** ${meaning}`, "",
+    `*Source: PDF ${value.sourcePages.length === 1 ? "page" : "pages"} ${value.sourcePages.join(", ")}.*`].join("\n");
+  return { id, markdown: callout("note", `Key equation · ${title}`, body).trimEnd() };
+}
+
+/** Expand exactly one explicit placement per central equation, never guess from ordinary display math. */
+export function renderKeyEquations(markdown: string, equations: KeyEquation[], allowedPages: number[]): string {
+  if (typeof markdown !== "string" || !Array.isArray(equations) || !Array.isArray(allowedPages)
+=== lesson-figures 40-50:
+    placed.add(snapshot.id);
+    const caption = neutralizeScholarMarkers(markdownText(snapshot.caption)).replace(/\[!info\]- Scholar/g, "\\[!info]- Scholar");
+    const figure = [wikiEmbed(notePath, snapshotAssetPath(config, book, snapshot), 720), "",
+      caption, "", `*Source: PDF viewer page ${snapshot.page}.*`].join("\n");
+    const alreadyFramed = depth > 0 && ["example", "figure"].includes(callouts.get(depth) || "");
+    const expanded = alreadyFramed ? figure : callout("example", `Figure · PDF page ${snapshot.page}`, figure).trimEnd();
+    return expanded.split("\n").map(part => `${prefix}${part}`.trimEnd()).join("\n");
+  }).join("\n");
+}
+=== imports:
+12:import { callout } from "./callouts.ts";
+33:} from "./common.ts";
+60:export function calloutLines(prefix: string, value: string): string[] {
+167:  return [callout("question", `Question ${index + 1}`, [
+169:    callout(result?.outcome === "correct" ? "success" : "warning", title, lines.join("\n")),
+249:    statusCallout(
+256:    ...(!graded && !submitted && exam.questions.length ? [callout("note", "Next step", "Answer and save the paper in Obsidian, then submit once in Pi."), ""] : []),
+310:    statusCallout("Tutor", `${session.status === "active" ? "In progress" : "Closed"} · Assisted practice`), "",
+
+
+Wall time: 0.11 seconds
+```
+
+### bg_32 [bash] — completed
+Label: sed -n '1,40p' lesson-figures.ts && echo "=== assessment imports 20-35:" && sed -n '20,35p' render/assessment.ts && e...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+import { sectionNotePath, snapshotAssetPath, tutorNotePath } from "./obsidian-paths.ts";
+import { callout } from "./render/callouts.ts";
+import { markdownText, neutralizeScholarMarkers, wikiEmbed } from "./render/common.ts";
+import type { ScholarBook, ScholarConfig, ScholarSection, TutorSession } from "./types.ts";
+
+/** Resolve explicit placements before saving, so the visible note holds native Markdown. */
+export function resolveLessonFigures(markdown: string, record: ScholarSection | TutorSession, book: ScholarBook,
+  sourcePages: number[], config?: ScholarConfig): string {
+  if (!markdown.includes("[[scholar-figure:")) return markdown;
+  if (!config) throw new Error("Figure placement requires the active vault configuration.");
+  const chapter = "objectives" in record ? book.chapters.find(item => item.sections.some(section => section.id === record.id)) : undefined;
+  if ("objectives" in record && !chapter) throw new Error("The active lesson section is not in this book.");
+  const notePath = "objectives" in record ? sectionNotePath(config, book, chapter!, record) : tutorNotePath(config, book, record);
+  const placed = new Set<string>();
+  const callouts = new Map<number, string>();
+  let fence: { marker: string; length: number } | undefined;
+  return markdown.split(/\r?\n/).map(line => {
+    const [, prefix, body] = /^((?: {0,3}> ?)*)(.*)$/.exec(line)!;
+    const depth = (prefix!.match(/>/g) || []).length;
+    for (const level of callouts.keys()) if (level > depth || depth === 0) callouts.delete(level);
+    const delimiter = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(body!);
+    if (fence) {
+      if (line.includes("[[scholar-figure:")) throw new Error("Place each scholar-figure marker on its own line outside code fences.");
+      if (delimiter && delimiter[1]![0] === fence.marker && delimiter[1]!.length >= fence.length && !delimiter[2]!.trim()) fence = undefined;
+      return line;
+    }
+    if (delimiter) {
+      if (line.includes("[[scholar-figure:")) throw new Error("Place each scholar-figure marker on its own line outside code fences.");
+      fence = { marker: delimiter[1]![0]!, length: delimiter[1]!.length };
+      return line;
+    }
+    const header = /^\[!([\w-]+)\]/.exec(body!.trimStart());
+    if (depth && header) callouts.set(depth, header[1]!.toLowerCase());
+    if (!line.includes("[[scholar-figure:")) return line;
+    const marker = /^ {0,3}\[\[scholar-figure:([^\]\r\n]+)\]\]\s*$/.exec(body!);
+    if (!marker) throw new Error("Put each complete [[scholar-figure:ID]] marker on its own line, optionally inside a callout.");
+    const snapshot = record.snapshots?.find(item => item.id === marker[1]);
+    if (!snapshot || !sourcePages.includes(snapshot.page)) throw new Error(`Lesson figure ${marker[1]} must be a saved snapshot on one of this entry's sourcePages.`);
+    if (placed.has(snapshot.id)) throw new Error(`Figure ${snapshot.id} is already placed in this explanation; refer to its label instead of repeating the image.`);
+    placed.add(snapshot.id);
+=== assessment imports 20-35:
+} from "../types.ts";
+import {
+  block,
+  collapsedRecord,
+  tableText,
+  frontmatter,
+  generatedDocument,
+  isSectionMaterialized,
+  markdownText,
+  referenceImageLines,
+  unknownMarkdown,
+  wikiLink,
+  yaml,
+} from "./common.ts";
+import { assessmentQuestionBlock, referencedFigureLines, sourceFigureLines, supplementalSourceFigureLines, uniqueSupplementLines } from "./section.ts";
+import { transcriptBlock } from "../note-records.ts";
+=== section imports:
+import { relative, resolve } from "node:path";
+import { answeredQuickQuestions, latestAttemptForKind, QUICK_QUESTIONS, sectionCompletionBlockers } from "../domain.ts";
+import { transcriptBlock } from "../note-records.ts";
+import { callout } from "./callouts.ts";
+import { chapterNotePath, sectionNotePath, snapshotAssetPath } from "../obsidian-paths.ts";
+import type { AssessmentAttempt, AssessmentKind, ScholarBook, ScholarChapter, ScholarConfig, ScholarSection, ScholarSnapshot, TranscriptEntry } from "../types.ts";
+import { block, collapsedRecord, frontmatter, generatedDocument, markdownText, pageRange, readableOutcome, statusLabel, tableText, titleCase, wikiEmbed, wikiLink, yaml } from "./common.ts";
+
+export function comparableTranscriptText(value: string): string {
+  return markdownText(value).replace(/^\*\*([\s\S]*)\*\*$/, "$1").replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+
+
+Wall time: 0.17 seconds
+```
+
+### bg_33 [bash] — completed
+Label: perl -0pi -e 's/callout\("note", `Key equation · \$\{title\}`, body\)/callout("scholar-equation", `Key equation · \${...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+17:const markerPrefix = "[[scholar-equation:";
+90:  return { id, markdown: callout("scholar-equation", `Key equation · ${title}`, body).trimEnd() };
+113:      if (fence || delimiter) throw new Error("Place each scholar-equation marker outside code fences.");
+114:      if (comment || display) throw new Error("Place scholar-equation markers in visible prose, outside HTML comments and math blocks.");
+115:      const marker = /^ {0,3}\[\[scholar-equation:([a-zA-Z0-9][a-zA-Z0-9._-]{0,119})\]\][ \t]*$/.exec(line);
+116:      if (!marker) throw new Error("Put each complete [[scholar-equation:ID]] marker on its own line outside callouts and code.");
+139:  for (const id of rendered.keys()) if (!placed.has(id)) throw new Error(`Place key equation ${id} exactly once using [[scholar-equation:${id}]].`);
+9:  if (!markdown.includes("[[scholar-figure:")) return markdown;
+23:      if (line.includes("[[scholar-figure:")) throw new Error("Place each scholar-figure marker on its own line outside code fences.");
+28:      if (line.includes("[[scholar-figure:")) throw new Error("Place each scholar-figure marker on its own line outside code fences.");
+34:    if (!line.includes("[[scholar-figure:")) return line;
+35:    const marker = /^ {0,3}\[\[scholar-figure:([^\]\r\n]+)\]\]\s*$/.exec(body!);
+36:    if (!marker) throw new Error("Put each complete [[scholar-figure:ID]] marker on its own line, optionally inside a callout.");
+44:    const alreadyFramed = depth > 0 && ["example", "figure", "scholar-figure"].includes(callouts.get(depth) || "");
+45:    const expanded = alreadyFramed ? figure : callout("scholar-figure", `Figure · PDF page ${snapshot.page}`, figure).trimEnd();
+
+
+Wall time: 1.19 seconds
+```
+
+### bg_34 [bash] — completed
+Label: perl -0pi -e 's/return \[callout\("example", `Figure · PDF page \$\{snapshot\.page\}`, \[/return [callout("scholar-fi...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+      if (seen.has(snapshot.assetFile)) return [];
+      seen.add(snapshot.assetFile);
+      return [callout("scholar-figure", `Figure · PDF page ${snapshot.page}`, [
+        wikiEmbed(notePath, snapshotAssetPath(config, book, snapshot), 640), "",
+        markdownText(snapshot.caption), "",
+        `*Source: ${markdownText(book.source.fileName).replace(/\n/g, " ")} · PDF viewer page ${snapshot.page}.*`, "",
+      ].join("\n")), ""];
+    });
+}
+render/section.ts:7:import { block, collapsedRecord, frontmatter, generatedDocument, markdownText, pageRange, readableOutcome, statusCallout, statusLabel, tableText, titleCase, wikiEmbed, wikiLink, yaml } from "./common.ts";
+render/section.ts:237:    statusCallout(statusLabel(section.status), [
+render/assessment.ts:30:  statusCallout,
+render/assessment.ts:250:    statusCallout(
+render/assessment.ts:311:    statusCallout("Tutor", `${session.status === "active" ? "In progress" : "Closed"} · Assisted practice`), "",
+
+
+Wall time: 0.29 seconds
+```
+
+### bg_35 [bash] — completed
+Label: grep -rn 'Symbols:\|Symbols\*\*' --include=*.mjs tests/*.mjs | head -20
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+tests/verify-scholar-equation-presentation.mjs:27:assert.ok(output.includes(String.raw`**Symbols:** $\mathbf D$ → electric displacement; $\epsilon_0$ → vacuum permittivity; $\mathbf E$ → electric field; $\mathbf P$ → polarization`));
+tests/verify-scholar-explanation-presentation.mjs:40:  "> [!note] Key equation · Reversing the order\n>\n> $$\n> \\mathbf B\\times\\mathbf A = -(\\mathbf A\\times\\mathbf B)\n> $$\n>\n> **Symbols:** $\\mathbf A$ → first input vector; $\\mathbf B$ → second input vector.\n>\n> The minus sign reverses direction without changing magnitude. This order-reversal property is called anti-commutativity.\n>\n> *Illustrative fixture, PDF page 1.*",
+tests/verify-scholar-math-formatting.mjs:34:  const original = ["[!note] Key equation", String.raw`\[`, String.raw`t = \frac{\ell}{v}`, String.raw`\]`, String.raw`Symbols: \(t\) → delay.`].map(line => prefix + line).join("\n");
+tests/verify-scholar-math-formatting.mjs:38:  assert.ok(result.includes(prefix + "Symbols: $t$ → delay."));
+tests/verify-scholar-presentation.mjs:41:  "> [!note] Key equation · Propagation delay\n> $$t_d = \\frac{\\ell}{v}$$\n>\n> **Symbols:** $t_d$ → delay; $\\ell$ → path length; $v$ → propagation speed.\n>\n> **Meaning:** For a uniform path with fixed speed, doubling its length doubles its delay.\n>\n> *Source: illustrative fixture, PDF page 1.*",
+
+
+Wall time: 0.10 seconds
+```
+
+### bg_37 [bash] — completed
+Label: sed -n '20,60p' tests/verify-scholar-equation-presentation.mjs && echo "=== note-design 140-155:" && sed -n '140,155p...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+const input = `### Meaning of displacement\n\n${marker}\n\n${ordinary}`;
+const value = equation();
+const original = structuredClone(value);
+const output = render(input, [value], [200, 201, 202]);
+assert.deepEqual(value, original, "rendering must not mutate the author's record");
+assert.match(output, /^> \[!note\] Key equation · Electric displacement$/m);
+assert.ok(output.includes(`> $$\n> ${value.latex}\n> $$`), "math body is preserved with separate paired delimiters");
+assert.ok(output.includes(String.raw`**Symbols:** $\mathbf D$ → electric displacement; $\epsilon_0$ → vacuum permittivity; $\mathbf E$ → electric field; $\mathbf P$ → polarization`));
+assert.ok(output.includes(`**Assumptions:** ${value.assumptions}`));
+assert.ok(output.includes(String.raw`physical field $\mathbf E$`));
+assert.ok(output.includes("*Source: PDF pages 200, 201.*"));
+assert.ok(output.includes(ordinary), "ordinary display equations must not all become boxes");
+assert.ok(!output.includes("[[scholar-equation:") && !output.includes("[!note]-"));
+assert.equal((output.match(/\[!note\]/g) || []).length, 1);
+assert.equal(render(ordinary, [], [200]), ordinary);
+console.log("[PASS] central equations receive deterministic expanded callouts, arrow definitions, assumptions, meaning and source pages; intermediate math stays in prose");
+
+const other = { ...equation(), id: "gauss", title: "Gauss’s law for displacement", latex: String.raw`\nabla\cdot\mathbf D = \rho_f`, sourcePages: [201] };
+const adjacent = render(`${marker}\n[[scholar-equation:gauss]]`, [equation(), other], [200, 201]);
+assert.match(adjacent, /\*Source: PDF pages 200, 201\.\*\n\n\n> \[!note\]/);
+assert.match(adjacent, /\*Source: PDF page 201\.\*/);
+const aligned = { ...equation(), latex: String.raw`\begin{aligned}
+\bar A_y &= A_y\cos\phi + A_z\sin\phi \\[4pt]
+\bar A_z &= -A_y\sin\phi + A_z\cos\phi
+\end{aligned}` };
+assert.ok(render(marker, [aligned], [200, 201]).includes(aligned.latex.split("\n").map(line => `> ${line}`).join("\n")));
+console.log("[PASS] adjacent boxes stay separate; multi-line derivations retain signs and TeX line spacing");
+
+const group = [String.raw`\omega=kv,`, String.raw`B_0=\frac{E_0}{v},`,
+  String.raw`u=\frac12\left(\epsilon E^2+\frac{B^2}{\mu}\right),`,
+  String.raw`\mathbf S=\frac1\mu(\mathbf E\times\mathbf B),`, String.raw`I=\frac12\epsilon v E_0^2`];
+const wrapped = render(marker, [{ ...equation(), latex: group.join(String.raw`\qquad `) }], [200,201]);
+assert.ok(wrapped.includes(String.raw`\begin{gathered}`));
+for (const part of group) assert.ok(wrapped.includes(part), 'every expression must retain its original signs and grouping');
+assert.equal((wrapped.match(/> .* \\\\/g)||[]).length, group.length-1);
+const nested = String.raw`\frac{a\qquad b}{c}`;
+assert.ok(render(marker, [{...equation(),latex:nested}], [200,201]).includes(nested));
+console.log('[PASS] wide equation groups wrap at explicit spacing without changing expressions or splitting nested TeX');
+
+for (const markdown of [
+  `${marker}\n${marker}`, "[[scholar-equation:unknown]]", "[[scholar-equation:displacement]", `Refer to ${marker}.`, `> ${marker}`, `    ${marker}`,
+=== note-design 140-155:
+});
+check("navigation tables identify the current section and never link an unstarted sibling", () => {
+  assert.ok(samples.chapter.includes("| **Current · In progress** | [["));
+  const sibling = samples.chapter.split("\n").find((line) => line.includes("1.2 Reflections"));
+  assert.ok(sibling && !sibling.includes("[[") && sibling.includes("Not started"));
+  assert.ok(samples.book.includes("| Status | Chapter | Source | Completed sections |"));
+  assert.ok(samples.book.includes("\\|Chapter 1: Signals, models and physical reasoning]]"));
+});
+check("Tutor keeps assisted practice distinct and preserves teaching and active question", () => {
+  assert.ok(samples.tutor.includes("*Tutor · In progress · Assisted practice*") && samples.tutor.includes("does not change Exam scores or Learn completion"));
+  const order = ["## Lesson", longExplanation, "> [!note]- Source references", "> [!note]- Recap", "> ### Key points", "> [!note]- Practice scope", "## Questions", "### Question 1", section.attempts[0].feedback, "### Question 2", section.attempts[1].feedback, "### Question 3", "*Awaiting response*"];
+  assert.ok(order.every((text, index) => samples.tutor.includes(text) && (index === 0 || samples.tutor.indexOf(text) > samples.tutor.indexOf(order[index - 1]))));
+  assert.ok(samples.tutor.includes("p0007-snapshot-bbbbbbbbbbbbbbbb.png|640]]"));
+  assert.doesNotMatch(samples.tutor, /Teaching record|Practice record|## The model|\[!question\]-/);
+  assert.ok(samples.tutor.includes("frequency-dependent form is required"));
+});
+=== note-design 255-280:
+  const open = /<!-- scholar:answer:q2:start -->([\s\S]*?)<!-- \/scholar:answer:q2:end -->/.exec(answerPaper)?.[1];
+  assert.ok(open && open.replace(/^> ?/gm, "").trim() === "" && open.split("\n").length >= 8);
+  assert.ok(answerPaper.includes("**Your response** · Write below in Live Preview."));
+  assert.doesNotMatch(answerPaper, /scholar:generated|PRIVATE_RESPONSE_DO_NOT_PROJECT|GENERATION_TRANSCRIPT_PRIVATE_KEY|Correct answer|Rubric/);
+  for (const question of questions) assert.ok(!answerPaper.includes(question.explanation));
+  for (const criterion of questions[1].rubric) assert.ok(!answerPaper.includes(criterion.criterion));
+});
+check("ungraded exam receipts link to the paper without duplicating prompts or keys; submitted state cannot ask for resubmission", () => {
+  for (const name of ["exam-active", "exam-submitted"]) {
+    assert.match(samples[name], /Answer paper/i);
+    for (const question of questions) assert.ok(!samples[name].includes(question.prompt), "questions live in the learner-owned paper");
+    assert.doesNotMatch(samples[name], /Correct answer|Required evidence|Rubric|firstDecisiveError|GENERATION_TRANSCRIPT|edge is short compared/);
+  }
+  assert.ok(samples["exam-submitted"].includes("Submitted · Awaiting grading"));
+  assert.doesNotMatch(samples["exam-submitted"], /\/scholar exam|submit once|Not yet submitted/);
+});
+check("graded receipt is concise and key preserves every prompt, option, correction and weighted score", () => {
+  const receipt = samples["exam-graded"], key = samples["answer-key"];
+  assert.ok(receipt.includes("Exam graded · 3/7 · 42.8571%") && receipt.includes("## Answer key"));
+  assert.doesNotMatch(receipt, /## Questions|Which model applies|Used the simplified expression/);
+  assert.ok(key.indexOf("> [!question] Question 2") < key.indexOf("> [!question] Question 1"), "weak item first, original numbering retained");
+  assert.match(key, /^> > \[!warning\] Partial credit/m);
+  for (const question of questions) { assert.ok(key.includes(question.prompt)); assert.ok(key.includes(question.explanation)); for (const option of question.options || []) assert.ok(key.includes(option.label)); }
+  assert.ok(key.includes("First decisive error") && key.includes("Correct reasoning") && key.includes("Transferable lesson"));
+  for (const note of [receipt, key]) assert.ok(note.includes("| Reasoning \\| assumptions | 0.0714286/0.142857 | 50% |"));
+  assert.equal(JSON.stringify(book), before, "rendering cannot mutate or round stored state");
+
+
+Wall time: 0.11 seconds
+```
+
+### bg_38 [bash] — completed
+Label: sed -n '25,60p' tests/verify-scholar-explanation-presentation.mjs && echo "=== 78-125:" && sed -n '78,125p' tests/ver...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+const section = { id: "s1", number: "1.1", order: 1, title: "Vector algebra", startPage: 1, endPage: 16, status: "learning",
+  synthesis: "Vector operations describe magnitude, direction, and relationships between directed quantities.",
+  objectives: [], coveredObjectives: [], requiredChecks: [], keyPoints: [], misconceptions: [], attempts: [], transcript: [], snapshots, createdAt: now, updatedAt: now };
+const chapter = { id: "c1", number: "1", order: 1, title: "Vectors", startPage: 1, endPage: 16, status: "learning", sections: [section] };
+const book = { schemaVersion: 3, revision: 0, id: "c".repeat(64), instanceId: "explanation-fixture",
+  source: { fileName: "Vector fixture.pdf" }, metadata: { title: "Illustrative vector material", pageCount: 16, authors: [] },
+  noteDirectory: "Vector fixture", chapters: [chapter], exams: [], tutorSessions: [], currentSectionId: "s1", createdAt: now, updatedAt: now };
+const tutor = { id: "t1", title: "Cross product order", scope: { sectionIds: ["s1"], chapterIds: ["c1"], description: "Vector operations" },
+  status: "active", synthesis: section.synthesis, keyPoints: [], attempts: [], transcript: [], snapshots, createdAt: now, updatedAt: now };
+const path = sectionNotePath(config, book, chapter, section);
+const asset = snapshotAssetPath(config, book, snapshots[0]);
+const embed = wikiEmbed(path, asset, 640);
+const blocks = [
+  "### What the operation tells you\n\nTwo arrows can describe directions in a shared flat surface, such as a sheet of paper. The cross product gives another arrow pointing straight out of that surface. This perpendicular direction is called the normal direction.",
+  `> [!example] Figure · PDF page 1\n>\n> ${embed}\n>\n> *Illustrative fixture, PDF page 1.*\n\nFollow the input arrows together. The output points perpendicular to both; reversing their order reverses the output arrow.`,
+  "> [!note] Key equation · Reversing the order\n>\n> $$\n> \\mathbf B\\times\\mathbf A = -(\\mathbf A\\times\\mathbf B)\n> $$\n>\n> **Symbols:** $\\mathbf A$ → first input vector; $\\mathbf B$ → second input vector.\n>\n> The minus sign reverses direction without changing magnitude. This order-reversal property is called anti-commutativity.\n>\n> *Illustrative fixture, PDF page 1.*",
+  "### Apply the idea\n\nSuppose the original cross product points upward. Swapping the input order makes it point downward with the same magnitude. We reverse the whole result, rather than negating both inputs.",
+  "> [!example] Explanatory schematic · Following the change\n>\n> ```mermaid\n> flowchart LR\n> A[Swap input order] --> B[Reverse output direction]\n> ```\n>\n> The arrow describes the consequence of one operation. It does not describe a physical cause.\n> *Illustrative fixture, PDF page 1.*",
+];
+section.transcript = blocks.map((markdown, i) => ({ id: `unit-${i}`, kind: "assistant", markdown, createdAt: now }));
+const note = renderSection(config, book, chapter, section);
+const topLevel = marked.lexer(note);
+const callouts = topLevel.filter(token => token.type === "blockquote");
+const reference = callouts.find(token => token.text.startsWith("[!note]- Source references"));
+assert.ok(reference, "unused captures remain inspectable in one collapsed reference area");
+assert.equal(callouts.filter(token => token.text.startsWith("[!example] Figure")).length, 1,
+  "only the figure authored into the explanation is expanded");
+assert.equal((reference.text.match(/\[!example\] Figure/g) || []).length, 15);
+assert.equal(note.split(snapshots[0].assetFile).length - 1, 1, "placed figure has no duplicate full-size reference");
+for (const snapshot of snapshots.slice(1)) assert.ok(reference.text.includes(snapshot.assetFile));
+for (const block of blocks) assert.ok(note.includes(block), "composed instructional content is preserved verbatim");
+assert.ok(note.indexOf("The minus sign") < note.indexOf("### Apply the idea"));
+assert.ok(callouts.some(token => token.text.startsWith("[!note] Key equation") && token.text.includes("$$")));
+assert.ok(callouts.some(token => token.text.startsWith("[!example] Explanatory schematic") && token.text.includes("```mermaid")));
+assert.ok(topLevel.some(token => token.type === "paragraph" && token.text.startsWith("Follow the input arrows")), "figure interpretation stays readable outside metadata");
+console.log("[PASS] a composed lesson preserves prose, equation, purposeful figure and Mermaid; sixteen captures do not become a wall");
+=== 78-125:
+  assert.ok(supplementalSourceFigureLines(config, book, path, [snapshots[0]], merelyMentioned).length,
+    "prose or code mentioning an embed must not hide its only source reference");
+}
+console.log("[PASS] embed deduplication ignores widths and callout framing while preserving references mentioned only in code or prose");
+
+const token = "[[scholar-figure:figure-1]]";
+const placed = resolveLessonFigures(`Meaning before the figure.\n\n${token}\n\nNow interpret its labels.`, section, book, [1], config);
+assert.doesNotMatch(placed, /scholar-figure:/);
+assert.ok(placed.includes(snapshots[0].caption));
+assert.equal(marked.lexer(placed).filter(token => token.type === "blockquote" && token.text.startsWith("[!example] Figure")).length, 1);
+const framed = resolveLessonFigures(`> [!example] Original source figure\n>\n> ${token}\n>\n> Explain the labels together.`, section, book, [1], config);
+assert.equal((framed.match(/\[!example\]/g) || []).length, 1, "an existing figure callout is not wrapped again");
+assert.ok(framed.split("\n").every(line => line.startsWith(">")), "every expanded line retains the surrounding callout prefix");
+const nested = resolveLessonFigures(`> [!note] Worked reasoning\n>\n> ${token}`, section, book, [1], config);
+assert.match(nested, /^> > \[!example\] Figure/m);
+assert.match(nested, /^> > !\[\[/m);
+for (const invalid of [`Inline ${token}`, `${token}\n\n${token}`, `\`\`\`markdown\n${token}\n\`\`\``, "[[scholar-figure:missing]]", "[[scholar-figure:figure-1]"]) {
+  assert.throws(() => resolveLessonFigures(invalid, section, book, [1], config));
+}
+assert.throws(() => resolveLessonFigures(token, section, book, [2], config), /sourcePages/);
+assert.throws(() => resolveLessonFigures(token, section, book, [1]), /vault configuration/);
+console.log("[PASS] figure placement resolves to native callouts, preserves existing quote frames, and rejects broken or out-of-scope references");
+
+const objectiveA = "Interpret cross product order", objectiveB = "Calculate cross product components";
+const planned = { ...section, objectives: [objectiveA, objectiveB], coveredObjectives: [objectiveA, objectiveB],
+  objectiveChecks: [{ objective: objectiveA, checks: ["conceptual"] }, { objective: objectiveB, checks: ["conceptual", "computation"] }],
+  attempts: [{ id: "mastery-a", kind: "conceptual", format: "open", outcome: "pass", question: "What changes when the input order swaps?", createdAt: now,
+    grounding: { purpose: "mastery", competency: objectiveA, requiredEvidence: ["The direction reverses"], sourcePages: [1], basis: [{ kind: "objective", value: objectiveA, supports: [1] }] } }] };
+const plannedNote = renderSection(config, book, chapter, planned);
+assert.match(plannedNote, /Short questions answered: 1 of 3/);
+assert.match(plannedNote, /2 short questions remaining/);
+console.log("[PASS] short-question progress cannot present one objective's pass as another objective's mastery");
+
+const longObjectives = Array.from({ length: 6 }, (_, i) => `Objective ${i + 1}: explain the entire relationship between input orientation, magnitude, coordinate conventions, assumptions, intermediate calculations, interpretation, and the limits of each operation in detail.`);
+const longPlan = { ...section, objectives: longObjectives, coveredObjectives: [],
+  objectiveChecks: longObjectives.map(objective => ({ objective, checks: ["conceptual", "computation"] })), attempts: [] };
+const longNote = renderSection(config, book, chapter, longPlan);
+const preLesson = longNote.slice(0, longNote.indexOf("## Lesson"));
+assert.match(preLesson, /Lesson in progress · 3 short questions remaining/);
+assert.doesNotMatch(preLesson, /Objective \d+:|evidence for:|Remaining to complete/);
+const progressLine = preLesson.split("\n").find(line => line.startsWith("**Progress:**"));
+assert.ok(progressLine.length < 150, "progress above the lesson stays short regardless of objective length");
+const learningRecord = marked.lexer(longNote).find(token => token.type === "blockquote" && token.text.startsWith("[!note]- Learning record"));
+assert.ok(learningRecord);
+for (const objective of longObjectives) assert.ok(learningRecord.text.includes(objective));
+assert.match(learningRecord.text, /### Remaining work/);
+assert.match(learningRecord.text, /source-page and figure review|complete saved instructional lesson/);
+console.log("[PASS] long objective/check plans stay in the collapsed learning record instead of forming a wall above the lesson");
+
+
+Wall time: 0.14 seconds
+```
+
+### bg_7 [bash] — failed
+Label: python3 - <<'PY'
+import io,re,sys
+p="tests/verify-scholar-explanation-presentation.mjs"
+s=io.open(p,encoding="utf-8")...
+Delivery: not auto-delivered; recovered by this snapshot.
+Error: Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Apps > Advanced app settings > App execution aliases.
+
+
+Wall time: 0.25 seconds
+
+Command exited with code 49
+
+### bg_8 [bash] — completed
+Label: node tests/verify-scholar-explanation-presentation.mjs 2>&1 | tail -5 && node tests/verify-scholar-equation-presentat...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v22.23.2
+    '\\rho = \\rho_f + \\rho_b\n' +
+    '$$',
+  expected: /^> \[!note\] Key equation · Electric displacement$/m,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v22.23.2
+
+
+Wall time: 1.35 seconds
+```
+
+### bg_9 [bash] — completed
+Label: node tests/verify-scholar-equation-presentation.mjs 2>&1 | tail -6 && echo "=== explanation:" && node tests/verify-sc...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+[PASS] central equations receive deterministic expanded callouts, arrow definitions, assumptions, meaning and source pages; intermediate math stays in prose
+[PASS] adjacent boxes stay separate; multi-line derivations retain signs and TeX line spacing
+[PASS] wide equation groups wrap at explicit spacing without changing expressions or splitting nested TeX
+[PASS] missing, unknown, repeated, malformed and invisible placements cannot satisfy an equation requirement
+[PASS] empty teaching fields, out-of-scope pages, delimiter breakout and record-metadata injection are rejected
+=== explanation:
+    '[[../Chapters/Chapter 1 - Vectors|Chapter 1: Vectors]]\n' +
+    '\n',
+  expected: /In progress · pp\. 1–16 · 3 short questions remaining/,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v22.23.2
+
+
+Wall time: 1.04 seconds
+```
+
+### bg_10 [bash] — completed
+Label: node tests/verify-scholar-presentation.mjs 2>&1 | tail -6 && echo "=== note-design:" && node tests/verify-scholar-not...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+  expected: 2,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.2
+=== note-design:
+[PASS] summary-only notes label the missing explanation honestly and exact duplicate supplements appear once
+[PASS] legacy completed feedback remains visible without inventing a correct answer
+[PASS] open-response feedback stays open and cancellations stay quiet without an answer key
+[PASS] the learner-owned paper groups prompts, native unchecked tasks and open writing space in question callouts
+[PASS] ungraded exam receipts link to the paper without duplicating prompts or keys; submitted state cannot ask for resubmission
+[PASS] graded receipt is concise and key preserves every prompt, option, correction and weighted score
+
+Scholar note-design summary: 13 passed, 1 failed.
+
+
+Wall time: 4.05 seconds
+```
+
+### bg_11 [bash] — completed
+Label: node tests/verify-scholar-presentation.mjs 2>&1 | grep -B 12 "expected: 2" | head -30 && echo "=== note-design fail:"...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+0 !== 2
+
+    at file:///C:/Users/basam/.pi/agent/extensions/scholar/tests/verify-scholar-presentation.mjs:68:32 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 0,
+  expected: 2,
+=== note-design fail:
+[FAIL] Tutor keeps assisted practice distinct and preserves teaching and active question: The expression evaluated to a falsy value:
+
+  assert.ok(samples.tutor.includes("*Tutor · In progress · Assisted practice*") && samples.tutor.includes("does not change Exam scores or Learn completion"))
+
+[PASS] Tutor and Learn render identical question blocks for both formats and every assessment outcome
+[PASS] summary-only notes label the missing explanation honestly and exact duplicate supplements appear once
+[PASS] legacy completed feedback remains visible without inventing a correct answer
+[PASS] open-response feedback stays open and cancellations stay quiet without an answer key
+[PASS] the learner-owned paper groups prompts, native unchecked tasks and open writing space in question callouts
+
+
+Wall time: 4.02 seconds
+```
+
+### bg_12 [bash] — completed
+Label: sed -n '60,75p' tests/verify-scholar-presentation.mjs
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+  assert.equal(notes.questionChunks(text).length,2);assert.ok(text.includes("> > [!success] Correct"));
+  assert.doesNotMatch(notes.questionChunks(text)[1],/Correct answer|\[!success\]/);
+  pass("final saved Learn, Tutor and exam callouts round-trip without changing questions or teaching");
+  const finalQuestion=notes.questionChunks(text)[1];assert.ok(finalQuestion.includes(snapshots[0].assetFile));assert.ok(!finalQuestion.includes(snapshots[1].assetFile));
+  const blocks=marked.lexer(text).filter(t=>t.type==="blockquote");
+  assert.ok(blocks.some(t=>t.text.startsWith("[!question] Question 2")&&t.text.includes(snapshots[0].assetFile)));
+  assert.equal(blocks.filter(t=>t.text.startsWith("[!example] Figure")).length,0);
+  const references=blocks.find(t=>t.text.startsWith("[!note]- Source references"));
+  assert.ok(references);assert.equal((references.text.match(/\[!example\] Figure/g)||[]).length,2);
+  assert.ok(text.includes("> $$t_d = \\frac{\\ell}{v}$$"));assert.ok(text.includes("> ```mermaid"));
+  for(let i=0;i<snapshots.length;i++)assert.equal(hash(await readFile(paths.snapshotAssetPath(config,book,snapshots[i]))),snapshots[i].sha256);
+  pass("explicit question figures share the question frame; equations and Mermaid stay expanded, supplemental captures stay collapsed");
+  const legacy=text.replace(finalQuestion,unframeQuestion(finalQuestion));await writeFile(path,legacy);
+  assert.deepEqual((await storage.loadBookState(config,book.id)).chapters[0].sections[0].attempts,section.attempts);
+  await writeFile(path,text.replace(finalQuestion,""));assert.equal((await storage.loadBookState(config,book.id)).chapters[0].sections[0].attempts.length,1);
+  await renderScholarWorkspace(config,await storage.listBookStates(config));assert.ok(!(await readFile(path,"utf8")).includes(pending.question));await writeFile(path,text);
+
+
+Wall time: 0.13 seconds
+```
+
+### bg_42 [bash] — completed
+Label: grep -n "Key equation\|scholar-figure\|scholar-status" tests/verify-scholar-presentation.mjs | head -12
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+41:  "> [!note] Key equation · Propagation delay\n> $$t_d = \\frac{\\ell}{v}$$\n>\n> **Symbols:** $t_d$ → delay; $\\ell$ → path length; $v$ → propagation speed.\n>\n> **Meaning:** For a uniform path with fixed speed, doubling its length doubles its delay.\n>\n> *Source: illustrative fixture, PDF page 1.*",
+87:  const exported=await mod("policies.ts");assert.match(exported.learnInstructions(book,section),/Key equation/);assert.match(exported.tutorInstructions(book,tutor),/mermaid/);assert.match(exported.examInstructions(book,exam),/Native Obsidian presentation/, "every mode composes the one presentation engine");
+
+
+Wall time: 0.08 seconds
+```
+
+## Still Running (1)
+
+- `CssVisualPass` [task] — CssVisualPass

@@ -1,0 +1,50 @@
+# omp custom providers.
+#
+# DeepSeek is not a first-class omp provider (no DEEPSEEK_API_KEY in omp's
+# built-in mapping), so it is declared here as an OpenAI-compatible endpoint.
+#
+# `apiKey` is resolved as an ENV VAR NAME FIRST, then as a literal. Keeping the
+# name here means the secret itself never lands in this file — it lives in the
+# DEEPSEEK_API_KEY user environment variable.
+#
+# Model ids, context windows, pricing, and the compat flags mirror the working
+# DeepSeek entries from pi's ~/.pi/agent/models-store.json so both agents bill
+# and behave identically. omp auto-detects DeepSeek for its remaining
+# reasoning-field quirks (disableReasoningOnToolChoice, thinkingFormat).
+providers:
+  deepseek:
+    baseUrl: https://api.deepseek.com
+    apiKey: DEEPSEEK_API_KEY
+    api: openai-completions
+    models:
+      - id: deepseek-flash
+        name: DeepSeek V4.1 Flash
+        reasoning: true
+        input: [text, image]
+        contextWindow: 1000000
+        maxTokens: 384000
+        cost:
+          input: 0.3
+          output: 1.2
+          cacheRead: 0.006
+          cacheWrite: 0
+        compat:
+          supportsStore: false
+          supportsDeveloperRole: false
+          maxTokensField: max_tokens
+
+      - id: deepseek-v4-pro
+        name: DeepSeek V4 Pro
+        reasoning: true
+        input: [text]
+        contextWindow: 1000000
+        maxTokens: 384000
+        cost:
+          input: 1.32
+          output: 3.96
+          cacheRead: 0.044
+          cacheWrite: 0
+        compat:
+          supportsStore: false
+          supportsDeveloperRole: false
+          maxTokensField: max_tokens

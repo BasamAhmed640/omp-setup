@@ -1,0 +1,42 @@
+{
+  "name": "pi-discover",
+  "version": "0.6.3",
+  "description": "Discover: everyday questions and deep research, with a quiet Pi composer and a beautiful Obsidian reading space.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check.mjs && node scripts/build-companion.mjs --check",
+    "build": "node scripts/build-companion.mjs"
+  },
+  "files": [
+    "index.ts",
+    "src",
+    "obsidian",
+    "README.md",
+    "docs"
+  ],
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": ">=0.85.1 <0.86"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@hyzyla/pdfium": "2.1.13",
+    "pngjs": "7.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

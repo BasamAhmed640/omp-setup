@@ -1,0 +1,47 @@
+{
+  "servers": {
+    "rust-analyzer": {
+      "command": "C:\\Users\\basam\\.cargo\\bin\\rust-analyzer.exe",
+      "rootMarkers": [
+        "."
+      ]
+    },
+    "clangd": {
+      "command": "C:\\Users\\basam\\tools\\clangd\\clangd_22.1.6\\bin\\clangd.exe",
+      "rootMarkers": [
+        "."
+      ]
+    },
+    "typescript-language-server": {
+      "command": "C:\\Users\\basam\\.bun\\bin\\typescript-language-server.exe",
+      "rootMarkers": [
+        "."
+      ]
+    },
+    "typescript-native": {
+      "command": "C:\\Users\\basam\\.bun\\bin\\tsc.exe",
+      "rootMarkers": [
+        "."
+      ]
+    },
+    "pyright": {
+      "command": "C:\\Users\\basam\\.bun\\bin\\pyright-langserver.exe",
+      "rootMarkers": [
+        "."
+      ]
+    },
+    "ruff": {
+      "command": "C:\\Users\\basam\\.local\\bin\\ruff.exe",
+      "rootMarkers": [
+        "."
+      ]
+    },
+    "biome": {
+      "command": "C:\\Users\\basam\\.bun\\bin\\biome.exe",
+      "rootMarkers": [
+        "."
+      ]
+    }
+  },
+  "idleTimeoutMs": 300000
+}

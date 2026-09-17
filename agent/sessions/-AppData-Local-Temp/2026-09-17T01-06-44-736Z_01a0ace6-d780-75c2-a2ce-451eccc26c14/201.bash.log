@@ -1,0 +1,134 @@
+.\learn-quality.ts:292: * checkpoint is dropped once that role and content hash has a completed check, because the
+.\learn-quality.ts:293: * checkpoint only ever carried finished checks forward.
+.\learn-quality.ts:310:    // Only the checkpoint carrier writes this code, so `cancelled` identifies one unambiguously.
+.\outline-validation.ts:11: * checkpoint deterministically. Textual evidence remains owned by Scholar;
+.\outline-validation.ts:38:  checkpointId: string;
+.\outline-validation.ts:74:  checkpoints: OutlineValidationCheckpoint[];
+.\outline-validation.ts:126:  const checkpoints = new Map<string, OutlineValidationCheckpoint>();
+.\outline-validation.ts:128:    if (chapter) checkpoints.set(chapter.id, { id: chapter.id, page: chapter.startPage, kind: "heading", label: chapter.title });
+.\outline-validation.ts:131:    if (section) checkpoints.set(section.id, { id: section.id, page: section.startPage, kind: "heading", label: section.title });
+.\outline-validation.ts:154:    checkpoints.set(id, { id, page, kind: "coverage", label });
+.\outline-validation.ts:156:  return [...checkpoints.values()];
+.\outline-validation.ts:244:function checkpointChapter(book: ScholarBook, checkpoint: OutlineValidationCheckpoint): ScholarChapter | undefined {
+.\outline-validation.ts:245:  if (checkpoint.kind !== "heading") return undefined;
+.\outline-validation.ts:246:  return book.chapters.find((chapter) => chapter.id === checkpoint.id);
+.\outline-validation.ts:250:  checkpoint: OutlineValidationCheckpoint,
+.\outline-validation.ts:257:    checkpointId: checkpoint.id,
+.\outline-validation.ts:258:    page: checkpoint.page,
+.\outline-validation.ts:283:  const checkpointIdsWithIssues = new Set(
+.\outline-validation.ts:285:      .map((item) => item.checkpointId)
+.\outline-validation.ts:286:      .filter((id) => run.checkpoints.some((checkpoint) => checkpoint.id === id)),
+.\outline-validation.ts:297:    passed: Math.max(0, run.checkpoints.length - checkpointIdsWithIssues.size),
+.\outline-validation.ts:298:    total: run.checkpoints.length,
+.\outline-validation.ts:306: * Evaluate every checkpoint against text captured by Scholar after the
+.\outline-validation.ts:308: * aggregates all recoverable work instead of failing at the first checkpoint.
+.\outline-validation.ts:314:  for (const checkpoint of run.checkpoints) {
+.\outline-validation.ts:315:    const rawSource = run.pageText.get(checkpoint.page);
+.\outline-validation.ts:316:    const sparse = run.sparsePages.has(checkpoint.page)
+.\outline-validation.ts:320:        checkpoint,
+.\outline-validation.ts:323:        `PDF page ${checkpoint.page} still needs a post-outline source read.`,
+.\outline-validation.ts:324:        { expected: checkpoint.label },
+.\outline-validation.ts:330:        checkpoint,
+.\outline-validation.ts:333:        `PDF page ${checkpoint.page} needs one visual review because its selectable text is sparse.`,
+.\outline-validation.ts:334:        { expected: checkpoint.label, observed: observedSourceStart(rawSource || "") },
+.\outline-validation.ts:336:      requiredDecisionIds.push(checkpoint.id);
+.\outline-validation.ts:342:    if (checkpoint.kind === "heading") {
+.\outline-validation.ts:343:      const label = normalizedSourceExcerpt(checkpoint.label);
+.\outline-validation.ts:346:      const chapter = checkpointChapter(book, checkpoint);
+.\outline-validation.ts:351:          checkpoint,
+.\outline-validation.ts:354:          `The source heading on PDF page ${checkpoint.page} conflicts with the mapped chapter.`,
+.\outline-validation.ts:355:          { expected: checkpoint.label, observed: conflictingChapter.line },
+.\outline-validation.ts:361:        checkpoint,
+.\outline-validation.ts:364:        `The mapped heading was not found confidently in selectable text on PDF page ${checkpoint.page}; inspect that page once.`,
+.\outline-validation.ts:365:        { expected: checkpoint.label, observed },
+.\outline-validation.ts:367:      requiredDecisionIds.push(checkpoint.id);
+.\outline-validation.ts:372:      chapter.startPage <= checkpoint.page && chapter.endPage >= checkpoint.page);
+.\outline-validation.ts:378:        checkpoint,
+.\outline-validation.ts:382:          ? `The source chapter heading on PDF page ${checkpoint.page} conflicts with the candidate coverage range.`
+.\outline-validation.ts:383:          : `PDF page ${checkpoint.page} contains a chapter heading but the candidate maps no chapter there.`,
+.\outline-validation.ts:384:        { expected: checkpoint.label, observed: conflictingChapters[0]!.line },
+.\outline-validation.ts:392:      checkpoint,
+.\outline-validation.ts:395:      `PDF page ${checkpoint.page} is outside the candidate outline and needs one visual classification.`,
+.\outline-validation.ts:396:      { expected: checkpoint.label, observed },
+.\outline-validation.ts:398:    requiredDecisionIds.push(checkpoint.id);
+.\outline-validation.ts:413: * Resolve only the checkpoints that preflight could not decide from text.
+.\outline-validation.ts:425:    const unknown = decisions.filter((decision) => !run.checkpoints.some((checkpoint) => checkpoint.id === decision.id));
+.\outline-validation.ts:428:      checkpointId: decision.id,
+.\outline-validation.ts:431:      message: `Unknown outline validation checkpoint ${JSON.stringify(decision.id)}.`,
+.\outline-validation.ts:450:      checkpointId: decision.id,
+.\outline-validation.ts:457:  for (const checkpointId of preflight.requiredDecisionIds) {
+.\outline-validation.ts:458:    const checkpoint = run.checkpoints.find((item) => item.id === checkpointId)!;
+.\outline-validation.ts:459:    const matching = byId.get(checkpointId) || [];
+.\outline-validation.ts:462:        checkpoint,
+.\outline-validation.ts:465:        `Visual checkpoint ${checkpoint.id} still needs one decision.`,
+.\outline-validation.ts:466:        { expected: checkpoint.label },
+.\outline-validation.ts:468:      unresolvedIds.push(checkpoint.id);
+.\outline-validation.ts:473:        checkpoint,
+.\outline-validation.ts:476:        `Visual checkpoint ${checkpoint.id} received duplicate decisions.`,
+.\outline-validation.ts:477:        { expected: checkpoint.label },
+.\outline-validation.ts:479:      unresolvedIds.push(checkpoint.id);
+.\outline-validation.ts:482:    if (!run.viewedPages.has(checkpoint.page)) {
+.\outline-validation.ts:484:        checkpoint,
+.\outline-validation.ts:487:        `Render PDF page ${checkpoint.page} before deciding visual checkpoint ${checkpoint.id}.`,
+.\outline-validation.ts:488:        { expected: checkpoint.label },
+.\outline-validation.ts:490:      unresolvedIds.push(checkpoint.id);
+.\outline-validation.ts:498:        checkpoint,
+.\outline-validation.ts:501:        `Visual checkpoint ${checkpoint.id} received an invalid outcome.`,
+.\outline-validation.ts:502:        { expected: checkpoint.label, observed: observation || undefined },
+.\outline-validation.ts:504:      unresolvedIds.push(checkpoint.id);
+.\outline-validation.ts:509:        checkpoint,
+.\outline-validation.ts:512:        `Visual checkpoint ${checkpoint.id} needs a concise observation of 4 to 500 characters.`,
+.\outline-validation.ts:513:        { expected: checkpoint.label },
+.\outline-validation.ts:515:      unresolvedIds.push(checkpoint.id);
+.\outline-validation.ts:518:    if (checkpoint.kind === "heading" && decision.outcome === "non-substantive") {
+.\outline-validation.ts:520:        checkpoint,
+.\outline-validation.ts:523:        `Heading checkpoint ${checkpoint.id} cannot be classified as non-substantive.`,
+.\outline-validation.ts:524:        { expected: checkpoint.label, observed: observation },
+.\outline-validation.ts:526:      unresolvedIds.push(checkpoint.id);
+.\outline-validation.ts:530:      chapter.startPage <= checkpoint.page && chapter.endPage >= checkpoint.page);
+.\outline-validation.ts:531:    if (checkpoint.kind === "coverage" && !mapsChapter && decision.outcome === "match") {
+.\outline-validation.ts:533:        checkpoint,
+.\outline-validation.ts:536:        `Coverage checkpoint ${checkpoint.id} cannot match because the candidate maps no chapter on PDF page ${checkpoint.page}.`,
+.\outline-validation.ts:537:        { expected: checkpoint.label, observed: observation },
+.\outline-validation.ts:539:      unresolvedIds.push(checkpoint.id);
+.\outline-validation.ts:545:        checkpoint,
+.\outline-validation.ts:548:        `Visual review disputed checkpoint ${checkpoint.id}: ${decision.outcome}.`,
+.\outline-validation.ts:549:        { expected: checkpoint.label, observed: observation },
+.\render\navigation.ts:49:    : book.outlineStatus === "pending" && chapters.length ? "Scholar is validating the provisional outline against source checkpoints."
+.\runtime-coordinator.ts:96:    return `${setupBase} A provisional outline is saved at revision ${book.revision}. Call scholar action=outline_validate with outlineRevision=${book.revision}. Scholar will extract and check every checkpoint itself. If it requests visual review, inspect every listed page and call outline_validate once more with only the requested checkpoint decisions (id, outcome, and an optional concise observation). Do not copy source excerpts into the request. Stop only after Scholar reports ready or needs-review.`;
+.\runtime-coordinator.ts:101:  return `${setupBase} ${review}Build the outline with the fewest bounded calls that preserve accuracy: read contiguous front-matter/table-of-contents ranges (at most ${MAX_TOOL_PAGES} pages per read), establish the printed-page to PDF-viewer-page offset, verify early/middle/late checkpoints, and inspect every ambiguity or offset change. Derive an item's end from the next verified start when appropriate. Reserve full-book search for boundaries the contents and verified offset cannot resolve. Do not read every chapter start separately when the contents and a stable verified offset already establish it. Record chapter and subsection boundaries in PDF viewer-page coordinates, then call scholar action=outline. Scholar owns the post-save checkpoint extraction; call outline_validate once with the returned revision and respond only to any visual-review decisions it explicitly requests.`;
+.\runtime-coordinator.ts:111:      return `Resume validation of the provisional Scholar outline at revision ${book.revision}. Call scholar action=outline_validate with that revision. Scholar owns the checkpoint reads. If visual review is requested, view every listed page and submit only the requested id/outcome decisions with optional concise observations. Do not teach or stop before validation reports ready or needs-review.`;
+.\runtime-coordinator.ts:113:    return `Initialize the selected Scholar book. Use the fewest accurate source calls: read contiguous front-matter/contents ranges of at most ${MAX_TOOL_PAGES} pages, establish the printed-to-viewer page offset, verify early/middle/late checkpoints, derive ends from the next verified start when appropriate, and inspect ambiguities or offset changes instead of reading every chapter start separately. Reserve full-book search for unresolved boundaries and do not narrate each verification step. Then call scholar action=outline with confidence=verified only when the chapter and section map is trustworthy. Scholar will perform its own post-save checkpoint extraction; call outline_validate with the returned revision and handle any requested visual reviews together. If extraction is image-only, report that OCR is required. Stop after setup unless an explicit ${mode || "Learn, Exam, or Tutor"} mode is active.`;
+.\state-schema.ts:1011:    add("recoveryCheckpoints", "must be an object mapping keys to checkpoint records with lastProcessedEntryId and updatedAt");
+.\tests\verify-scholar-learn-review.mjs:290:    { ...at(6), failure: { code: "cancelled", message: REVIEW_CHECKPOINT_MESSAGE } },   // superseded checkpoint
+.\tests\verify-scholar-learn-review.mjs:291:    { ...at(9), contentHash: "e".repeat(64), failure: { code: "cancelled", message: REVIEW_CHECKPOINT_MESSAGE } },   // live checkpoint
+.\tests\verify-scholar-learn-review.mjs:299:    "the newest completed check per content hash, the live checkpoint, and the stale-content check the gate may still consume");
+.\tests\verify-scholar-learn-review.mjs:394:await check("One shared deadline ends a hung check, every pass is checkpointed first, and a retry re-runs only unfinished work", async () => {
+.\tests\verify-scholar-learn-review.mjs:395:  let stalled = true; const checkpoints = [];
+.\tests\verify-scholar-learn-review.mjs:401:  options.onCheckpoint = (role, batches) => checkpoints.push({ role, batches });
+.\tests\verify-scholar-learn-review.mjs:408:  const saved = checkpoints.filter(item => item.role === "source").at(-1);
+.\tests\verify-scholar-learn-review.mjs:410:  const checkpoint = reviewCheckpoint(options.section, options.book, options.ctx, "source", saved.batches);
+.\tests\verify-scholar-learn-review.mjs:411:  assert(isReviewReceipt(checkpoint) && checkpoint.failure.message === REVIEW_CHECKPOINT_MESSAGE);
+.\tests\verify-scholar-learn-review.mjs:412:  assert(reviewGateIssues([checkpoint], { contentHash: learnReviewHash(options.section), sourceHash: options.book.source.fingerprint.sha256, roles: ["source"] }).length, "a checkpoint is never approval");
+.\tests\verify-scholar-learn-review.mjs:415:  options.section.learnQuality.reviews = [checkpoint, ...JSON.parse(JSON.stringify(receipts.filter(receipt => receipt.role !== "source")))];
+.\tests\verify-scholar-learn-review.mjs:420:  assert.deepEqual(options.observations.reads.slice(readsBefore), [[9, 11]], "a saved checkpoint means only the unfinished window is re-read");
+.\tests\verify-scholar-simple-learn.mjs:134:  // Stale load artifacts: a checkpoint that a completed check already supersedes, and a check
+.\tests\verify-scholar-simple-learn.mjs:150:    "a superseded checkpoint and a foreign-source receipt are gone");
+.\tests\verify-scholar-ui-contract.mjs:258:    "ambiguous checkpoints are requested together without copied evidence",
+.\tool-contract.ts:38:  // can finish. Scholar owns the checkpoint page and source evidence now.
+.\tool-contract.ts:237:  checkpoints?: Array<{ id: string; page: number; kind: "heading" | "coverage"; label: string }>;
+.\tool-controller.ts:203:      const checkpoints = [...latest].map(([role, batches]) => reviewCheckpoint(section, draft, ctx, role, batches));
+.\tool-controller.ts:204:      current.learnQuality.reviews = pruneReviewReceipts([...current.learnQuality.reviews, ...checkpoints],
+.\tool-controller.ts:213:      /** Drain pending writes before the approval write, so no checkpoint can land after it. */
+.\tool-controller.ts:269:        checkpoints: outlineValidationCheckpoints(book.chapters, book.metadata.pageCount),
+.\tool-controller.ts:282:    if (run?.checkpoints.some((checkpoint) => checkpoint.page === page)) run.viewedPages.add(page);
+.\tool-controller.ts:292:    const pages = [...new Set(run.checkpoints.map((checkpoint) => checkpoint.page))].sort((a, b) => a - b);
+.\tool-controller.ts:307:      const at = item.page ? `${item.checkpointId} on PDF page ${item.page}` : item.checkpointId;
+.\tool-controller.ts:316:      return `Outline check paused · ${score}. Scholar could not collect all checkpoint text.${issueText ? ` ${issueText}` : ""}`;
+.\tool-controller.ts:318:    return `Outline needs review · ${score}. All checkpoint findings: ${issueText || "the candidate outline is disputed"}. No learning data was lost.`;
+.\tool-controller.ts:358:          checkpoints: run.checkpoints,
+.\tool-controller.ts:389:          checkpoints: run.checkpoints,
+.\tool-controller.ts:407:        checkpoints: run.checkpoints,
+.\tool-controller.ts:786:            const checkpoints = saveReviewCheckpoints(draft, section, activation, ctx);
+.\tool-controller.ts:787:            const reviews = await withReview(draft, ctx, signal, (stop, onProgress) => reviewLearnDraft({ book: draft, section, config: { ...ports.getConfig() }, ctx, signal: stop, onProgress, reviewTimeoutMs, onCheckpoint: checkpoints.save }))
+.\tool-controller.ts:788:              .finally(() => checkpoints.close());

@@ -1,0 +1,36 @@
+480:export async function saveBookState(config: ScholarConfig, book: ScholarBook, expectedRevision: number): Promise<ScholarBook> {
+481-  if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0) throw new Error("Scholar save requires a non-negative expected book revision.");
+482-  return writeNoteBook(await initializeScholarStorage(config), book, expectedRevision);
+483-}
+484-
+485-export async function listBookStates(config: ScholarConfig): Promise<ScholarBook[]> {
+486-  const normalized = resolveScholarConfig(config);
+487-  const books: ScholarBook[] = [];
+488-  const ids = new Set<string>();
+489-  for (const filePath of await authorityStateFiles(normalized)) {
+490-    const book = await readBookAuthority(normalized, filePath);
+491-    if (ids.has(book.id)) throw new Error(`Scholar found duplicate authority for book ${book.id} in the selected Obsidian vault.`);
+492-    ids.add(book.id);
+493-    books.push(book);
+494-  }
+495-  return books.sort((a, b) => a.metadata.title.localeCompare(b.metadata.title));
+496-}
+497-
+498-function catalogDocument(catalog: ScholarCatalog): string {
+499-  return attachDetails("# Scholar settings\n\n<!-- scholar:generated:start -->\nThis visible note remembers this vault's PDF library and selected book.\n<!-- scholar:generated:end -->\n", "settings", catalog);
+500-}
+501-async function readCatalogRecord(config: ScholarConfig, path: string): Promise<unknown> {
+502-  try { return await readJson(path); } catch (error) {
+503-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+504-    const legacy = await safePathWithinRoot(config.obsidianRoot, resolve(config.obsidianRoot, "Scholar", ".scholar", "catalog.json"));
+505-    let catalog;
+=== coordinator mutation queue ===
+96:    return `${setupBase} A provisional outline is saved at revision ${book.revision}. Call scholar action=outline_validate with outlineRevision=${book.revision}. Scholar will extract and check every checkpoint itself. If it requests visual review, inspect every listed page and call outline_validate once more with only the requested checkpoint decisions (id, outcome, and an optional concise observation). Do not copy source excerpts into the request. Stop only after Scholar reports ready or needs-review.`;
+101:  return `${setupBase} ${review}Build the outline with the fewest bounded calls that preserve accuracy: read contiguous front-matter/table-of-contents ranges (at most ${MAX_TOOL_PAGES} pages per read), establish the printed-page to PDF-viewer-page offset, verify early/middle/late checkpoints, and inspect every ambiguity or offset change. Derive an item's end from the next verified start when appropriate. Reserve full-book search for boundaries the contents and verified offset cannot resolve. Do not read every chapter start separately when the contents and a stable verified offset already establish it. Record chapter and subsection boundaries in PDF viewer-page coordinates, then call scholar action=outline. Scholar owns the post-save checkpoint extraction; call outline_validate once with the returned revision and respond only to any visual-review decisions it explicitly requests.`;
+111:      return `Resume validation of the provisional Scholar outline at revision ${book.revision}. Call scholar action=outline_validate with that revision. Scholar owns the checkpoint reads. If visual review is requested, view every listed page and submit only the requested id/outcome decisions with optional concise observations. Do not teach or stop before validation reports ready or needs-review.`;
+113:    return `Initialize the selected Scholar book. Use the fewest accurate source calls: read contiguous front-matter/contents ranges of at most ${MAX_TOOL_PAGES} pages, establish the printed-to-viewer page offset, verify early/middle/late checkpoints, derive ends from the next verified start when appropriate, and inspect ambiguities or offset changes instead of reading every chapter start separately. Reserve full-book search for unresolved boundaries and do not narrate each verification step. Then call scholar action=outline with confidence=verified only when the chapter and section map is trustworthy. Scholar will perform its own post-save checkpoint extraction; call outline_validate with the returned revision and handle any requested visual reviews together. If extraction is image-only, report that OCR is required. Stop after setup unless an explicit ${mode || "Learn, Exam, or Tutor"} mode is active.`;
+194:  public mutateBook: <T>(bookId: string, mutate: (book: ScholarBook) => Promise<T> | T) => Promise<MutationOutcome<T>>;
+232:    this.mutateBook = bookService.mutateBook;
+634:          revision: 0,
+665:        const expectedRevision = book.revision;
+671:        book.revision = expectedRevision + 1;

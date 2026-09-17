@@ -1,0 +1,41 @@
+      const snapshot = snapshots?.find((item) => item.id === id);
+      if (!snapshot) throw new Error("Unknown saved source figure.");
+      const path = await safePathWithinRoot(config.obsidianRoot, snapshotAssetPath(config, book, snapshot));
+      const bytes = await readFile(path);
+      if (createHash("sha256").update(bytes).digest("hex") !== snapshot.sha256) {
+        throw new Error("Saved figure bytes changed; the review is invalid.");
+      }
+      return { data: bytes.toString("base64"), mimeType: "image/png" };
+    },
+  };
+}
+
+/** Replaced/unused crops remain in the note's history but are not current review work. */
+export function currentReviewSnapshots(section: import("./types.ts").ScholarSection, sourceHash: string): ScholarSnapshot[] {
+  const ids = new Set(validLessonEntries(section, sourceHash).flatMap(entry => entry.lesson!.embeddedSnapshotIds || []));
+  for (const page of section.figureCoverage?.pages || []) {
+    for (const figure of page.review?.figures || []) if (figure.snapshotId) ids.add(figure.snapshotId);
+  }
+  return (section.snapshots || []).filter(snapshot => ids.has(snapshot.id));
+}
+
+export const REVIEW_CONCURRENCY = 12;
+/** Reviewers never inherit the learner's reasoning level: an audit is deliberately a
+ * shallow, fast second pass over evidence, not a second attempt at the lesson. */
+export const REVIEWER_THINKING_LEVEL = "low" as const;
+export const REVIEW_CHECKPOINT_MESSAGE = "Review in progress; finished checks are saved and will be reused.";
+
+export const REVIEW_INSTRUCTIONS: Record<ReviewRole, string> = {
+  source: `Compare the ENTIRE scoped source against the lesson and its sourceCoverage checklist. Independently identify missing essential content even if the author omitted it from the checklist. Check definitions, derivations, boundary conditions, assumptions, worked examples and counterexamples. Check the actual saved explanation, not objective labels. Reject misleading generalizations and recap inaccuracies. Cite exact source pages and the missing or incorrect passage. Complete source reading is required before a pass. Distinguish the section's actual explanations from exercises assigned to the reader and prerequisites covered earlier; do not require solutions to every exercise or rederivation of earlier chapters. Check any added worked application for correctness and attribution. Report at most six blocking findings, the most consequential first; a short list of real defects is worth more than an exhaustive one.`,
+  teaching: `Evaluate the lesson as instruction for an intelligent adult learning this material, not a compressed summary for an expert. Require unfamiliar technical terms and symbols to be explained at first meaningful use; motivation, intermediate reasoning and assumptions at difficult steps; examples or figure walkthroughs where they carry the explanation. Reject a wall of facts, unexplained jumps, unhelpful analogies or a gallery replacing explanation. Trace the hardest transitions yourself: can a learner obtain the next equation from the stated components, signs, substitutions and assumptions? For each blocking finding name the exact passage and missing connection and give a concrete repair, not "add detail". A named figure or term is not an explanation. Distinguish a brief prerequisite reminder from re-teaching whole earlier chapters; exercise solutions and optional enrichment are not mandatory. Check physical-meaning sentences, unchanged quantities and limiting cases, not just formulas. Do not demand a word count, an analogy per topic or arbitrary boxes. Review the objectiveChecks plan: require reasoning/calculation where the source teaches it, and reject all-four-checks-per-objective busywork when not justified. Report at most six blocking findings, the most consequential first; a short list of real defects is worth more than an exhaustive one.`,
+  visual: `Inspect every saved crop listed below against the source text and figure inventory you were given. Check complete arrows, axis labels, units, signs, legends, geometry and limiting behavior. Compare each caption and adjacent explanation against what the image actually shows; work out simple sign or limit checks when relevant. Central equations must appear in expanded native Key equation callouts with definitions, assumptions and meaning; intermediate algebra may remain outside boxes. Reject raw/broken LaTeX, inconsistent vector notation, incorrect equations and decorative or misleading diagrams. Judge each crop on the evidence you have: you cannot see the full page, so report a suspected crop edge as advice unless the crop itself hides required content. Do not claim to inspect the Obsidian application: you see its saved Markdown and image assets. Report at most six blocking findings, the most consequential first; a short list of real defects is worth more than an exhaustive one.`,
+  assessment: `Review this frozen proposed question BEFORE the learner sees it. Check the source and taught lesson, focused grounding, appropriate check kind, unambiguous wording, unique correct answer (or exact multi-select set), calculation/units, fair distractors and a sufficient grading rubric. Inspect every option description and prompt/context for answer cues; a unique explanatory hint on the correct option is a defect. Diagnostic questions may probe prerequisites before teaching, but cannot claim mastery. Practice on a completed section must not add earned-progress requirements. Reject unexplained new terminology and unsupported demands. Never alter the grading key; return concrete repairs to the author. Report at most six blocking findings, the most consequential first; a short list of real defects is worth more than an exhaustive one.`,
+};
+
+export function blocking(issue: string, target = "review evidence"): ReviewerVerdict {
+  return {
+    status: "changes",
+    findings: [{
+      severity: "blocking",
+      target,
+      sourcePages: [],

@@ -1,0 +1,34 @@
+modelRoleStorage: global
+modelRoles:
+  default: deepseek/deepseek-flash:max
+  plan: deepseek/deepseek-flash:max
+  slow: deepseek/deepseek-flash:max
+  smol: deepseek/deepseek-flash:low
+  tiny: deepseek/deepseek-flash:low
+  task: deepseek/deepseek-flash:max
+  commit: deepseek/deepseek-flash:low
+  advisor: deepseek/deepseek-flash:high
+  vision: deepseek/deepseek-flash:low
+defaultThinkingLevel: max
+setupVersion: 2
+stt:
+  enabled: true
+  submitTrigger: say-submit
+live:
+  voice: sol
+model:
+  toolCallLoopGuard:
+    enabled: true
+hideThinkingBlock: true
+textVerbosity: low
+inlineToolDescriptors: auto
+interruptMode: immediate
+theme:
+  light: dark-tokyo-night
+  dark: dark-tokyo-night
+composer:
+  shape: claude
+display:
+  showTurnTime: true
+  showTokenUsage: true
+  shimmer: classic

@@ -1,0 +1,1560 @@
+URL: https://api.github.com/repos/BasamAhmed640/pi-scholar/commits?per_page=30
+Content-Type: application/json
+Method: json
+
+---
+
+[
+  {
+    "sha": "5f248852e4eb1105f1e012ae3150fa13fc029fd9",
+    "node_id": "C_kwDOUTGiVdoAKDVmMjQ4ODUyZTRlYjExMDVmMWUwMTJhZTMxNTBmYTEzZmMwMjlmZDk",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-15T00:41:35Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-15T00:41:35Z"
+      },
+      "message": "One-pass review layer, runaway-loop prevention and any-model compatibility\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "tree": {
+        "sha": "78bba05fad9474c0225c06348b988c5c58f15e0c",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/78bba05fad9474c0225c06348b988c5c58f15e0c"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/5f248852e4eb1105f1e012ae3150fa13fc029fd9",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/5f248852e4eb1105f1e012ae3150fa13fc029fd9",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/5f248852e4eb1105f1e012ae3150fa13fc029fd9",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/5f248852e4eb1105f1e012ae3150fa13fc029fd9/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "41411498c7f2b83755b681539d4fc0008e20765c",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/41411498c7f2b83755b681539d4fc0008e20765c",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/41411498c7f2b83755b681539d4fc0008e20765c"
+      }
+    ]
+  },
+  {
+    "sha": "41411498c7f2b83755b681539d4fc0008e20765c",
+    "node_id": "C_kwDOUTGiVdoAKDQxNDExNDk4YzdmMmI4Mzc1NWI2ODE1MzlkNGZjMDAwOGUyMDc2NWM",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-14T03:19:22Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-14T03:19:22Z"
+      },
+      "message": "Review Learn lessons with a parallel crew of scoped, checkpointed checks\n\nScholar now coordinates lesson review as a crew of small isolated checks, up\nto six at a time: a source-fidelity check per four-page window, an explanation\ncheck per lesson topic, figure/equation packets (at most six images, each crop\nwith its full page) and one whole-lesson coherence check. Every page and current\ncrop is still inspected before approval, and an empty or unfinished crew can\nnever aggregate into a pass.\n\nEach passing check is cached by the exact packet it saw and saved to the note as\nsoon as it finishes, so an interruption, timeout or local edit re-runs only the\naffected checks. Checkpoint writes are drained before the approval write.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "tree": {
+        "sha": "daa35ba694c12916c0c9d87b7e0e8ecf93498103",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/daa35ba694c12916c0c9d87b7e0e8ecf93498103"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/41411498c7f2b83755b681539d4fc0008e20765c",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/41411498c7f2b83755b681539d4fc0008e20765c",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/41411498c7f2b83755b681539d4fc0008e20765c",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/41411498c7f2b83755b681539d4fc0008e20765c/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "efe930c24437894a0f6a7971e1d3fa4b09aec35f",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/efe930c24437894a0f6a7971e1d3fa4b09aec35f",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/efe930c24437894a0f6a7971e1d3fa4b09aec35f"
+      }
+    ]
+  },
+  {
+    "sha": "efe930c24437894a0f6a7971e1d3fa4b09aec35f",
+    "node_id": "C_kwDOUTGiVdoAKGVmZTkzMGMyNDQzNzg5NGEwZjZhNzk3MWUxZDNmYTRiMDlhZWMzNWY",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-14T00:48:09Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-14T00:48:09Z"
+      },
+      "message": "Ask before resuming an unapproved Learn draft instead of doing nothing\n\nReopening a section with a saved, unapproved draft previously showed only a\nnotification, which looked like Scholar had stopped working. Interactive\nreopens now ask whether to continue preparing (bounded by the 20-minute and\nthree-round limits) or only show the draft. Explicit \"continue\" skips the\nquestion; headless reopens keep showing the draft without generation.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "tree": {
+        "sha": "955a35054dd9b0edf6c16a480cc26df0fa15f3f9",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/955a35054dd9b0edf6c16a480cc26df0fa15f3f9"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/efe930c24437894a0f6a7971e1d3fa4b09aec35f",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/efe930c24437894a0f6a7971e1d3fa4b09aec35f",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/efe930c24437894a0f6a7971e1d3fa4b09aec35f",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/efe930c24437894a0f6a7971e1d3fa4b09aec35f/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "51e5a8a2e349295c02df6fddcde77b915e8e8eab",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/51e5a8a2e349295c02df6fddcde77b915e8e8eab",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/51e5a8a2e349295c02df6fddcde77b915e8e8eab"
+      }
+    ]
+  },
+  {
+    "sha": "51e5a8a2e349295c02df6fddcde77b915e8e8eab",
+    "node_id": "C_kwDOUTGiVdoAKDUxZTVhOGEyZTM0OTI5NWMwMmRmNmZkZGNkZTc3YjkxNWU4ZThlYWI",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-14T00:36:14Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-14T00:36:14Z"
+      },
+      "message": "Make Learn delivery stops sticky and bound preparation independently\n\nChat and extension-sent input no longer clear a delivery stop or reset\nreview-round budgets; only an explicit Scholar command activation does.\nReopening an unapproved draft selects the book without entering Learn, so\nordinary chat cannot resume preparation or reviews.\n\nThe tool controller now enforces the 20-minute preparation budget itself\n(active turn time, independent of the loading widget), refuses to start a\nreview round that cannot finish in the remaining time, passes the remaining\ntime to reviewers, and stops after four lessonComplete submissions rejected\nfor delivery gaps. A fourth review reservation and question-review prehooks\nalso respect the stop. Stop messages name the exact continue command.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "tree": {
+        "sha": "a0420762a5d579216e3a27244100fd2a1377c3a2",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/a0420762a5d579216e3a27244100fd2a1377c3a2"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/51e5a8a2e349295c02df6fddcde77b915e8e8eab",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/51e5a8a2e349295c02df6fddcde77b915e8e8eab",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/51e5a8a2e349295c02df6fddcde77b915e8e8eab",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/51e5a8a2e349295c02df6fddcde77b915e8e8eab/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "66eca3a82a56eceeb0e811c18dfd6efd3e5186c0",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/66eca3a82a56eceeb0e811c18dfd6efd3e5186c0",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/66eca3a82a56eceeb0e811c18dfd6efd3e5186c0"
+      }
+    ]
+  },
+  {
+    "sha": "66eca3a82a56eceeb0e811c18dfd6efd3e5186c0",
+    "node_id": "C_kwDOUTGiVdoAKDY2ZWNhM2E4MmE1NmVjZWViMGU4MTFjMThkZmQ2ZWZkM2U1MTg2YzA",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T23:18:38Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T23:18:38Z"
+      },
+      "message": "Fix Learn reopening and bound interrupted review recovery",
+      "tree": {
+        "sha": "c3597f3b3de5bef2f119682a0d3483472d3fa29e",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/c3597f3b3de5bef2f119682a0d3483472d3fa29e"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/66eca3a82a56eceeb0e811c18dfd6efd3e5186c0",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/66eca3a82a56eceeb0e811c18dfd6efd3e5186c0",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/66eca3a82a56eceeb0e811c18dfd6efd3e5186c0",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/66eca3a82a56eceeb0e811c18dfd6efd3e5186c0/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4b672b74264fc00598580891283b54575221d7fe",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/4b672b74264fc00598580891283b54575221d7fe",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/4b672b74264fc00598580891283b54575221d7fe"
+      }
+    ]
+  },
+  {
+    "sha": "4b672b74264fc00598580891283b54575221d7fe",
+    "node_id": "C_kwDOUTGiVdoAKDRiNjcyYjc0MjY0ZmMwMDU5ODU4MDg5MTI4M2I1NDU3NTIyMWQ3ZmU",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T19:42:45Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T19:42:45Z"
+      },
+      "message": "Bound Learn reviews and resume saved batches without metadata churn",
+      "tree": {
+        "sha": "665d5b01138ed007b4b246e02dcb65b8c7a054d9",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/665d5b01138ed007b4b246e02dcb65b8c7a054d9"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/4b672b74264fc00598580891283b54575221d7fe",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/4b672b74264fc00598580891283b54575221d7fe",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/4b672b74264fc00598580891283b54575221d7fe",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/4b672b74264fc00598580891283b54575221d7fe/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "9b3727553b5388d1408d7cc71ba1b9655ab37fa0",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/9b3727553b5388d1408d7cc71ba1b9655ab37fa0",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/9b3727553b5388d1408d7cc71ba1b9655ab37fa0"
+      }
+    ]
+  },
+  {
+    "sha": "9b3727553b5388d1408d7cc71ba1b9655ab37fa0",
+    "node_id": "C_kwDOUTGiVdoAKDliMzcyNzU1M2I1Mzg4ZDE0MDhkN2NjNzFiYTFiOTY1NWFiMzdmYTA",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T18:30:57Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T18:30:57Z"
+      },
+      "message": "Improve Learn revisions and explanations with native loading progress",
+      "tree": {
+        "sha": "a926a840e8f40aa007eb299112dea84427437c2f",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/a926a840e8f40aa007eb299112dea84427437c2f"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/9b3727553b5388d1408d7cc71ba1b9655ab37fa0",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/9b3727553b5388d1408d7cc71ba1b9655ab37fa0",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/9b3727553b5388d1408d7cc71ba1b9655ab37fa0",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/9b3727553b5388d1408d7cc71ba1b9655ab37fa0/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c3c2976eb3b0f84258735720903eefc835693f37",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/c3c2976eb3b0f84258735720903eefc835693f37",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/c3c2976eb3b0f84258735720903eefc835693f37"
+      }
+    ]
+  },
+  {
+    "sha": "c3c2976eb3b0f84258735720903eefc835693f37",
+    "node_id": "C_kwDOUTGiVdoAKGMzYzI5NzZlYjNiMGY4NDI1ODczNTcyMDkwM2VlZmM4MzU2OTNmMzc",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T03:03:01Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T03:03:01Z"
+      },
+      "message": "Review Learn delivery against sources and strengthen equation presentation",
+      "tree": {
+        "sha": "4fe12023740ab5c26897a2bf00e4ad05fb24c403",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/4fe12023740ab5c26897a2bf00e4ad05fb24c403"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/c3c2976eb3b0f84258735720903eefc835693f37",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/c3c2976eb3b0f84258735720903eefc835693f37",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/c3c2976eb3b0f84258735720903eefc835693f37",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/c3c2976eb3b0f84258735720903eefc835693f37/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "e3611da1cdcc3615937bed75314c7384c4c911db",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/e3611da1cdcc3615937bed75314c7384c4c911db",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/e3611da1cdcc3615937bed75314c7384c4c911db"
+      }
+    ]
+  },
+  {
+    "sha": "e3611da1cdcc3615937bed75314c7384c4c911db",
+    "node_id": "C_kwDOUTGiVdoAKGUzNjExZGExY2RjYzM2MTU5MzdiZWQ3NTMxNGM3Mzg0YzRjOTExZGI",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T00:05:08Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-13T00:05:08Z"
+      },
+      "message": "Normalize Obsidian math delimiters and validate lesson equations",
+      "tree": {
+        "sha": "5ca02ac1e8dffcf9f259813d3316d1ff37630518",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/5ca02ac1e8dffcf9f259813d3316d1ff37630518"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/e3611da1cdcc3615937bed75314c7384c4c911db",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/e3611da1cdcc3615937bed75314c7384c4c911db",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/e3611da1cdcc3615937bed75314c7384c4c911db",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/e3611da1cdcc3615937bed75314c7384c4c911db/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c7d5436423ddb50238004fc8258239a2519e523e",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/c7d5436423ddb50238004fc8258239a2519e523e",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/c7d5436423ddb50238004fc8258239a2519e523e"
+      }
+    ]
+  },
+  {
+    "sha": "c7d5436423ddb50238004fc8258239a2519e523e",
+    "node_id": "C_kwDOUTGiVdoAKGM3ZDU0MzY0MjNkZGI1MDIzODAwNGZjODI1ODIzOWEyNTE5ZTUyM2U",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T23:34:30Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T23:34:30Z"
+      },
+      "message": "Deliver complete explained lessons and require grounded mastery evidence",
+      "tree": {
+        "sha": "e8b996dfdb59ae14822430a0b43e73296c91d69a",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/e8b996dfdb59ae14822430a0b43e73296c91d69a"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/c7d5436423ddb50238004fc8258239a2519e523e",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/c7d5436423ddb50238004fc8258239a2519e523e",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/c7d5436423ddb50238004fc8258239a2519e523e",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/c7d5436423ddb50238004fc8258239a2519e523e/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d3108e01e97592b728155bcaca90ccf88e3c0c34",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d3108e01e97592b728155bcaca90ccf88e3c0c34",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/d3108e01e97592b728155bcaca90ccf88e3c0c34"
+      }
+    ]
+  },
+  {
+    "sha": "d3108e01e97592b728155bcaca90ccf88e3c0c34",
+    "node_id": "C_kwDOUTGiVdoAKGQzMTA4ZTAxZTk3NTkyYjcyODE1NWJjYWNhOTBjY2Y4OGUzYzBjMzQ",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T21:25:43Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T21:25:43Z"
+      },
+      "message": "Use arrows for equation symbol definitions",
+      "tree": {
+        "sha": "f5e1cd172be94ac74201fc903f78fca0322fb780",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/f5e1cd172be94ac74201fc903f78fca0322fb780"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/d3108e01e97592b728155bcaca90ccf88e3c0c34",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d3108e01e97592b728155bcaca90ccf88e3c0c34",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/d3108e01e97592b728155bcaca90ccf88e3c0c34",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d3108e01e97592b728155bcaca90ccf88e3c0c34/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d0c1f881370cb293dc0358a307e402569c31af14",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d0c1f881370cb293dc0358a307e402569c31af14",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/d0c1f881370cb293dc0358a307e402569c31af14"
+      }
+    ]
+  },
+  {
+    "sha": "d0c1f881370cb293dc0358a307e402569c31af14",
+    "node_id": "C_kwDOUTGiVdoAKGQwYzFmODgxMzcwY2IyOTNkYzAzNThhMzA3ZTQwMjU2OWMzMWFmMTQ",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T21:17:32Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T21:17:32Z"
+      },
+      "message": "Center Mermaid diagrams within Scholar callouts",
+      "tree": {
+        "sha": "f6ee79fc8e08ad84ba04b1389d8e361e1db755b5",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/f6ee79fc8e08ad84ba04b1389d8e361e1db755b5"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/d0c1f881370cb293dc0358a307e402569c31af14",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d0c1f881370cb293dc0358a307e402569c31af14",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/d0c1f881370cb293dc0358a307e402569c31af14",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d0c1f881370cb293dc0358a307e402569c31af14/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4077a16642b2adb3d0019822f5bcfab15f411a6e",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/4077a16642b2adb3d0019822f5bcfab15f411a6e",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/4077a16642b2adb3d0019822f5bcfab15f411a6e"
+      }
+    ]
+  },
+  {
+    "sha": "4077a16642b2adb3d0019822f5bcfab15f411a6e",
+    "node_id": "C_kwDOUTGiVdoAKDQwNzdhMTY2NDJiMmFkYjNkMDAxOTgyMmY1YmNmYWIxNWY0MTFhNmU",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T21:10:05Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T21:10:05Z"
+      },
+      "message": "Frame Scholar questions, equations and figures with native Obsidian callouts",
+      "tree": {
+        "sha": "d1bc69f11eb7a348ea3f1062c0de02ac2b8899f9",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/d1bc69f11eb7a348ea3f1062c0de02ac2b8899f9"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/4077a16642b2adb3d0019822f5bcfab15f411a6e",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/4077a16642b2adb3d0019822f5bcfab15f411a6e",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/4077a16642b2adb3d0019822f5bcfab15f411a6e",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/4077a16642b2adb3d0019822f5bcfab15f411a6e/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "3b4a10ac4b45b19c7710f5a1b529ef050f8ba474",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/3b4a10ac4b45b19c7710f5a1b529ef050f8ba474",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/3b4a10ac4b45b19c7710f5a1b529ef050f8ba474"
+      }
+    ]
+  },
+  {
+    "sha": "3b4a10ac4b45b19c7710f5a1b529ef050f8ba474",
+    "node_id": "C_kwDOUTGiVdoAKDNiNGExMGFjNGI0NWIxOWM3NzEwZjVhMWI1MjllZjA1MGY4YmE0NzQ",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T16:54:42Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T16:54:42Z"
+      },
+      "message": "Make visible Obsidian notes the Scholar study authority",
+      "tree": {
+        "sha": "cf9c1e324cd2fe6cb3d4762a1f05bf5d8b9ac2ab",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/cf9c1e324cd2fe6cb3d4762a1f05bf5d8b9ac2ab"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/3b4a10ac4b45b19c7710f5a1b529ef050f8ba474",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/3b4a10ac4b45b19c7710f5a1b529ef050f8ba474",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/3b4a10ac4b45b19c7710f5a1b529ef050f8ba474",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/3b4a10ac4b45b19c7710f5a1b529ef050f8ba474/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "90d1238e39d657d4ab62e869dbf4b453c9ecdb05",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/90d1238e39d657d4ab62e869dbf4b453c9ecdb05",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/90d1238e39d657d4ab62e869dbf4b453c9ecdb05"
+      }
+    ]
+  },
+  {
+    "sha": "90d1238e39d657d4ab62e869dbf4b453c9ecdb05",
+    "node_id": "C_kwDOUTGiVdoAKDkwZDEyMzhlMzlkNjU3ZDRhYjYyZTg2OWRiZjRiNDUzYzllY2RiMDU",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T15:29:13Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T15:29:13Z"
+      },
+      "message": "Resume unanswered Scholar questions from frozen vault forms",
+      "tree": {
+        "sha": "51e3b9c0d9eb1866e985b004b6dec7ab886fda62",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/51e3b9c0d9eb1866e985b004b6dec7ab886fda62"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/90d1238e39d657d4ab62e869dbf4b453c9ecdb05",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/90d1238e39d657d4ab62e869dbf4b453c9ecdb05",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/90d1238e39d657d4ab62e869dbf4b453c9ecdb05",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/90d1238e39d657d4ab62e869dbf4b453c9ecdb05/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d38f4676faed7f845efffe704cd841050a275170",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d38f4676faed7f845efffe704cd841050a275170",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/d38f4676faed7f845efffe704cd841050a275170"
+      }
+    ]
+  },
+  {
+    "sha": "d38f4676faed7f845efffe704cd841050a275170",
+    "node_id": "C_kwDOUTGiVdoAKGQzOGY0Njc2ZmFlZDdmODQ1ZWZmZmU3MDRjZDg0MTA1MGEyNzUxNzA",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T03:10:41Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-12T03:10:41Z"
+      },
+      "message": "Fix Learn completion and preserve earned progress during practice",
+      "tree": {
+        "sha": "960a30e55946a95527260c05b4f53914b6eab2e0",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/960a30e55946a95527260c05b4f53914b6eab2e0"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/d38f4676faed7f845efffe704cd841050a275170",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d38f4676faed7f845efffe704cd841050a275170",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/d38f4676faed7f845efffe704cd841050a275170",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/d38f4676faed7f845efffe704cd841050a275170/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "b803d2253dfecc4c2c4144c15d4e48946f813f82",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/b803d2253dfecc4c2c4144c15d4e48946f813f82",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/b803d2253dfecc4c2c4144c15d4e48946f813f82"
+      }
+    ]
+  },
+  {
+    "sha": "b803d2253dfecc4c2c4144c15d4e48946f813f82",
+    "node_id": "C_kwDOUTGiVdoAKGI4MDNkMjI1M2RmZWNjNGMyYzQxNDRjMTVkNGU0ODk0NmY4MTNmODI",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-11T23:14:02Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-11T23:14:02Z"
+      },
+      "message": "Remove fixed exam question and grading count caps",
+      "tree": {
+        "sha": "f8f50b2349028a1011ed65c8a68a0171578972d6",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/f8f50b2349028a1011ed65c8a68a0171578972d6"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/b803d2253dfecc4c2c4144c15d4e48946f813f82",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/b803d2253dfecc4c2c4144c15d4e48946f813f82",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/b803d2253dfecc4c2c4144c15d4e48946f813f82",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/b803d2253dfecc4c2c4144c15d4e48946f813f82/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "6eee84ddb35798b0d63ae2bc513aa8545d29e650",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/6eee84ddb35798b0d63ae2bc513aa8545d29e650",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/6eee84ddb35798b0d63ae2bc513aa8545d29e650"
+      }
+    ]
+  },
+  {
+    "sha": "6eee84ddb35798b0d63ae2bc513aa8545d29e650",
+    "node_id": "C_kwDOUTGiVdoAKDZlZWU4NGRkYjM1Nzk4YjBkNjNhZTJiYzUxM2FhODU0NWQyOWU2NTA",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-11T06:17:07Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-11T06:17:07Z"
+      },
+      "message": "Keep Scholar dormant until explicitly opened",
+      "tree": {
+        "sha": "25f2d24e6627cd30231aa74c4f2bac1962efbfaf",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/25f2d24e6627cd30231aa74c4f2bac1962efbfaf"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/6eee84ddb35798b0d63ae2bc513aa8545d29e650",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/6eee84ddb35798b0d63ae2bc513aa8545d29e650",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/6eee84ddb35798b0d63ae2bc513aa8545d29e650",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/6eee84ddb35798b0d63ae2bc513aa8545d29e650/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "994674812251100001cb2a37d98aacf2ea45ccca",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/994674812251100001cb2a37d98aacf2ea45ccca",
+        "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/994674812251100001cb2a37d98aacf2ea45ccca"
+      }
+    ]
+  },
+  {
+    "sha": "994674812251100001cb2a37d98aacf2ea45ccca",
+    "node_id": "C_kwDOUTGiVdoAKDk5NDY3NDgxMjI1MTEwMDAwMWNiMmEzN2Q5OGFhY2YyZWE0NWNjY2E",
+    "commit": {
+      "author": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-09T04:43:23Z"
+      },
+      "committer": {
+        "name": "Basam Ahmed",
+        "email": "219071866+BasamAhmed640@users.noreply.github.com",
+        "date": "2026-09-09T04:43:23Z"
+      },
+      "message": "Import Scholar extension with architecture and hierarchy documentation",
+      "tree": {
+        "sha": "fc28af77ef4f91a5a5da9781cb2c8d6158ef1487",
+        "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/trees/fc28af77ef4f91a5a5da9781cb2c8d6158ef1487"
+      },
+      "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/git/commits/994674812251100001cb2a37d98aacf2ea45ccca",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/994674812251100001cb2a37d98aacf2ea45ccca",
+    "html_url": "https://github.com/BasamAhmed640/pi-scholar/commit/994674812251100001cb2a37d98aacf2ea45ccca",
+    "comments_url": "https://api.github.com/repos/BasamAhmed640/pi-scholar/commits/994674812251100001cb2a37d98aacf2ea45ccca/comments",
+    "author": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "BasamAhmed640",
+      "id": 219071866,
+      "node_id": "U_kgDODQ7Feg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/219071866?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/BasamAhmed640",
+      "html_url": "https://github.com/BasamAhmed640",
+      "followers_url": "https://api.github.com/users/BasamAhmed640/followers",
+      "following_url": "https://api.github.com/users/BasamAhmed640/following{/other_user}",
+      "gists_url": "https://api.github.com/users/BasamAhmed640/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/BasamAhmed640/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/BasamAhmed640/subscriptions",
+      "organizations_url": "https://api.github.com/users/BasamAhmed640/orgs",
+      "repos_url": "https://api.github.com/users/BasamAhmed640/repos",
+      "events_url": "https://api.github.com/users/BasamAhmed640/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/BasamAhmed640/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": []
+  }
+]

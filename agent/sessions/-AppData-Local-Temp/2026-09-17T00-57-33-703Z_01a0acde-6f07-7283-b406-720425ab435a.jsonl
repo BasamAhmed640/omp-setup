@@ -1,0 +1,4 @@
+{"type":"title","v":1,"title":"","updatedAt":"2026-09-17T00:57:33.703Z","pad":"                                                                                                                                                                              "}
+{"type":"session","version":3,"id":"01a0acde-6f07-7283-b406-720425ab435a","timestamp":"2026-09-17T00:57:33.703Z","cwd":"C:\\Users\\basam\\AppData\\Local\\Temp"}
+{"type":"model_change","id":"ae185ec5","parentId":null,"timestamp":"2026-09-17T00:57:33.809Z","model":"deepseek/deepseek-flash","resolvedModelIsFallback":false}
+{"type":"thinking_level_change","id":"2e7425c7","parentId":"ae185ec5","timestamp":"2026-09-17T00:57:33.810Z","thinkingLevel":"max","configured":null}

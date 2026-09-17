@@ -1,0 +1,32 @@
+68:export function currentReviewSnapshots(section: import("./types.ts").ScholarSection, sourceHash: string): ScholarSnapshot[] {
+69:  const ids = new Set(validLessonEntries(section, sourceHash).flatMap(entry => entry.lesson!.embeddedSnapshotIds || []));
+70:  for (const page of section.figureCoverage?.pages || []) {
+73:  return (section.snapshots || []).filter(snapshot => ids.has(snapshot.id));
+83:  source: `Compare the ENTIRE scoped source against the lesson and its sourceCoverage checklist. Independently identify missing essential content even if the author omitted it from the checklist. Check definitions, derivations, boundary conditions, assumptions, worked examples and counterexamples. Check the actual saved explanation, not objective labels. Reject misleading generalizations and recap inaccuracies. Cite exact source pages and the missing or incorrect passage. Complete source reading is required before a pass. Distinguish the section's actual explanations from exercises assigned to the reader and prerequisites covered earlier; do not require solutions to every exercise or rederivation of earlier chapters. Check any added worked application for correctness and attribution. Report at most six blocking findings, the most consequential first; a short list of real defects is worth more than an exhaustive one.`,
+86:  assessment: `Review this frozen proposed question BEFORE the learner sees it. Check the source and taught lesson, focused grounding, appropriate check kind, unambiguous wording, unique correct answer (or exact multi-select set), calculation/units, fair distractors and a sufficient grading rubric. Inspect every option description and prompt/context for answer cues; a unique explanatory hint on the correct option is a defect. Diagnostic questions may probe prerequisites before teaching, but cannot claim mastery. Practice on a completed section must not add earned-progress requirements. Reject unexplained new terminology and unsupported demands. Never alter the grading key; return concrete repairs to the author. Report at most six blocking findings, the most consequential first; a short list of real defects is worth more than an exhaustive one.`,
+158:  section?: import("./types.ts").ScholarSection;
+180:  const { book, section, config, ctx, signal } = options;
+184:  const contentHash = options.contentHash || (question && section
+185:    ? lessonHash(JSON.stringify([learnReviewHash(section), question.value]))
+186:    : section
+187:      ? learnReviewHash(section)
+219:  const allPages = section
+220:    ? Array.from({ length: section.endPage - section.startPage + 1 }, (_, i) => section.startPage + i)
+232:  const allSnapshots = options.snapshots || (section ? currentReviewSnapshots(section, sourceHash) : []);
+254:  const startBound = section ? section.startPage : Math.min(...allPages, 1);
+255:  const endBound = section ? section.endPage : Math.max(...allPages, book.metadata.pageCount || 1000);
+266:      description: "Read complete PDF text, at most 8 pages per call, only inside this section.",
+310:        if (!snapshot) throw new Error("Unknown section snapshot ID.");
+325:  const lessonScope = section ? section.transcript.filter((entry) => entry.lesson) : [];
+336:    ...(section ? {
+337:      objectives: section.objectives,
+338:      checks: section.objectiveChecks,
+339:      requiredChecks: section.requiredChecks,
+340:      coverage: section.learnQuality?.coverage,
+342:      recap: section.synthesis,
+343:      keyPoints: section.keyPoints,
+345:      figureInventory: section.figureCoverage,
+559:  const sectionsById = new Map(book.chapters.flatMap((c) => c.sections).map((s) => [s.id, s]));
+561:    const scopedSections = q.sectionIds.map((id: string) => sectionsById.get(id)).filter(Boolean) as ScholarSection[];
+589:        sectionIds: q.sectionIds,
+626:    section: isSection ? target : undefined,

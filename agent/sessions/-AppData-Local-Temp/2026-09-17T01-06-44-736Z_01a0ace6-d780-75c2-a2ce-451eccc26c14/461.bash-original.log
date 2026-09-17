@@ -1,0 +1,251 @@
+diff --git a/tests/verify-scholar-exam-experience.mjs b/tests/verify-scholar-exam-experience.mjs
+index 0459a27..2d659fb 100644
+--- a/tests/verify-scholar-exam-experience.mjs
++++ b/tests/verify-scholar-exam-experience.mjs
+@@ -22,7 +22,7 @@ const mod = (rel) => jiti.import(join(EXT, rel));
+ const { parseExamResponses } = await mod("exam.ts");
+ const { examAnswerNoteText, renderExam, renderExamAnswerKey } = await mod("render/assessment.ts");
+ const { answerKeyNotePath, examNotePath, examAnswerNotePath } = await mod("obsidian-paths.ts");
+-const { chooseUnfinishedExam, unfinishedExams } = await mod("commands.ts");
++const { unfinishedExams } = await mod("commands.ts");
+ 
+ let pass = 0, fail = 0;
+ const check = (name, ok, detail) => {
+@@ -190,44 +190,19 @@ check("the graded exam note links to the key instead of inlining it",
+ 
+ // ==================================================== 4. resuming an exam ===
+ const draft = { ...exam, id: "exam-002", title: "Exam 02 — chapter 1", status: "draft", questions: [], createdAt: "2026-03-01T00:00:00.000Z" };
+-const silentCtx = () => ({ ui: { notify: () => {} } });
+-const pickingCtx = (answer) => ({ ui: { notify: () => {}, select: async () => answer } });
+ 
+ check("graded exams are not offered for resume",
+   unfinishedExams({ ...book, exams: [graded] }).length === 0, "nothing unfinished");
+-// A lone unfinished exam is still offered. Resuming it silently looked exactly
+-// like starting a fresh one at the prompt, and it left no way to open a new exam
+-// from a bare command while the first was still unfinished.
+-const solo = { ...book, exams: [graded, exam] };
+-const soloOptions = [];
+-const soloCtx = { ui: { notify: () => {}, select: async (_title, options) => { soloOptions.push(...options); return options[0]; } } };
+-check("a single unfinished exam is still shown in the picker",
+-  (await chooseUnfinishedExam(solo, soloCtx)).exam?.id === "exam-001",
+-  soloOptions.join(" | "));
+-check("the single-exam picker still offers a new exam",
+-  soloOptions.length === 2 && soloOptions[1] === "Start a new exam instead…",
+-  String(soloOptions[1]));
+-check("a new exam is reachable while exactly one is unfinished",
+-  (await chooseUnfinishedExam(solo, pickingCtx("Start a new exam instead…"))).kind === "none",
+-  "declining opens scope selection");
+-check("without a picker a single unfinished exam still resumes",
+-  (await chooseUnfinishedExam(solo, silentCtx())).exam?.id === "exam-001",
+-  "fallback resumes directly");
+-
++check("a submitted exam is still unfinished",
++  unfinishedExams({ ...book, exams: [{ ...exam, status: "submitted" }] }).length === 1,
++  "awaiting grading");
+ const many = { ...book, exams: [graded, exam, draft], currentExamId: "exam-001" };
+ const listed = unfinishedExams(many);
+-check("multiple unfinished exams are all offered", listed.length === 2, listed.map((item) => item.id).join(", "));
+-check("the picker resumes the chosen exam",
+-  (await chooseUnfinishedExam(many, pickingCtx("Exam 01 — chapter 1 — 2 question(s) · not yet submitted"))).exam?.id === "exam-001",
+-  "selection honoured");
+-check("the picker can decline and start a new exam",
+-  (await chooseUnfinishedExam(many, pickingCtx("Start a new exam instead…"))).kind === "none",
+-  "falls through to scope selection");
+-check("cancelling the picker creates nothing",
+-  (await chooseUnfinishedExam(many, pickingCtx(undefined))).kind === "cancelled",
+-  "no exam created");
+-check("without a picker the current exam wins",
+-  (await chooseUnfinishedExam(many, silentCtx())).exam?.id === "exam-001", "currentExamId preferred");
++check("multiple unfinished exams are all listed", listed.length === 2, listed.map((item) => item.id).join(", "));
++check("the most recently touched exam comes first",
++  listed[0].id === "exam-002", listed.map((item) => item.id).join(", "));
++// The bare-command resume itself — deterministic choice, no picker, no prompt —
++// is gated by tests/verify-scholar-resume-determinism.mjs.
+ 
+ console.log(`\nScholar exam-experience summary: ${pass} passed, ${fail} failed.`);
+ process.exitCode = fail ? 1 : 0;
+diff --git a/tests/verify-scholar-exam-scope-prompt.mjs b/tests/verify-scholar-exam-scope-prompt.mjs
+index 5b218f1..849bacf 100644
+--- a/tests/verify-scholar-exam-scope-prompt.mjs
++++ b/tests/verify-scholar-exam-scope-prompt.mjs
+@@ -1,10 +1,11 @@
+ import { extensionPath as packagedExtensionPath, piPackageRoot as sdkRoot, jitiPath as sdkJitiPath, resolvePiDependency } from "./sdk.mjs";
+ // Scholar exam-scope prompt gate.
+ //
+-// Choosing an exam scope is the first thing a new exam asks for, and a near
+-// miss used to end the command with a bare "No chapter or section matches".
+-// The picker must instead say what shapes are accepted, using this book's real
+-// numbers, and re-ask with the specific reason rather than giving up.
++// An explicit `/scholar exam "<scope>"` is the only way to create an exam, and
++// a near miss used to end the command with a bare "No chapter or section
++// matches". It must instead say what shapes are accepted, using this book's
++// real numbers, and re-ask with the specific reason rather than giving up.
++// A bare `/scholar exam` never reaches this resolver at all.
+ import { dirname, join } from "node:path";
+ import { homedir } from "node:os";
+ import { pathToFileURL } from "node:url";
+@@ -87,19 +88,19 @@ for (const [name, input, expected] of [
+ 
+ // ------------------------------------------------ re-ask on a bad entry ----
+ {
+-  const ctx = fakeCtx(["quantum tunnelling", "1-2"]);
+-  const scope = await resolveExamScope(book, undefined, ctx);
+-  check("an unmatched entry is re-asked, then accepted", scope?.sectionIds.length === 2,
++  const ctx = fakeCtx(["1-2"]);
++  const scope = await resolveExamScope(book, "quantum tunnelling", ctx);
++  check("an unmatched typed scope is re-asked, then accepted", scope?.sectionIds.length === 2,
+     `${scope?.sectionIds.length ?? "rejected"} section(s) after ${ctx.prompts.length} prompt(s)`);
+   check("the retry prompt carries the specific reason",
+-    /No chapter or section matches/.test(ctx.prompts[1] || ""),
+-    JSON.stringify((ctx.prompts[1] || "").split("\n")[0]));
+-  check("the retry prompt repeats the guidance", /Accepted formats:/.test(ctx.prompts[1] || ""), "guidance repeated");
++    /No chapter or section matches/.test(ctx.prompts[0] || ""),
++    JSON.stringify((ctx.prompts[0] || "").split("\n")[0]));
++  check("the retry prompt repeats the guidance", /Accepted formats:/.test(ctx.prompts[0] || ""), "guidance repeated");
+ }
+ {
+   const ctx = fakeCtx(["nonsense", "2-3"]);
+   const scope = await resolveExamScope(book, "also nonsense", ctx);
+-  check("a bad command-line scope reopens the picker", scope?.sectionIds.length === 2,
++  check("a bad command-line scope reopens the dialog", scope?.sectionIds.length === 2,
+     `${scope?.sectionIds.length ?? "rejected"} section(s) after ${ctx.prompts.length} prompt(s)`);
+   check("the first prompt already explains the failure",
+     /No chapter or section matches/.test(ctx.prompts[0] || ""), "reason shown up front");
+@@ -107,8 +108,10 @@ for (const [name, input, expected] of [
+ 
+ // -------------------------------------------------------------- giving up --
+ {
+-  const ctx = fakeCtx(["bad one", "bad two", "bad three", "1-2"]);
+-  const scope = await resolveExamScope(book, undefined, ctx);
++  // The valid answer left at the end of the queue must stay unused: the loop is
++  // bounded, not rescued by one more prompt.
++  const ctx = fakeCtx(["bad two", "bad three", "1-2"]);
++  const scope = await resolveExamScope(book, "bad one", ctx);
+   check("repeated bad entries stop after a bounded number of tries", scope === undefined,
+     `${ctx.prompts.length} prompt(s), then ${ctx.notices.length} notice(s)`);
+   check("giving up says no exam was created",
+@@ -116,7 +119,7 @@ for (const [name, input, expected] of [
+ }
+ {
+   const ctx = fakeCtx([undefined]);
+-  const scope = await resolveExamScope(book, undefined, ctx);
++  const scope = await resolveExamScope(book, "not a chapter", ctx);
+   check("cancelling the dialog creates no exam and warns nothing",
+     scope === undefined && ctx.notices.length === 0, `${ctx.notices.length} notice(s)`);
+ }
+diff --git a/tests/verify-scholar-explanation-presentation.mjs b/tests/verify-scholar-explanation-presentation.mjs
+index 78bbb69..98b0597 100644
+--- a/tests/verify-scholar-explanation-presentation.mjs
++++ b/tests/verify-scholar-explanation-presentation.mjs
+@@ -113,7 +113,7 @@ const longPlan = { ...section, objectives: longObjectives, coveredObjectives: []
+   objectiveChecks: longObjectives.map(objective => ({ objective, checks: ["conceptual", "computation"] })), attempts: [] };
+ const longNote = renderSection(config, book, chapter, longPlan);
+ const preLesson = longNote.slice(0, longNote.indexOf("## Lesson"));
+-assert.match(preLesson, /^> \[!scholar-status\] In progress$/m);
++assert.match(preLesson, /^> \[!scholar-status\] In progress · Current section · Pages 1–16 · 3 short questions remaining$/m);
+ assert.match(preLesson, /Current section · Pages 1–16 · 3 short questions remaining/);
+ assert.doesNotMatch(preLesson, /Objective \d+:|evidence for:|Remaining to complete/);
+ const statusHeader = preLesson.split("\n").find(line => line.startsWith("> [!scholar-status]"));
+diff --git a/tests/verify-scholar-figure-coverage.mjs b/tests/verify-scholar-figure-coverage.mjs
+index e73d6cc..7cdf71c 100644
+--- a/tests/verify-scholar-figure-coverage.mjs
++++ b/tests/verify-scholar-figure-coverage.mjs
+@@ -69,11 +69,18 @@ try {
+   await storage.createBookState(config, initial);
+   const load = () => storage.loadBookState(config, initial.id);
+   const active = (book, index = 0) => book.chapters[0].sections[index];
+-  const mutateBook = async (bookId, mutate) => {
+-    const book = await load(), revision = book.revision;
+-    const result = await mutate(book);
+-    await storage.saveBookState(config, book, revision);
+-    return { book: await load(), result };
++  // The production writer serializes its mutations; the audit's receipt/checkpoint writes run
++  // beside authoring, so this fixture must too. An unqueued writer races on the book revision.
++  let writeChain = Promise.resolve();
++  const mutateBook = (bookId, mutate) => {
++    const run = writeChain.then(async () => {
++      const book = await load(), revision = book.revision;
++      const result = await mutate(book);
++      await storage.saveBookState(config, book, revision);
++      return { book: await load(), result };
++    });
++    writeChain = run.then(() => undefined, () => undefined);
++    return run;
+   };
+   const session = new ScholarRuntimeSession();
+   session.activate(initial.id, "learn", "section-1");
+diff --git a/tests/verify-scholar-mode-figures.mjs b/tests/verify-scholar-mode-figures.mjs
+index 2ead4d4..ec899aa 100644
+--- a/tests/verify-scholar-mode-figures.mjs
++++ b/tests/verify-scholar-mode-figures.mjs
+@@ -111,7 +111,7 @@ async function check(name, test) {
+ }
+ 
+ try {
+-  await check("tutor explanations are reviewed before delivery and answered findings do not re-run the crew", async () => {
++  await check("tutor explanations are audited beside authoring and answered findings do not re-run the audit", async () => {
+     const h = await harness("tutor");
+     const model = { id: "tutor-review", provider: "fixture", api: "fixture", input: ["text"], contextWindow: 32_000, maxTokens: 4000 };
+     const issue = "The explanation jumps from the diagram to the result.";
+@@ -127,21 +127,36 @@ try {
+     } } };
+     const lesson = { id: "tutor-unit", title: "Source causes", objectives: [], keyPoints: ["Changes propagate through each step."], sourcePages: [2],
+       markdown: "### Source causes\n\nA change at the input reaches the observed result through each intermediate step of the source diagram." };
++    const settle = async predicate => {
++      const started = Date.now();
++      for (;;) {
++        if (await predicate()) return;
++        if (Date.now() - started > 5000) throw new Error("Timed out waiting for the Tutor audit");
++        await new Promise(resolve => setTimeout(resolve, 10));
++      }
++    };
+ 
++    // The save is never blocked by its audit; the teaching check runs beside authoring.
+     const first = await h.execute({ action: "notes", lesson }, context);
+-    assert.equal(teachingReviews, 1, "the saved explanation is reviewed once by the teaching role");
+-    assert.equal(first.details.tone, "review");
+-    const findingsText = first.content.map(item => item.text).join("\n");
++    success(first);
++    await settle(async () => (h.record(await h.load())?.review?.receipts?.length || 0) === 1);
++    assert.equal(teachingReviews, 1, "the saved explanation is audited once by the teaching role");
++    const reviewed = h.record(await h.load());
++    assert.equal(reviewed.review.receipts.filter(receipt => receipt.role === "teaching").length, 1, "the teaching receipt is stored on the Tutor session");
++    assert.equal(reviewed.review.receipts[0].status, "changes");
++
++    // The finding reaches the author on the next Scholar result, named with its repair key.
++    const following = await h.execute({ action: "status" }, context);
++    const findingsText = following.content.map(item => item.text).join("\n");
+     assert.ok(findingsText.includes(issue), findingsText);
+     const keys = [...new Set([...findingsText.matchAll(/\[F-([0-9a-f]{12})\]/g)].map(match => match[1]))];
+     assert.equal(keys.length, 1, `the blocking finding is named with its repair key: ${keys.join(", ")}`);
+-    const reviewed = h.record(await h.load());
+-    assert.equal(reviewed.review.receipts.filter(receipt => receipt.role === "teaching").length, 1, "the teaching receipt is stored on the Tutor session");
+ 
+     const second = await h.execute({ action: "notes", lesson,
+       findingResponses: keys.map(key => ({ key, action: "fixed", note: "Named the intermediate step in the explanation." })) }, context);
+-    assert.ok(!["error", "retry", "review"].includes(second.details.tone), second.content[0].text);
+-    assert.equal(teachingReviews, 1, "an answered resubmission never re-runs the crew");
++    success(second);
++    await new Promise(resolve => setTimeout(resolve, 30));
++    assert.equal(teachingReviews, 1, "an answered revision never re-runs the audit");
+     const answered = h.record(await h.load());
+     assert.ok(keys.every(key => (answered.review.responses || []).some(response => response.key === key)), "the author response is stored on the Tutor session");
+   });
+diff --git a/tests/verify-scholar-open-assessment.mjs b/tests/verify-scholar-open-assessment.mjs
+index 0daf4a5..bc9b31e 100644
+--- a/tests/verify-scholar-open-assessment.mjs
++++ b/tests/verify-scholar-open-assessment.mjs
+@@ -206,6 +206,13 @@ await assert.rejects(evaluate(), /no learner response/);
+       markdown: "### Travel time at fixed speed\n\nA model connects an input to an observable result, so the explanation states the relation before giving a number.",
+       keyPoints: ["Delay grows with path length at fixed speed."] } });
+     assert.ok(!["review", "error", "retry"].includes(explain.details.tone), explain.content[0].text);
++    // Audit-as-you-go runs the teaching audit beside authoring; wait for the receipt it lands.
++    const audited = () => requests.filter(item => item === "teaching").length === 1 && target().review?.receipts?.some(receipt => receipt.role === "teaching");
++    const settleStarted = Date.now();
++    while (!audited()) {
++      if (Date.now() - settleStarted > 5000) throw new Error("The saved Tutor explanation was never audited by the teaching role.");
++      await new Promise(resolve => setTimeout(resolve, 10));
++    }
+     assert.equal(requests.filter(item => item === "teaching").length, 1, "a saved explanation is reviewed once");
+     assert.ok(target().review?.receipts?.some(receipt => receipt.role === "teaching"), "the explanation keeps its teaching receipt");
+     const prepareQuestion = (id, prompt) => execute(id, { action: "assess", outcome: "pending", kind: "conceptual", question: prompt,

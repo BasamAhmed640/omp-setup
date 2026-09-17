@@ -1,0 +1,18 @@
+.\exam.ts:196:      // Without that a wrong option teaches nothing and diagnoses nothing.
+.\index.ts:301:    if (!modeCan(coordinator.runtimeSession.mode, "assesses")) return;
+.\index.ts:408:    if (!modeCan(coordinator.runtimeSession.mode, "assesses")) return;
+.\index.ts:434:    if (!modeCan(coordinator.runtimeSession.mode, "assesses")) return;
+.\modes.ts:34:  // Learn teaches interactively and owns section progress; it is barred from the
+.\modes.ts:54:  // Tutor teaches and assesses in Pi, but its evidence is assisted practice, so it
+.\policies.ts:141:- Grade so the answer key teaches. Every item result needs diagnostic feedback, and a wrong or partial answer also needs the first decisive error, the correct reasoning, and a transferable lesson. For a correct answer, say briefly why the reasoning holds, so a lucky guess is not mistaken for competence. Scholar writes these into a separate answer-key note beside the exam; describe the learner's error in your own words and never quote their response.
+.\question-grounding.ts:229:    issues.push("mastery evidence must name the exact taught objective it assesses");
+.\review-layer.ts:84:  teaching: `Evaluate the lesson as instruction for an intelligent adult learning this material, not a compressed summary for an expert. Require unfamiliar technical terms and symbols to be explained at first meaningful use; motivation, intermediate reasoning and assumptions at difficult steps; examples or figure walkthroughs where they carry the explanation. Reject a wall of facts, unexplained jumps, unhelpful analogies or a gallery replacing explanation. Trace the hardest transitions yourself: can a learner obtain the next equation from the stated components, signs, substitutions and assumptions? For each blocking finding name the exact passage and missing connection and give a concrete repair, not "add detail". A named figure or term is not an explanation. Distinguish a brief prerequisite reminder from re-teaching whole earlier chapters; exercise solutions and optional enrichment are not mandatory. Check physical-meaning sentences, unchanged quantities and limiting cases, not just formulas. Do not demand a word count, an analogy per topic or arbitrary boxes. Review the objectiveChecks plan: require reasoning/calculation where the source teaches it, and reject all-four-checks-per-objective busywork when not justified. Report at most six blocking findings, the most consequential first; a short list of real defects is worth more than an exhaustive one.`,
+.\runtime-coordinator.ts:306:      if (this.quizRegistered && modeCan(this.runtimeSession.mode, "assesses")) {
+.\runtime-coordinator.ts:487:    if (modeCan(mode, "assesses") && !this.quizRegistered) {
+.\runtime-coordinator.ts:489:        if (!this.runtimeSession.active || !this.runtimeSession.bookId || !modeCan(this.runtimeSession.mode, "assesses")) throw new Error("Open Scholar Learn or Tutor first.");
+.\tests\verify-scholar-modes.mjs:38:const CAPABILITIES = ["teaches", "assesses", "citesLearnObjectives", "usesWebImages", "materializesSections"];
+.\tests\verify-scholar-modes.mjs:49:check("modeCan tolerates no active mode", modeCan(undefined, "assesses") === false, "returns false, does not throw");
+.\tests\verify-scholar-modes.mjs:77:  check(`policies match teaches=${MODE_CAPABILITIES[mode].teaches} for ${mode}`,
+.\tests\verify-scholar-modes.mjs:78:    prompt.includes(TEACHING_MARKER) === MODE_CAPABILITIES[mode].teaches,
+.\tests\verify-scholar-modes.mjs:79:    MODE_CAPABILITIES[mode].teaches ? "teaching engine present" : "teaching engine absent");
+.\tool-controller.ts:236:    if (!session.active || !session.bookId || !modeCan(session.mode, "assesses")) return;

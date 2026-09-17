@@ -1,0 +1,30 @@
+.\.ref-controller-v060.ts:703:                  const responses = [...(tutor.review?.responses || []), ...(params.findingResponses || [])];
+.\.ref-controller-v060.ts:732:                  if (params.findingResponses?.length) {
+.\.ref-controller-v060.ts:734:                    for (const resp of params.findingResponses) existing.set(resp.key, resp);
+.\.ref-controller-v060.ts:740:                  const result = toolResult("notes", "Saved Tutor explanation draft; specialist review found repairs. Address each blocking finding [F-<key>] by revising the explanation and supplying findingResponses: [{ key, action: 'fixed' | 'declined', note }] before saving again.", { bookId: book.id, tone: "review" });
+.\.ref-controller-v060.ts:807:                : "Draft saved; specialist review found repairs. Address each blocking finding [F-<key>] by revising passages in their existing lesson IDs and supplying findingResponses: [{ key, action: 'fixed' | 'declined', note }] before submitting lessonComplete again.";
+.\.ref-controller-v060.ts:848:            if (params.findingResponses !== undefined) {
+.\.ref-controller-v060.ts:849:              if (!Array.isArray(params.findingResponses) || !params.findingResponses.length || !params.findingResponses.every(isFindingResponse)) {
+.\.ref-controller-v060.ts:850:                throw new Error("findingResponses must be an array of valid responses with key, action ('fixed' | 'declined'), and note (1-600 chars).");
+.\.ref-controller-v060.ts:868:              const responses = [...(current.review?.responses || []), ...(params.findingResponses || [])];
+.\.ref-controller-v060.ts:874:              return await handleExamBuild(book, examId, params.questions || [], ctx, mutateBook, presentExam, toolResult, params.findingResponses);
+.\.ref-controller-v060.ts:898:              if (params.findingResponses?.length) {
+.\.ref-controller-v060.ts:900:                for (const resp of params.findingResponses) existing.set(resp.key, resp);
+.\.ref-controller-v060.ts:906:              const result = toolResult("exam_build", "Exam form built; specialist review found repairs. Address each blocking finding [F-<key>] and supply findingResponses: [{ key, action: 'fixed' | 'declined', note }] with exam_build before freezing.", { bookId: book.id, tone: "review" });
+.\.ref-controller-v060.ts:919:            return await handleExamBuild(freshBook, examId, params.questions || [], ctx, mutateBook, presentExam, toolResult, params.findingResponses);
+.\policies.ts:107:- Complete the source-grounded explanations of every objective and essential equation/figure, perform the focused editorial review, and save repairs before setting notes.lessonComplete=true. For new Learn deliveries this automatically runs independent source, teaching and math/visual reviews in parallel against the actual source pages, crops and saved explanations, using the current Pi model and its supported thinking level. Read their concrete findings, repair the affected passages with the current expectedContentHash, update the checklist's exact evidence and resubmit. A resubmission after findings checks your recorded findingResponses instead of running the crew again; a fresh crew run happens only after an intentional revision of a committed lesson or a new /scholar learn activation. An interrupted, stale or unavailable review is never an approval.
+.\policies.ts:135:- exam_build runs an independent assessment review of the frozen form before it activates. If it returns blocking findings, address each [F-<key>] and resubmit exam_build with findingResponses: [{ key, action: 'fixed' | 'declined', note }]; that resubmission checks your responses instead of running the crew again.
+.\policies.ts:166:- Saved tutor explanations and every practice/mastery question are independently reviewed before delivery. Repair blocking findings and supply findingResponses: [{ key, action: 'fixed' | 'declined', note }]; a question review that fails blocks the question, never the learner's answer.
+.\tool-actions\exam.ts:45:  findingResponses?: FindingResponse[],
+.\tool-actions\exam.ts:69:    if (findingResponses?.length) {
+.\tool-actions\exam.ts:72:      for (const resp of findingResponses) existing.set(resp.key, resp);
+.\tool-actions\learning.ts:65:    findingResponses?: FindingResponse[];
+.\tool-actions\learning.ts:77:  if (params.findingResponses !== undefined) {
+.\tool-actions\learning.ts:78:    if (!Array.isArray(params.findingResponses) || !params.findingResponses.length || !params.findingResponses.every(isFindingResponse)) {
+.\tool-actions\learning.ts:79:      throw new Error("findingResponses must be an array of valid responses with key, action ('fixed' | 'declined'), and note (1-600 chars).");
+.\tool-actions\learning.ts:83:    params.synthesis, params.keyPoints, params.objectives, params.coveredObjectives, params.objectiveChecks, params.requiredChecks, params.misconceptions, params.findingResponses].some(value => value !== undefined)) {
+.\tool-actions\learning.ts:84:    throw new Error("Nothing saved. Supply a lesson, recap, source plan, figureReviews, objectiveChecks, coverageUpdates or findingResponses. These fields may be saved independently.");
+.\tool-actions\learning.ts:95:      if (params.findingResponses?.length) {
+.\tool-actions\learning.ts:98:        for (const resp of params.findingResponses) existing.set(resp.key, resp);
+.\tool-actions\learning.ts:181:    if (params.findingResponses?.length && section.learnQuality) {
+.\tool-actions\learning.ts:183:      for (const resp of params.findingResponses) existing.set(resp.key, resp);

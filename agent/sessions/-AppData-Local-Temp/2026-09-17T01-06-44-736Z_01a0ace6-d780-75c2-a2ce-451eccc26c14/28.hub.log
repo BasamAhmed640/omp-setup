@@ -1,0 +1,1123 @@
+## Completed (26)
+
+### bg_1 [bash] — completed
+Label: pwd && ls -la
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+C:\Users\basam\AppData\Local\Temp
+.tmp05GRaI/
+.tmp09sQan/
+.tmp0f1Cu2/
+.tmp0hzXpM/
+.tmp0qbR01/
+.tmp0y0nZt/
+.tmp179e0A/
+.tmp1M4ENU/
+.tmp1b2yLL/
+.tmp1dmxTi/
+.tmp264Rlb/
+.tmp2BtYku/
+.bdfffb6fdff73fbc-00000000.dll  3.6M
+.fef7ffd71f17f7ee-00000000.node  506.0K
+.fef7ffef5bafe7ea-00000001.node  506.0K
+.ses  53B
+0389dab1-de3b-4393-a44c-c774ea6feddb.tmp  5.8M
+1b55bf80-fd9a-493b-95a7-171851476afe.tmp  0B
+27201c36-ee69-4b99-bc5e-eaedd686a1e7.tmp  0B
+2a5da083-dbbc-4853-b9ad-a926db8da71c.tmp  0B
+33621570-bf66-4bbb-bc50-b02b03c05e3f.tmp  0B
+3e944189-7957-4ecf-b585-8ec4d60cf2b1.tmp  0B
+4f852f2e-51fe-4975-9877-8053f7754a58.tmp  20.5M
+836558ab-a64f-4e91-9a60-fdda873a49f0.tmp  11.2K
+92e248da-c25f-4b4e-8fa1-664d5c44df7a.tmp  0B
+BASAMAHMED-20260911-1932.log  302.4K
+StructuredQuery.log  1.6M
+a2cd69cf-6a9a-43a8-b48c-33136cdbbb80.tmp.js  1.8M
+aa880b63-e87c-4ef8-9910-148a9fa6844d.tmp  0B
+codex-clipboard-2390487e-8a07-4473-8890-24f185f5e477.png  225.5K
+codex-clipboard-28b900c1-cf8f-4c5a-8314-bdde7fecb497.png  154.7K
+codex-clipboard-2c33dc2d-098f-4ba0-a325-6d1870764797.png  116.5K
+codex-clipboard-35ceef88-35d3-4235-a61d-34e6a991185a.png  413.4K
+codex-clipboard-3e0abcf0-0616-4e5e-85f1-e5c5d4322bde.jpg  562.8K
+codex-clipboard-3e601c20-76c7-441a-a4f1-a5038a457bad.png  76.9K
+codex-clipboard-72db4318-0eaa-46ed-9e10-7a812d11dc8c.png  68.0K
+codex-clipboard-8f13621a-6857-4e44-9079-36d0f073dfec.png  188.0K
+codex-clipboard-9073c133-8dcb-4f60-a6e0-b197e4df32d3.png  63.9K
+codex-clipboard-96496e69-4f88-4e11-b5f3-f91bfa00b864.png  57.7K
+codex-clipboard-a2c7d055-91ca-46f6-a401-5a5186c4deca.png  134.6K
+codex-clipboard-bd5c79c2-a8dd-47b1-bb23-367b63e44064.png  267.7K
+codex-clipboard-c4ec443c-77a3-4a42-9a0c-ddc6af741d48.png  414.2K
+codex-clipboard-d5b66259-8f5b-47ef-8b41-f154a6d72e2f.png  74.0K
+codex-clipboard-e1c36c70-9499-4429-a4ac-91f3885bfc34.png  1012.4K
+codex-clipboard-e5a31e9e-2045-4d4d-bbef-546fab02c5c9.png  254.8K
+codex-clipboard-fc739733-dc1f-4c9c-84ef-5b4037c11587.png  191.5K
+codex-clipboard-fce4b3db-0d5c-4784-bd6d-f7c4bf0c2d54.png  65.9K
+cu-glow.html  2.8K
+[…815 entries elided…]
+
+270 files, 593 dirs (5 .dat, 5 .diff, 1 .dll, 1 .html)
+[raw output: artifact://1]
+
+
+Wall time: 0.13 seconds
+```
+
+### bg_2 [bash] — completed
+Label: cat .ses 2>/dev/null; echo "---"; ls -d ~/pi-scholar ~/src/pi-scholar ~/Documents/pi-scholar ~/Desktop/pi-scholar ~/p...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+1789601642689
+4D5872AC-6268-4246-AA06-668C58BA3AA4
+---
+---search---
+
+
+Wall time: 0.07 seconds
+```
+
+### bg_3 [bash] — completed
+Label: for d in /c/Users/basam /c/dev /c/src /c/Users/basam/source /c/Users/basam/repos /c/Users/basam/Documents /c/Users/ba...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+== /c/Users/basam
+.adal
+.agents
+.aider-desk
+.alvar
+.antigravity
+.antigravity-ide
+.arduinoIDE
+.astrbot
+.augment
+.autohand
+.bash_profile
+.bashrc
+.bob
+.bun
+.cache
+.cargo
+.claude
+.claude.json
+.claude.json.backup
+.codeartsdoer
+.codebuddy
+.codeium
+.codemaker
+.codestudio
+.codex
+.commandcode
+.config
+.continue
+.copilot
+.cua-driver
+.dbus-keyrings
+.factory
+.forge
+.gemini
+.gitconfig
+.grok
+.hermes
+.iflow
+.inferencesh
+.jazz
+== /c/Users/basam/Documents
+400W_BA_JW
+Arduino
+Codex
+Custom Office Templates
+DesignSoft
+EasyEDA-Pro
+KiCad
+KiCad_ Libraries
+KiCad_Libraries.3dshapes
+KiCad_Libraries.kicad_sym
+KiCad_Libraries.pretty
+LTspice
+My Games
+QSPICE
+Sound Recordings
+fmd2.0
+pi-backups
+== /c/Users/basam/Desktop
+Antigravity.lnk
+Arduino IDE.lnk
+Autodesk Fusion.lnk
+BOOKS
+Basam's_Vault
+CAD
+Discord.lnk
+Discover
+Firefox.exe
+HELLDIVERS™ 2.url
+Hermes.lnk
+KiKAD_FILES
+LTspice
+LTspice.lnk
+MECCHA CHAMELEON.url
+Mdownload
+Moonlight Magic - Screensavers
+Obsidian.lnk
+PCB_PROJECTS
+SIPI_Silicon
+SPICE
+Sections
+Slay the Spire 2.url
+SumatraPDF.lnk
+Terraria.url
+Visual Studio Code.lnk
+WALLPAPER
+WezTerm.lnk
+scholar-backup-pre-refactor
+== /c/Users/basam/Downloads
+0137035020.pdf - Signal and Power Integrity - Simplified_2nd_Eric Bogatin_Prentice Hall PTR_2010.pdf
+1140-101k-rc.stp
+1768763422.54674.jpg
+1N4007_T.zip
+1_02813060.pdf
+2025-benefit-summary-full-time-mgmt-support-nonbarghourly-plan_.pdf
+282834-3.zip
+282841_3.zip
+2_53308230.pdf
+2_86632311.pdf
+3500.webp
+488908.jpg
+5b4107b4a5362.jpg
+6dI8QMZI.htm
+90855.pdf
+ABSTRACT_DRAFT.pdf
+AD-logo-horizontal-BLK.svg
+AP_21009762181941.webp
+A_Moral_Vision_for_Climate_Crisis.pdf
+Antigravity.exe
+Apartment_Lease_Application-_New_York 2021.docx.pdf
+Assg_Sheet_5.doc
+B10B-XH-A.zip
+B10B_XH_A.zip
+B2B_XH_A.zip
+B5B_XH_A.zip
+B6B-XH-A.zip
+B8B-XH-A.zip
+BasamLease_Parking.pdf
+Basam_Ahmed_Phil133N_MoralVision.docx
+Basam_Ahmed_Resume.pdf
+C13755.pdf
+CONTROL-20251212T160109Z-3-001.zip
+CONTROLV2.zip
+CRA2512_FZ_R010ELF.zip
+CWC26 Regional Rules - 260309 - Revision 1 (1)-1.pdf
+CWC26 Regional Rules - 260309 - Revision 1 (1).pdf
+CWC_FLOWCHART.png
+C_Programming_Language.svg.png
+Capstone Project_ NREL Wind Competition.pdf
+
+
+Wall time: 0.10 seconds
+```
+
+### bg_4 [bash] — completed
+Label: ls -la "/c/Users/basam/Desktop/scholar-backup-pre-refactor" 2>/dev/null | head -50; echo "=== pi-backups ==="; ls -la...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+total 413903
+drwxrwxrwx 1 somebody somegroup  4096 Sep  3 16:47 .
+dr-xr-xr-x 1 somebody somegroup  8192 Sep 12 19:39 ..
+-rwxrwxrwx 1 somebody somegroup 12736 Sep  2 00:02 README.md
+-rwxrwxrwx 1 somebody somegroup  3329 Sep  1 23:49 book-service.ts
+-rwxrwxrwx 1 somebody somegroup 13627 Aug 30 17:00 commons-images.ts
+-rwxrwxrwx 1 somebody somegroup 16933 Sep  1 23:50 domain.ts
+-rwxrwxrwx 1 somebody somegroup  6930 Aug 31 21:22 exam.ts
+-rwxrwxrwx 1 somebody somegroup 58783 Sep  2 00:09 index.ts
+-rwxrwxrwx 1 somebody somegroup 25682 Aug 30 13:42 ingest.ts
+-rwxrwxrwx 1 somebody somegroup  3596 Aug 31 21:29 input-lock.ts
+-rwxrwxrwx 1 somebody somegroup 45931 Sep  2 01:32 obsidian.ts
+-rwxrwxrwx 1 somebody somegroup 21298 Sep  1 00:54 outline-validation.ts
+-rwxrwxrwx 1 somebody somegroup 13644 Sep  1 18:18 policies.ts
+-rwxrwxrwx 1 somebody somegroup  1048 Sep  1 18:16 question-grounding-schema.ts
+-rwxrwxrwx 1 somebody somegroup  8447 Sep  1 18:24 question-grounding.ts
+-rwxrwxrwx 1 somebody somegroup  6508 Sep  1 18:11 quiz-contract.ts
+-rwxrwxrwx 1 somebody somegroup 22453 Sep  2 00:55 quiz.ts
+-rwxrwxrwx 1 somebody somegroup  9976 Sep  1 23:51 runtime-session.ts
+-rwxrwxrwx 1 somebody somegroup 31115 Sep  1 18:12 state-schema.ts
+-rwxrwxrwx 1 somebody somegroup 24648 Sep  2 00:03 storage.ts
+-rwxrwxrwx 1 somebody somegroup  6740 Sep  1 23:25 tool-contract.ts
+-rwxrwxrwx 1 somebody somegroup 59114 Sep  2 00:08 tool-controller.ts
+-rwxrwxrwx 1 somebody somegroup  9077 Sep  1 18:09 types.ts
+=== pi-backups ===
+total 8192
+drwxrwxrwx 1 somebody somegroup 4096 Sep 16 21:05 .
+dr-xr-xr-x 1 somebody somegroup 4096 Sep 15 20:01 ..
+drwxrwxrwx 1 somebody somegroup    0 Sep 15 22:35 omp-cat-loader-2026-09-15
+drwxrwxrwx 1 somebody somegroup    0 Sep 15 21:46 omp-control-2026-09-15
+drwxrwxrwx 1 somebody somegroup    0 Sep 16 21:05 omp-revert-2026-09-16
+
+
+Wall time: 0.08 seconds
+```
+
+### bg_5 [bash] — completed
+Label: find . -maxdepth 4 -name "pi-scholar*" -o -maxdepth 4 -name "*scholar*" -type d 2>/dev/null | grep -v AppData | head -30
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+.\.claude\projects\C--Users-basam--pi-agent-extensions-scholar
+.\.gemini\antigravity\scratch\scholar-baseline
+.\.omp\agent\sessions\-.pi-agent-extensions-scholar
+.\.pi\agent\extensions\scholar
+.\.pi\agent\scholar
+.\Desktop\scholar-backup-pre-refactor
+
+
+Wall time: 0.13 seconds
+```
+
+### bg_6 [bash] — completed
+Label: for d in "/c/Users/basam/.pi/agent/extensions/scholar" "/c/Users/basam/.pi/agent/scholar" "/c/Users/basam/.gemini/ant...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+=== /c/Users/basam/.pi/agent/extensions/scholar
+total 853566
+drwxrwxrwx 1 somebody somegroup 28672 Sep 16 00:21 .
+drwxrwxrwx 1 somebody somegroup     0 Sep 16 01:01 ..
+drwxrwxrwx 1 somebody somegroup     0 Sep 16 00:30 .git
+-rwxrwxrwx 1 somebody somegroup   310 Sep  9 00:39 .gitignore
+-rwxrwxrwx 1 somebody somegroup  5032 Sep 15 23:28 AGENTS.md
+-rwxrwxrwx 1 somebody somegroup 48867 Sep 16 00:03 README.md
+-rwxrwxrwx 1 somebody somegroup  2938 Sep  9 00:12 THIRD_PARTY_NOTICES.md
+-rwxrwxrwx 1 somebody somegroup  7433 Sep  5 00:30 appearance.ts
+-rwxrwxrwx 1 somebody somegroup  6372 Sep  9 00:09 book-service.ts
+-rwxrwxrwx 1 somebody somegroup  8426 Sep 13 19:18 command-syntax.ts
+-rwxrwxrwx 1 somebody somegroup 29621 Sep 14 21:41 commands.ts
+-rwxrwxrwx 1 somebody somegroup 13627 Aug 30 17:00 commons-images.ts
+drwxrwxrwx 1 somebody somegroup     0 Sep 14 20:41 docs
+-rwxrwxrwx 1 somebody somegroup 28567 Sep 14 21:41 domain.ts
+-rwxrwxrwx 1 somebody somegroup  8434 Sep 13 14:31 equation-presentation.ts
+-rwxrwxrwx 1 somebody somegroup  3607 Sep  8 03:09 exam-paper.ts
+-rwxrwxrwx 1 somebody somegroup 27040 Sep 12 17:10 exam.ts
+-rwxrwxrwx 1 somebody somegroup  3489 Sep  9 00:10 figure-capture.ts
+-rwxrwxrwx 1 somebody somegroup 11726 Sep  5 06:28 figure-coverage.ts
+fatal: cannot change to '/c/Users/basam/.pi/agent/extensions/scholar': No such file or directory
+=== /c/Users/basam/.pi/agent/scholar
+total 8322
+drwxrwxrwx 1 somebody somegroup 4096 Sep 13 22:28 .
+drwxrwxrwx 1 somebody somegroup 4096 Sep 16 20:54 ..
+drwxrwxrwx 1 somebody somegroup    0 Aug 31 21:00 books
+-rwxrwxrwx 1 somebody somegroup  130 Sep 13 22:28 config.json
+=== /c/Users/basam/.gemini/antigravity/scratch/scholar-baseline
+total 484060
+drwxrwxrwx 1 somebody somegroup  8192 Sep  5 18:47 .
+drwxrwxrwx 1 somebody somegroup  4096 Sep  5 18:55 ..
+-rwxrwxrwx 1 somebody somegroup 22391 Sep  5 06:27 README.md
+-rwxrwxrwx 1 somebody somegroup  7433 Sep  5 00:30 appearance.ts
+-rwxrwxrwx 1 somebody somegroup  3329 Sep  1 23:49 book-service.ts
+-rwxrwxrwx 1 somebody somegroup  5010 Sep  4 14:38 command-syntax.ts
+-rwxrwxrwx 1 somebody somegroup 20025 Sep  4 23:51 commands.ts
+-rwxrwxrwx 1 somebody somegroup 13627 Aug 30 17:00 commons-images.ts
+-rwxrwxrwx 1 somebody somegroup 24293 Sep  5 06:28 domain.ts
+-rwxrwxrwx 1 somebody somegroup 20983 Sep  4 22:47 exam.ts
+-rwxrwxrwx 1 somebody somegroup 11726 Sep  5 06:28 figure-coverage.ts
+-rwxrwxrwx 1 somebody somegroup 22108 Sep  5 03:19 index.ts
+-rwxrwxrwx 1 somebody somegroup 25682 Sep  4 14:38 ingest.ts
+-rwxrwxrwx 1 somebody somegroup  4049 Sep  3 14:00 input-lock.ts
+-rwxrwxrwx 1 somebody somegroup  2904 Sep  4 20:06 modes.ts
+-rwxrwxrwx 1 somebody somegroup  8858 Sep  4 23:46 obsidian-paths.ts
+-rwxrwxrwx 1 somebody somegroup 24553 Sep  5 17:46 obsidian.ts
+-rwxrwxrwx 1 somebody somegroup 21298 Sep  1 00:54 outline-validation.ts
+-rwxrwxrwx 1 somebody somegroup  2374 Sep  4 22:06 page-scope.ts
+
+
+Wall time: 0.29 seconds
+```
+
+### bg_7 [bash] — completed
+Label: ls -la "/c/Users/basam/.pi/agent/extensions/scholar/tests" 2>/dev/null | head -70; echo "=== docs ==="; ls -la "/c/Us...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+total 892773
+drwxrwxrwx 1 somebody somegroup 32768 Sep 14 21:41 .
+drwxrwxrwx 1 somebody somegroup 28672 Sep 16 00:21 ..
+-rwxrwxrwx 1 somebody somegroup  1550 Sep 12 19:34 lesson-fixture.mjs
+-rwxrwxrwx 1 somebody somegroup  1592 Sep 12 12:54 note-fixture.mjs
+-rwxrwxrwx 1 somebody somegroup  2646 Sep  9 00:28 run.mjs
+-rwxrwxrwx 1 somebody somegroup  5166 Sep 12 23:03 sdk.mjs
+-rwxrwxrwx 1 somebody somegroup 19727 Sep 12 23:03 verify-scholar-answer-feedback.mjs
+-rwxrwxrwx 1 somebody somegroup 23079 Sep 11 02:12 verify-scholar-appearance.mjs
+-rwxrwxrwx 1 somebody somegroup 13166 Sep 14 21:41 verify-scholar-audit-fixes.mjs
+-rwxrwxrwx 1 somebody somegroup 12823 Sep 12 12:54 verify-scholar-book-hub.mjs
+-rwxrwxrwx 1 somebody somegroup  8812 Sep 12 19:34 verify-scholar-boundaries.mjs
+-rwxrwxrwx 1 somebody somegroup  4526 Sep 12 17:10 verify-scholar-callout-boundaries.mjs
+-rwxrwxrwx 1 somebody somegroup 14694 Sep 14 21:41 verify-scholar-completion-practice.mjs
+-rwxrwxrwx 1 somebody somegroup 18733 Sep 12 23:03 verify-scholar-design-hardening.mjs
+-rwxrwxrwx 1 somebody somegroup  8379 Sep 12 19:34 verify-scholar-diagnostics.mjs
+-rwxrwxrwx 1 somebody somegroup  5757 Sep 14 21:41 verify-scholar-engine-contract.mjs
+-rwxrwxrwx 1 somebody somegroup  6029 Sep 13 14:31 verify-scholar-equation-presentation.mjs
+-rwxrwxrwx 1 somebody somegroup 11786 Sep  9 00:10 verify-scholar-exam-contract.mjs
+-rwxrwxrwx 1 somebody somegroup 14624 Sep 12 17:10 verify-scholar-exam-experience.mjs
+-rwxrwxrwx 1 somebody somegroup  6730 Sep  9 00:10 verify-scholar-exam-scope-prompt.mjs
+-rwxrwxrwx 1 somebody somegroup 11193 Sep 12 23:03 verify-scholar-exam-size.mjs
+-rwxrwxrwx 1 somebody somegroup 13278 Sep 14 21:41 verify-scholar-explanation-presentation.mjs
+-rwxrwxrwx 1 somebody somegroup 28536 Sep 16 00:07 verify-scholar-figure-coverage.mjs
+-rwxrwxrwx 1 somebody somegroup 14284 Sep 14 21:41 verify-scholar-history.mjs
+-rwxrwxrwx 1 somebody somegroup  9830 Sep  9 00:15 verify-scholar-input-capability.mjs
+-rwxrwxrwx 1 somebody somegroup 41315 Sep 13 14:31 verify-scholar-input-lock.mjs
+-rwxrwxrwx 1 somebody somegroup 12061 Sep 14 21:41 verify-scholar-learn-quality.mjs
+-rwxrwxrwx 1 somebody somegroup 32008 Sep 14 20:41 verify-scholar-learn-review.mjs
+-rwxrwxrwx 1 somebody somegroup  8050 Sep 14 21:41 verify-scholar-lesson-delivery.mjs
+-rwxrwxrwx 1 somebody somegroup  5804 Sep 13 15:43 verify-scholar-loading-progress.mjs
+-rwxrwxrwx 1 somebody somegroup 10209 Sep 12 12:54 verify-scholar-marker-audit.mjs
+-rwxrwxrwx 1 somebody somegroup  7331 Sep  9 00:11 verify-scholar-materialization.mjs
+-rwxrwxrwx 1 somebody somegroup  4607 Sep 12 20:05 verify-scholar-math-formatting.mjs
+-rwxrwxrwx 1 somebody somegroup 24693 Sep 16 00:15 verify-scholar-mode-figures.mjs
+-rwxrwxrwx 1 somebody somegroup  7779 Sep 14 21:41 verify-scholar-modes.mjs
+-rwxrwxrwx 1 somebody somegroup 15790 Sep 12 23:03 verify-scholar-note-authority.mjs
+-rwxrwxrwx 1 somebody somegroup 31469 Sep 14 21:41 verify-scholar-note-design.mjs
+-rwxrwxrwx 1 somebody somegroup 50308 Sep 16 00:10 verify-scholar-obsidian-exam.mjs
+-rwxrwxrwx 1 somebody somegroup 18130 Sep 16 00:15 verify-scholar-open-assessment.mjs
+-rwxrwxrwx 1 somebody somegroup  1320 Sep  9 00:17 verify-scholar-package.mjs
+-rwxrwxrwx 1 somebody somegroup 11937 Sep 12 23:03 verify-scholar-presentation.mjs
+-rwxrwxrwx 1 somebody somegroup  8890 Sep 12 23:03 verify-scholar-projection-isolation.mjs
+-rwxrwxrwx 1 somebody somegroup 10685 Sep 12 12:54 verify-scholar-projection.mjs
+-rwxrwxrwx 1 somebody somegroup 12983 Sep 14 21:41 verify-scholar-question-guard.mjs
+-rwxrwxrwx 1 somebody somegroup  7987 Sep 12 23:03 verify-scholar-question-math.mjs
+-rwxrwxrwx 1 somebody somegroup 16236 Sep 12 23:03 verify-scholar-question-resume.mjs
+-rwxrwxrwx 1 somebody somegroup 21003 Sep 13 19:18 verify-scholar-review-runtime.mjs
+-rwxrwxrwx 1 somebody somegroup 12092 Sep 14 21:41 verify-scholar-reviewed-progress.mjs
+-rwxrwxrwx 1 somebody somegroup  8716 Sep  9 00:10 verify-scholar-round3-breakdown.mjs
+-rwxrwxrwx 1 somebody somegroup  7993 Sep  9 00:10 verify-scholar-round3-diagnostics.mjs
+-rwxrwxrwx 1 somebody somegroup 12264 Sep 12 23:03 verify-scholar-round3-grading.mjs
+-rwxrwxrwx 1 somebody somegroup 13457 Sep 12 23:03 verify-scholar-round3-source.mjs
+-rwxrwxrwx 1 somebody somegroup  5301 Sep  9 00:10 verify-scholar-routing.mjs
+-rwxrwxrwx 1 somebody somegroup  8991 Sep  9 00:10 verify-scholar-runtime-session.mjs
+-rwxrwxrwx 1 somebody somegroup 10759 Sep  9 00:10 verify-scholar-safety.mjs
+-rwxrwxrwx 1 somebody somegroup 15359 Sep 12 23:03 verify-scholar-save-sync.mjs
+-rwxrwxrwx 1 somebody somegroup 13417 Sep 14 21:41 verify-scholar-second-pass.mjs
+-rwxrwxrwx 1 somebody somegroup 15097 Sep 16 00:12 verify-scholar-simple-learn.mjs
+-rwxrwxrwx 1 somebody somegroup  2284 Sep 12 12:54 verify-scholar-transcript-recovery.mjs
+-rwxrwxrwx 1 somebody somegroup 52870 Sep 16 00:17 verify-scholar-ui-contract.mjs
+-rwxrwxrwx 1 somebody somegroup 35198 Sep 12 12:54 verify-scholar-vault-authority.mjs
+=== docs ===
+total 38552
+drwxrwxrwx 1 somebody somegroup     0 Sep 14 20:41 .
+drwxrwxrwx 1 somebody somegroup 28672 Sep 16 00:21 ..
+-rwxrwxrwx 1 somebody somegroup  9211 Sep 16 00:02 architecture.md
+-rwxrwxrwx 1 somebody somegroup   669 Sep  9 00:39 hierarchy.mmd
+
+
+Wall time: 0.09 seconds
+```
+
+### bg_8 [bash] — completed
+Label: git status --short | head -30 && echo "=== log ===" && git log --oneline -12 && echo "=== branch ===" && git branch -...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+=== log ===
+c1a07e8 Ship v0.7.1: restore the independent review-and-repair flow
+869bbe1 Add AGENTS.md: invariants, verify commands, and layout for agent sessions
+5d959e2 Ship v0.7.0: save lessons on coverage, ask 3 short questions, remove reviewers
+5f24885 One-pass review layer, runaway-loop prevention and any-model compatibility
+4141149 Review Learn lessons with a parallel crew of scoped, checkpointed checks
+efe930c Ask before resuming an unapproved Learn draft instead of doing nothing
+51e5a8a Make Learn delivery stops sticky and bound preparation independently
+66eca3a Fix Learn reopening and bound interrupted review recovery
+4b672b7 Bound Learn reviews and resume saved batches without metadata churn
+9b37275 Improve Learn revisions and explanations with native loading progress
+c3c2976 Review Learn delivery against sources and strengthen equation presentation
+e3611da Normalize Obsidian math delimiters and validate lesson equations
+=== branch ===
++ feat/learn-quality-review
+  feat/loading-progress
++ feat/native-callout-presentation
++ fix/completion-practice-progress
++ fix/figure-references-and-math
+  fix/learn-delivery-and-assessment
++ fix/resume-unanswered-questions
++ fix/visible-note-authority
+* main
++ simplify
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/feat/loading-progress
+  remotes/origin/main
+  remotes/origin/simplify
+=== remote ===
+origin	https://github.com/BasamAhmed640/pi-scholar.git (fetch)
+origin	https://github.com/BasamAhmed640/pi-scholar.git (push)
+
+
+Wall time: 0.34 seconds
+```
+
+### bg_9 [bash] — completed
+Label: ls -lat "/c/Users/basam/.omp/agent/sessions/-.pi-agent-extensions-scholar" 2>/dev/null | head -20; echo "=== claude p...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+total 17069
+drwxrwxrwx 1 somebody somegroup  4096 Sep 15 23:32 .
+-rwxrwxrwx 1 somebody somegroup  2390 Sep 15 23:32 2026-09-16T03-32-34-532Z_01a0a845-fe63-70d8-b5e2-156a63f1bbdc.jsonl
+-rwxrwxrwx 1 somebody somegroup 10583 Sep 15 23:27 2026-09-16T03-27-13-051Z_01a0a841-169b-76df-b6fc-9ccc0bbb7464.jsonl
+drwxrwxrwx 1 somebody somegroup     0 Sep 15 23:27 ..
+=== claude projects ===
+total 14420787
+drwxrwxrwx 1 somebody somegroup     4096 Sep 15 20:53 ..
+-rwxrwxrwx 1 somebody somegroup 14416691 Sep  9 00:32 9a384867-9262-48e2-af99-cd57f635efb2.jsonl
+drwxrwxrwx 1 somebody somegroup        0 Sep  4 18:01 .
+drwxrwxrwx 1 somebody somegroup        0 Sep  4 18:01 memory
+
+
+Wall time: 0.08 seconds
+```
+
+### bg_10 [bash] — completed
+Label: echo "=== HEAD ===" && git log -3 --format="%h %ad %d %s" --date=iso && echo "=== origin/main vs HEAD ===" && git log...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+=== HEAD ===
+c1a07e8 2026-09-16 00:30:41 -0400  (HEAD -> main, origin/main, origin/HEAD) Ship v0.7.1: restore the independent review-and-repair flow
+869bbe1 2026-09-15 23:32:43 -0400  Add AGENTS.md: invariants, verify commands, and layout for agent sessions
+5d959e2 2026-09-14 21:41:45 -0400  (origin/simplify, simplify) Ship v0.7.0: save lessons on coverage, ask 3 short questions, remove reviewers
+=== origin/main vs HEAD ===
+=== ahead/behind per branch ===
+feat/learn-quality-review                10	0
+feat/loading-progress                    3	0
+feat/native-callout-presentation         15	0
+fix/completion-practice-progress         18	0
+fix/figure-references-and-math           11	0
+fix/learn-delivery-and-assessment        12	0
+fix/resume-unanswered-questions          17	0
+fix/visible-note-authority               16	0
+main                                     0	0
+simplify                                 2	0
+
+
+Wall time: 0.62 seconds
+```
+
+### bg_11 [bash] — completed
+Label: cat "/c/Users/basam/.omp/agent/sessions/-.pi-agent-extensions-scholar/2026-09-16T03-32-34-532Z_01a0a845-fe63-70d8-b5e...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+{"type":"title","v":1,"title":"","updatedAt":"2026-09-16T03:32:34.532Z","pad":"                                                                                                                                                                              "}
+{"type":"session","version":3,"id":"01a0a845-fe63-70d8-b5e2-156a63f1bbdc","timestamp":"2026-09-16T03:32:34.532Z","cwd":"C:\\Users\\basam\\.pi\\agent\\extensions\\scholar"}
+{"type":"model_change","id":"9d1fb718","parentId":null,"timestamp":"2026-09-16T03:32:34.618Z","model":"deepseek/deepseek-flash","resolvedModelIsFallback":false}
+{"type":"thinking_level_change","id":"1ca5afd6","parentId":"9d1fb718","timestamp":"2026-09-16T03:32:34.619Z","thinkingLevel":"max","configured":null}
+{"type":"message","id":"0db1bc7e","parentId":"1ca5afd6","timestamp":"2026-09-16T03:32:34.868Z","message":{"role":"user","content":[{"type":"text","text":"In one short line each: (1) name the file AGENTS.md says is the single writer of approved delivery, (2) state how many verifiers 'npm test' runs. Answer only from the repo, no speculation."}],"attribution":"user","timestamp":1789529554656}}
+{"type":"message","id":"7ebd6914","parentId":"0db1bc7e","timestamp":"2026-09-16T03:32:36.373Z","message":{"role":"assistant","content":[{"type":"thinking","thinking":"The repo rules give both. Answer in one short line each.\n\n(1) `tool-controller.ts`.\n(2) 55 verifiers.\n\nAnswer concisely.","thinkingSignature":"reasoning_content"},{"type":"text","text":"1. `tool-controller.ts` — sole writer of review receipts and approved-delivery commits.\n2. 55 verifiers, currently all passing."}],"api":"openai-completions","provider":"deepseek","model":"deepseek-flash","usage":{"input":623,"output":67,"cacheRead":18048,"cacheWrite":0,"totalTokens":18738,"reasoningTokens":35,"cost":{"input":0.0001869,"output":0.0000804,"cacheRead":0.000108288,"cacheWrite":0,"total":…
+{"type":"custom","customType":"session_exit","data":{"reason":"dispose","kind":"normal","recordedAt":"2026-09-16T03:32:36.408Z"},"id":"ebe40925","parentId":"7ebd6914","timestamp":"2026-09-16T03:32:36.408Z"}
+
+
+Wall time: 0.07 seconds
+
+[Some lines truncated to 768 bytes. Read artifact://12 for full output]
+```
+
+### bg_12 [bash] — completed
+Label: ls -lat | head -30 && echo "=== all session dirs mentioning scholar ===" && ls -d */ 2>/dev/null | head -40
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+total 4096
+drwxrwxrwx 1 somebody somegroup    0 Sep 16 21:11 -AppData-Local-Temp
+drwxrwxrwx 1 somebody somegroup 4096 Sep 16 21:03 ..
+drwxrwxrwx 1 somebody somegroup    0 Sep 15 23:32 -.pi-agent-extensions-scholar
+drwxrwxrwx 1 somebody somegroup    0 Sep 15 23:27 .
+drwxrwxrwx 1 somebody somegroup    0 Sep 15 21:51 -
+=== all session dirs mentioning scholar ===
+
+
+Wall time: 0.08 seconds
+```
+
+### bg_13 [bash] — completed
+Label: cat "/c/Users/basam/.omp/agent/sessions/-.pi-agent-extensions-scholar/2026-09-16T03-27-13-051Z_01a0a841-169b-76df-b6f...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+TITLE: 
+--- user: Use the lsp tool with the diagnostics action on index.ts. Report only the number of diagnostics and their severities. If the lsp tool reports no server, say exactly: NO_SERVER
+--- toolResult: ✘ index.ts: all language servers failed (typescript-language-server)
+--- toolResult: Language servers: typescript-language-server (configured, not started)
+  note: 'configured, not started' means the binary resolves on PATH but no request has spawned it yet; 'ready' means a client process is live for this cwd.
+--- toolResult: ✘ index.ts: all language servers failed (typescript-language-server)
+--- assistant: NO_SERVER
+
+
+Wall time: 0.14 seconds
+```
+
+### bg_14 [bash] — completed
+Label: for d in "-" "-AppData-Local-Temp"; do echo "########## $d"; ls -lat "$d" | head -20; done
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+########## -
+total 0
+drwxrwxrwx 1 somebody somegroup 0 Sep 15 23:27 ..
+drwxrwxrwx 1 somebody somegroup 0 Sep 15 21:51 .
+########## -AppData-Local-Temp
+error: unexpected argument '--' found
+
+  tip: to pass '--' as a value, use '-- --'
+
+Usage: ls [OPTION]... [FILE]...
+
+For more information, try '--help'.
+
+
+Wall time: 0.06 seconds
+```
+
+### bg_15 [bash] — completed
+Label: ls -lat "./-AppData-Local-Temp" | head -20
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+total 6126212
+drwxrwxrwx 1 somebody somegroup   20480 Sep 16 21:11 .
+-rwxrwxrwx 1 somebody somegroup  124823 Sep 16 21:11 2026-09-17T01-06-44-736Z_01a0ace6-d780-75c2-a2ce-451eccc26c14.jsonl
+drwxrwxrwx 1 somebody somegroup       0 Sep 16 21:10 2026-09-17T01-06-44-736Z_01a0ace6-d780-75c2-a2ce-451eccc26c14
+-rwxrwxrwx 1 somebody somegroup    1710 Sep 16 21:05 2026-09-17T01-05-54-745Z_01a0ace6-1439-7630-b5b2-61bff3afe03a.jsonl
+-rwxrwxrwx 1 somebody somegroup    2266 Sep 16 20:40 2026-09-17T00-39-42-623Z_01a0acce-171f-7234-b9fa-71814c48f800.jsonl
+-rwxrwxrwx 1 somebody somegroup  503616 Sep 16 20:40 2026-09-16T23-59-13-573Z_01a0aca9-06a5-7313-9b65-5f007aaba92d.jsonl
+drwxrwxrwx 1 somebody somegroup       0 Sep 16 20:06 2026-09-16T03-56-47-640Z_01a0a85c-2a98-71fd-b4fa-b42a1ac52cbe
+-rwxrwxrwx 1 somebody somegroup 3113354 Sep 16 20:06 2026-09-16T03-56-47-640Z_01a0a85c-2a98-71fd-b4fa-b42a1ac52cbe.jsonl
+drwxrwxrwx 1 somebody somegroup       0 Sep 16 20:03 2026-09-16T23-59-13-573Z_01a0aca9-06a5-7313-9b65-5f007aaba92d
+drwxrwxrwx 1 somebody somegroup       0 Sep 16 00:59 2026-09-16T04-59-05-564Z_01a0a895-33dc-71b3-ad9a-4c7d24c0c636
+-rwxrwxrwx 1 somebody somegroup     728 Sep 16 00:59 2026-09-16T04-59-05-564Z_01a0a895-33dc-71b3-ad9a-4c7d24c0c636.jsonl
+drwxrwxrwx 1 somebody somegroup       0 Sep 16 00:00 2026-09-16T03-35-00-502Z_01a0a848-3896-75f1-90b9-25747165a5a6
+-rwxrwxrwx 1 somebody somegroup 2313957 Sep 15 23:56 2026-09-16T03-35-00-502Z_01a0a848-3896-75f1-90b9-25747165a5a6.jsonl
+-rwxrwxrwx 1 somebody somegroup    2724 Sep 15 23:43 2026-09-16T01-52-30-930Z_01a0a7ea-62d2-7510-b064-828458166d2d.jsonl
+-rwxrwxrwx 1 somebody somegroup    3922 Sep 15 23:39 2026-09-16T03-39-20-422Z_01a0a84c-2fe6-722b-a71d-4cbedf0948d6.jsonl
+drwxrwxrwx 1 somebody somegroup       0 Sep 15 23:39 2026-09-16T03-39-20-422Z_01a0a84c-2fe6-722b-a71d-4cbedf0948d6
+drwxrwxrwx 1 somebody somegroup       0 Sep 15 23:34 2026-09-16T03-29-38-741Z_01a0a843-4fb5-729d-a143-980cf9ba0a56
+-rwxrwxrwx 1 somebody somegroup     728 Sep 15 23:34 2026-09-16T03-29-38-741Z_01a0a843-4fb5-729d-a143-980cf9ba0a56.jsonl
+-rwxrwxrwx 1 somebody somegroup    1875 Sep 15 23:29 2026-09-16T03-07-59-409Z_01a0a82f-7c31-7273-a1ec-a8e7a54ecd67.jsonl
+
+
+Wall time: 0.06 seconds
+```
+
+### bg_16 [bash] — completed
+Label: python -c "
+import json,sys
+for f in ['2026-09-17T01-06-44-736Z_01a0ace6-d780-75c2-a2ce-451eccc26c14.jsonl','2026-09-...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+#################### 2026-09-17T01-06-44-736Z_01a0ace6-d780-75c2-a2ce-451eccc26c14.jsonl
+USER: https://github.com/BasamAhmed640/pi-scholar
+#################### 2026-09-16T23-59-13-573Z_01a0aca9-06a5-7313-9b65-5f007aaba92d.jsonl
+USER: ``` |    Verified LSP inventory for this machine (Windows, absolute paths): |  |    typescript-language-server  C:\Users\basam\.bun\bin\typescript-language-server.exe   -> |  built-in key: typescript-language-server (TS/JS) |    tsc                         C:\Users\basam\.bun\bin\tsc.exe                          -> key: |  typescript-native (TS/JS) |    pyright-langserver          C:\Users\basam\.bun\bin\pyright-langserver.exe           -> key: |  pyright (Python types) |    ruff                        C:\Users\basam\.local\bin\ruff.exe                       -> key: |  ruff (Python lint) |    biome                       C:\Users\basam\.bun\bin\biome.exe                        -> key: |  biome (TS/JS/JSON lint) |    clangd                      C:\Use…
+  [exit] sighup
+
+
+Wall time: 0.16 seconds
+
+[Some lines truncated to 768 bytes. Read artifact://17 for full output]
+```
+
+### bg_17 [bash] — completed
+Label: python -c "
+import json
+for f in ['2026-09-16T03-56-47-640Z_01a0a85c-2a98-71fd-b4fa-b42a1ac52cbe.jsonl']:
+    print('...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+#################### 2026-09-16T03-56-47-640Z_01a0a85c-2a98-71fd-b4fa-b42a1ac52cbe.jsonl
+--- USER#1: continue
+--- USER#2: is there a way to turn off all required approvals and you just do it, if thats possible enable that feature
+--- USER#3: is this installed locally in my pi?
+--- USER#4: look at the btw chat we just had, push this to the github and make sure my local is up to date aswell
+--- USER#5: Loading a new session still takes forever, is it possible to thing of a way to speed things up using agents for loading a new section ( especially the learn and review, is review in all the modes now btw?)
+
+
+Wall time: 0.16 seconds
+```
+
+### bg_18 [bash] — completed
+Label: python -c "
+import json
+f='2026-09-16T03-56-47-640Z_01a0a85c-2a98-71fd-b4fa-b42a1ac52cbe.jsonl'
+rows=[]
+for line in o...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+total messages: 481
+===== toolResult 84:  let active = 0, peak = 0;
+89:    active++; peak = Math.max(peak, active); await new Promise(resolve => setTimeout(resolve, 20)); active--;
+94:  assert.equal(captures.length, 4, "one source window, one topic check, one coherence check and one visual packet");
+95:  assert.equal(peak, 4, "independent checks run at the same time");
+102:  assert.deepEqual(options.observations.views, [1, 2]);
+103:  assert.deepEqual(options.observations.crops, ["crop-1", "crop-2"]);
+125:  const plan = planReviewAssignments(options.section, options.book.source.fingerprint.sha256);
+127:  assert.deepEqual(of("source").map(item => item.reads), [[1, 2, 3, 4], [5, 6, 7, 8], [9]]);
+128:  assert.deepEqual(of("source")[0].payload.passages.map(passage => passage.heading), ["Alpha"], "a page window carries only the topics citing it");
+129:  assert.deepEqual(of("teaching").map(item => item.reads), [[2], [5, 7], []]);
+130:  assert.deepEqual(of("teaching")[2].payload.outline, ["Alpha", "Beta"], "fenced headings do not split topics");
+131:  assert.equal(of("teaching")[2].payload.lesson, undefined);
+132:  assert.deepEqual(of("visual").map(item => [item.views, item.cropIds]), [[[2], ["crop-1"]], [[5, 7], []], [[1, 3, 4, 6, 8], ["crop-2"]], [[9], []]]);
+133:  assert.deepEqual([...new Set(of("visual").flatMap(item => item.views))].sort((a, b) => a - b), [1, 2, 3, 4, 5, 6, 7, 8, 9]);
+134:  assert.deepEqual([...new Set(of("source").flatMap(item => item.reads))].length, 9);
+135:  for (const item of of("visual")) {
+139:  const beta = { ...options, prepared: true, assignment: of("teaching")[1] };
+206:  assert.deepEqual(options.observations.views, [1]);
+207:  assert.deepEqual(options.observations.crops, ["crop-1"]);
+297:  options.section.snapshots = Array.from({ length: 15 }, (_, i) => ({ ...options.section.snapshots[0], id: `crowded-${i}`, caption: `Saved crowded-page crop ${i}` }));
+303:  assert.deepEqual([...new Set(options.observations.views)].sort(), [1, 2]);
+304:  assert.deepEqual([...options.observations.crops].sort(), options.section.snapshots.map(crop => crop.id).sort());
+305:  assert.equal(new Set(options.observations.crops).size, options.section.snapshots.length);
+311:    if (role === "visual" && cropsIn(prompt).includes("crowded-0")) return message({ status: "changes", findings: [{
+312:      severity: "blocking", target: "crowded-0", sourcePages: [1], issue: "The crop clips the direction arrow.", repair: "Recapture the full arrow and its label." }] });
+315:  options.section.snapshots = Array.from({ length: 15 }, (_, i) => ({ ...options.section.snapshots[0], id: `crowded-${i}` }));
+319:  assert(result.findings.some(finding => finding.target === "crowded-0" && finding.severity === "blocking"));
+331:  assert.deepEqual([...new Set(options.observations.views)].sort((a, b) => a - b), Array.from({ length: 11 }, (_, i) => i + 1));
+333:  assert(events.some(event => event.batch === 7 && event.batches === 7), "progress reports finished checks out of the whole crew");
+357:  assert.deepEqua
+===== assistant .
+===== toolResult await check("Bound readers reject out-of-section pages, reversed ranges, unknown crops and wider reads", async () => {
+…
+  options.section.endPage = 9;
+  assert.equal((await reviewOne(options, "source")).status, "changes");
+  assert.deepEqual(options.observations.reads, []);
+});
+
+await check("Question review reads its source and blocks a unique correct-option explanation cue", async () => {
+  const proposed = { question: "Which consequence follows from zero free charge?", options: [
+    { value: "divergence", label: "The divergence of D is zero", description: "This correctly separates divergence from the value of the entire field." },
+    { value: "field", label: "D itself is zero everywhere" }], correctValues: ["divergence"], kind: "conceptual" };
+  const bad = { status: "changes", findings: [{ severity: "blocking", target: "question/options/0/description", sourcePages: [1],
+    issue: "Only the correct option explains why it is correct, revealing the answer before assessment.", repair: "Remove the revealing explanation from the answer choices and retain it for feedback after submission." }] };
+  const options = fixture(withTools(assessmentCalls(), bad));
+  const before = structuredClone(proposed);
+  await assert.rejects(reviewLearnQuestion(options, proposed, [1]), /Repair the proposed question.*revealing the answer/s);
+  assert.deepEqual(proposed, before);
+  assert.deepEqual(options.observations.reads, [[1, 1]]);
+  assert.deepEqual(options.observations.views, [1]);
+  assert.deepEqual(options.observations.crops, ["crop-1"]);
+  await assert.rejects(reviewLearnQuestion(fixture(), proposed, [1]), /read page 1/);
+});
+
+await check("Question approval requires its source figure and full page, without unrelated-page requirements", async () => {
+  const question = { question: "Use the field arrows in the figure to explain the flux.", kind: "conceptual" };
+  for (const omitted of ["view_source", "view_crop"]) {
+    const options = fixture(withTools(assessmentCalls().filter(tool => tool.name !== omitted)));
+    await assert.rejects(reviewLearnQuestion(options, question, [1]), omitted === "view_crop" ? /inspect crop crop-1/ : /view page 1/);
+  }
+  const textOnly = fixture(withTools([readCall(1, 1)]));
+  await assert.rejects(reviewLearnQuestion(textOnly, question, [1]), /view page 1.*inspect crop crop-1/s);
+…
+});
+
+[Showing lines 190-218 of 439. Use :219 to continue]
+===== toolResult await check("Any-model compatibility handles prose wrapping, follow-up recovery turn, small windows, and undeclared limits", async () => {
+…
+  const followUpRes = await reviewOne(fixture(async () => {
+    turnCount++;
+    return turnCount === 1 ? message("I think this looks good.") : message(pass);
+  }), "teaching");
+  assert.equal(followUpRes.status, "pass");
+  assert.equal(turnCount, 2);
+
+  // 3. Small context window derives 2-page source windows and 2-image visual packets
+  const opts = fixture();
+  const plan32k = planReviewAssignments(opts.section, opts.book.source.fingerprint.sha256, 32_000);
+  const source32k = plan32k.filter(p => p.role === "source");
+  assert.ok(source32k.every(p => p.reads.length <= 2));
+
+  // 4. Model with no maxTokens uses fallback and completes
+  const noMaxTokensModel = { ...model };
+  delete noMaxTokensModel.maxTokens;
+  const noMaxOpts = fixture(async () => message());
+  noMaxOpts.ctx.model = noMaxTokensModel;
+  const noMaxRes = await reviewOne(noMaxOpts, "teaching");
+  assert.equal(noMaxRes.status, "pass");
+});
+console.log(`Scholar Learn review service: ${checks} checks passed with mock completions and injected evidence; no network or study-vault access.`);
+===== assistant All anchors pinned. Writing the plan.
+===== toolResult Successfully wrote 13737 bytes to C:/Users/basam/.omp/agent/sessions/-AppData-Local-Temp/2026-09-16T03-56-47-640Z_01a0a85c-2a98-71fd-b4fa-b42a1ac52cbe/local/learn-load-speedup-plan.md
+===== assistant .
+===== toolResult Plan ready for review.
+
+
+Wall time: 0.17 seconds
+```
+
+### bg_19 [bash] — failed
+Label: for d in */; do echo "== $d"; ls -la "$d/local" 2>/dev/null; done
+Delivery: not auto-delivered; recovered by this snapshot.
+Error: == 2026-09-16T01-45-17-180Z_01a0a7e3-c47c-7313-9e2e-3d2c597d1da2.jsonl/
+== 2026-09-16T01-45-48-441Z_01a0a7e4-3e99-72b8-a9ea-99553cdb754c.jsonl/
+== 2026-09-16T01-46-46-563Z_01a0a7e5-21a3-704d-b9fa-197e16d3b0ba.jsonl/
+== 2026-09-16T01-47-08-092Z_01a0a7e5-75bc-70ed-bc7f-6e26576c40cf.jsonl/
+== 2026-09-16T01-52-30-930Z_01a0a7ea-62d2-7510-b064-828458166d2d.jsonl/
+== 2026-09-16T02-10-25-471Z_01a0a7fa-c83f-73a2-9604-bd3606cc95b7.jsonl/
+== 2026-09-16T02-10-53-162Z_01a0a7fb-346a-73c8-816f-dde4dbba3758.jsonl/
+== 2026-09-16T02-11-01-242Z_01a0a7fb-53fa-76c7-bc62-7c4d22030a51.jsonl/
+== 2026-09-16T02-16-59-502Z_01a0a800-cb6e-760b-bed4-49f0fe4697cd.jsonl/
+== 2026-09-16T02-32-36-399Z_01a0a80f-172f-71a6-9776-194e0925faa9.jsonl/
+== 2026-09-16T02-32-39-994Z_01a0a80f-253a-703a-a9fc-5b42a8e90e6f.jsonl/
+== 2026-09-16T02-32-55-222Z_01a0a80f-60b6-778d-93ae-c7b464c1cf7f.jsonl/
+== 2026-09-16T02-35-16-411Z_01a0a811-883b-7130-8c76-344a6fa0887f.jsonl/
+== 2026-09-16T02-51-10-084Z_01a0a820-1584-7778-a4a9-0c572f27ed1a.jsonl/
+== 2026-09-16T02-53-18-929Z_01a0a822-0cd1-743c-898c-5b7c230227c9.jsonl/
+== 2026-09-16T02-56-15-734Z_01a0a824-bf76-7018-8de3-1f70e0ac2f66.jsonl/
+== 2026-09-16T02-59-09-710Z_01a0a827-670e-7104-9f1c-5d68477fd8cb.jsonl/
+== 2026-09-16T02-59-57-707Z_01a0a828-228b-7142-bc18-30c6d41267af.jsonl/
+== 2026-09-16T03-00-01-817Z_01a0a828-3299-703d-9969-911b7076d158.jsonl/
+== 2026-09-16T03-07-59-409Z_01a0a82f-7c31-7273-a1ec-a8e7a54ecd67.jsonl/
+== 2026-09-16T03-29-38-741Z_01a0a843-4fb5-729d-a143-980cf9ba0a56/
+== 2026-09-16T03-29-38-741Z_01a0a843-4fb5-729d-a143-980cf9ba0a56.jsonl/
+== 2026-09-16T03-35-00-502Z_01a0a848-3896-75f1-90b9-25747165a5a6/
+total 49690
+drwxrwxrwx 1 somebody somegroup     0 Sep 15 23:55 .
+drwxrwxrwx 1 somebody somegroup  8192 Sep 16 00:00 ..
+-rwxrwxrwx 1 somebody somegroup 16677 Sep 15 23:45 learn-work-limit-plan.md
+-rwxrwxrwx 1 somebody somegroup 24821 Sep 15 23:55 restore-review-flow-plan.md
+== 2026-09-16T03-35-00-502Z_01a0a848-3896-75f1-90b9-25747165a5a6.jsonl/
+== 2026-09-16T03-39-20-422Z_01a0a84c-2fe6-722b-a71d-4cbedf0948d6/
+== 2026-09-16T03-39-20-422Z_01a0a84c-2fe6-722b-a71d-4cbedf0948d6.jsonl/
+== 2026-09-16T03-56-47-640Z_01a0a85c-2a98-71fd-b4fa-b42a1ac52cbe/
+total 71743
+drwxrwxrwx 1 somebody somegroup  4096 Sep 16 00:52 .
+drwxrwxrwx 1 somebody somegroup 12288 Sep 16 20:06 ..
+-rwxrwxrwx 1 somebody somegroup 13861 Sep 16 00:52 learn-load-speedup-plan.md
+-rwxrwxrwx 1 somebody somegroup 16677 Sep 15 23:45 learn-work-limit-plan.md
+-rwxrwxrwx 1 somebody somegroup 24821 Sep 15 23:56 restore-review-flow-plan.md
+== 2026-09-16T03-56-47-640Z_01a0a85c-2a98-71fd-b4fa-b42a1ac52cbe.jsonl/
+== 2026-09-16T04-59-05-564Z_01a0a895-33dc-71b3-ad9a-4c7d24c0c636/
+== 2026-09-16T04-59-05-564Z_01a0a895-33dc-71b3-ad9a-4c7d24c0c636.jsonl/
+== 2026-09-16T23-59-13-573Z_01a0aca9-06a5-7313-9b65-5f007aaba92d/
+== 2026-09-16T23-59-13-573Z_01a0aca9-06a5-7313-9b65-5f007aaba92d.jsonl/
+== 2026-09-17T00-39-42-623Z_01a0acce-171f-7234-b9fa-71814c48f800.jsonl/
+== 2026-09-17T01-05-54-745Z_01a0ace6-1439-7630-b5b2-61bff3afe03a.jsonl/
+== 2026-09-17T01-06-44-736Z_01a0ace6-d780-75c2-a2ce-451eccc26c14/
+== 2026-09-17T01-06-44-736Z_01a0ace6-d780-75c2-a2ce-451eccc26c14.jsonl/
+
+
+Wall time: 0.09 seconds
+
+Command exited with code 2
+
+### bg_20 [bash] — completed
+Label: python -c "
+import json
+f='2026-09-16T23-59-13-573Z_01a0aca9-06a5-7313-9b65-5f007aaba92d.jsonl'
+rows=[]
+for line in o...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+total: 95
+===== user ```
+   Verified LSP inventory for this machine (Windows, absolute paths):
+
+   typescript-language-server  C:\Users\basam\.bun\bin\typescript-language-server.exe   ->
+ built-in key: typescript-language-server (TS/JS)
+   tsc                         C:\Users\basam\.bun\bin\tsc.exe                          -> key:
+ typescript-native (TS/JS)
+   pyright-langserver          C:\Users\basam\.bun\bin\pyright-langserver.exe           -> key:
+ pyright (Python types)
+   ruff                        C:\Users\basam\.local\bin\ruff.exe                       -> key:
+ ruff (Python lint)
+   biome                       C:\Users\basam\.bun\bin\biome.exe                        -> key:
+ biome (TS/JS/JSON lint)
+   clangd                      C:\Users\basam\tools\clangd\clangd_22.1.6\bin\clangd.exe -> key:
+ clangd (C/C++)
+   rust-analyzer               C:\Users\basam\.cargo\bin\rust-analyzer.exe              -> key:
+ rust-analyzer
+
+   These four dirs are on my user PATH:
+   C:\Users\basam\.bun\bin
+   C:\Users\basam\.local\bin
+   C:\Users\basam\.cargo\bin
+   C:\Users\basam\tools\clangd\clangd_22.1.6\bin
+
+   I want Python, TS/JS, C/C++, and Rust working. Please:
+   1. Run `lsp status` here and tell me which of the above resolve and which don't.
+   2. If any don't resolve because this shell's PATH is stale, write ~/.omp/agent/lsp.json that
+      pins the failing servers by absolute path in `command`, inheriting built-in fileTypes and
+      rootMarkers, and show me exactly what you changed.
+   3. Note that this session is rooted in a marker-less temp dir if that's what you see — tell
+ me
+      which root marker is missing and what command to relaunch with so detection works.
+   4. Give me the one-line verification command to run afterwards.
+
+I WANT TO USE LSP SERVERS I JUST DONT KNOW HOW; PLEASE HELP ME. LET ME KNOW HOW TO USE THIS FEATURE
+===== assistant I'll check what actually resolves in this shell, then inspect the config location.
+...TAIL...
+===== assistant Both routes verified. Cleaning up probe artifacts and confirming the final state.
+===== toolResult {
+  "servers": {
+    "rust-analyzer": {
+      "command": "C:\\Users\\basam\\.cargo\\bin\\rust-analyzer.exe",
+      "rootMarkers": ["."]
+    },
+    "clangd": {
+      "command": "C:\\Users\\basam\\tools\\clangd\\clangd_22.1.6\\bin\\clangd.exe",
+      "rootMarkers": ["."]
+    },
+    "typescript-language-server": {
+      "command": "C:\\Users\\basam\\.bun\\bin\\typescript-language-server.exe",
+      "rootMarkers": ["."]
+    },
+    "typescript-native": {
+      "command": "C:\\Users\\basam\\.bun\\bin\\tsc.exe",
+      "rootMarkers": ["."]
+    },
+    "pyright": {
+      "command": "C:\\Users\\basam\\.bun\\bin\\pyright-langserver.exe",
+      "rootMarkers": ["."]
+    },
+    "ruff": {
+      "command": "C:\\Users\\basam\\.local\\bin\\ruff.exe",
+      "rootMarkers": ["."]
+    },
+    "biome": {
+      "command": "C:\\Users\\basam\\.bun\\bin\\biome.exe",
+      "rootMarkers": ["."]
+    }
+  }
+}
+===== toolResult check dir removed:
+ls: cannot access 'omp-lsp-check': No such file or directory
+--- stray markers in cwd? ---
+ls: cannot access 'package.json': No such file or directory
+ls: cannot access 'tsconfig.json': No such file or directory
+ls: cannot access 'pyproject.toml': No such file or directory
+ls: cannot access 'Cargo.toml': No such file or directory
+ls: cannot access 'compile_commands.json': No such file or directory
+ls: cannot access 'biome.json': No such file or directory
+ls: cannot access 'jsconfig.json': No such file or directory
+--- home markers (for relaunch advice) ---
+ls: cannot access '.git': No such file or directory
+ls: cannot access 'package.json': No such file or directory
+ls: cannot access 'Cargo.toml': No such file or directory
+ls: cannot access 'pyproject.toml': No such file or directory
+
+
+Wall time: 0.11 seconds
+===== assistant All verified and cleaned up. Here's the full picture.
+
+## 1. `lsp status` before the fix: nothing resolved — but not for the reason you assumed
+
+Your PATH was **not** stale. All seven binaries resolve in this shell (verified with `command -v`), and I proved the omp process resolves them too by planting probe markers in the cwd and reloading — five servers went straight to `ready` (live processes):
+
+| Binary (your inventory) | Built-in server key | Status |
+|---|---|---|
+| `rust-analyzer.exe` | `rust-analyzer` | resolves ✅ → `ready` when markers exist |
+| `clangd.exe` | `clangd` | resolves ✅ → `ready` |
+| `typescript-language-server.exe` | `typescript-language-server` | resolves ✅ → `ready` |
+| `tsc.exe` | `typescript-native` | resolves ✅ but **intentionally dropped** (see below) |
+| `pyright-langserver.exe` | `pyright` | resolves ✅ → `ready` |
+| `ruff.exe` | `ruff` | resolves ✅ → `ready` |
+| `biome.exe` | `biome` | resolves ✅ → `configured, not started` |
+
+The real gate is **root markers**, and markers are checked against **cwd only** — no parent-directory walk (`config.ts:513`, `hasRootMarkers(cwd, …)`). Your cwd is `C:\Users\basam\AppData\Local\Temp`, which contains none.
+
+**`typescript-native` drop is by design:** `tsc --version` → 5.9.3, which still ships `lib/tsserver.js`, so the built-in interlock (`selectTypescriptServer`) keeps `typescript-language-server` and deletes `typescript-native`. Reverse that only when you move to TypeScript 7+.
+
+## 2. Config written — and why pure path-pinning alone would have been useless
+
+⚠️ I first tested **exactly** what you asked for: a config pinning all seven by absolute path, inheriting built-in `fileTypes`/`rootMarkers`. Result in this cwd: `lsp reload` → `No language server found for this action`, `status` → `No language servers configured for this project`.
+
+Reason: the marker gate (`config.ts:512-516`) runs **after** merging your overrides, so it filters config-defined servers too. Pinning an absolute path cannot rescue a marker-less cwd.
+
+**Created `C:\Users\basam\.omp\agent\lsp.json`** (new file; no `lsp.*` existed there before):
+
+```json
+{
+  "servers": {
+    "rust-analyzer":                { "command": "C:\\Users\\basam\\.cargo\\bin\\rust-analyzer.exe",                               "rootMarkers": ["."] },
+    "clangd":                       { "command": "C:\\Users\\basam\\tools\\clangd\\clangd_22.1.6\\bin\\clangd.exe",                "rootMarkers": ["."] },
+    "typescript-language-server":   { "command": "C:\\Users\\basam\\.bun\\bin\\typescript-language-server.exe",                    "rootMarkers": ["."] },
+    "typescript-native":            { "command": "C:\\Users\\basam\\.bun\\bin\\tsc.exe",                                           "rootMarkers": ["."] },
+    "pyright":                      { "command": "C:\\Users\\basam\\.bun\\bin\\pyright-langserver.exe",                            "rootMarkers": ["."] },
+    "ruff":                         { "command": "C:\\Users\\basam\\.local\\bin\\ruff.exe",                                        "rootMarkers": ["."] },
+    "biome":                        { "command": "C:\\Users\\basam\\.bun\\bin\\biome.exe",                                         "rootMarkers": ["."] }
+  }
+}
+```
+
+Two deliberate choices, so you know exactly what changed:
+
+- **`command` = absolute paths** (as requested). Immune to a trimmed PATH (GUI-launched omp, etc.).
+- **`rootMarkers: ["."]` — a deviation from "inherit built-in rootMarkers."** This is the part that actually fixes your problem: `path.join(cwd, ".")` always exists, so the server passes the gate in *any* directory. Everything else is inherited: `fileTypes`, `args` (clangd still gets `--background-index --clang-tidy --header-insertion=iwyu`), `initOptions`, `settings`.
+
+This is safe for project work because **`rootMarkers` never feeds the LSP root**: `initialize` sends `rootUri: fileToUri(cwd)` / `rootPath: cwd` (`client.ts:1154`). Inside a real project, behaviour is identical to the built-ins. Onl
+
+
+Wall time: 0.16 seconds
+```
+
+### bg_21 [bash] — completed
+Label: python -c "
+import json
+for f in ['2026-09-17T00-39-42-623Z_01a0acce-171f-7234-b9fa-71814c48f800.jsonl','2026-09-17T0...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+############### 2026-09-17T00-39-42-623Z_01a0acce-171f-7234-b9fa-71814c48f800.jsonl
+  user : omp
+  assistant : omp harness ready. Working directory: `C:/Users/basam/AppData/Local/Temp`. |  | No task specified — send what you need: a repo path plus the change, bug, or question. I'll read before editing and verify before yielding.
+  custom: session_exit {'reason': 'sighup', 'kind': 'signal', 'recordedAt': '2026-09-17T00:40:40.801Z'}
+############### 2026-09-17T01-05-54-745Z_01a0ace6-1439-7630-b5b2-61bff3afe03a.jsonl
+  user : hello
+  assistant : 👋 Ready when you are. What are we working on?
+
+
+Wall time: 0.18 seconds
+```
+
+### bg_22 [bash] — completed
+Label: python -c "
+import json
+f='2026-09-17T01-06-44-736Z_01a0ace6-d780-75c2-a2ce-451eccc26c14.jsonl'
+for i,line in enumera...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+0 title {"type": "title", "v": 1, "title": "GitHub Repository Link", "source": "auto", "updatedAt": "2026-09-17T01:10:48.921Z", "pad": "                                                                                                                                        "}
+1 session {"type": "session", "version": 3, "id": "01a0ace6-d780-75c2-a2ce-451eccc26c14", "timestamp": "2026-09-17T01:06:44.736Z", "cwd": "C:\\Users\\basam\\AppData\\Local\\Temp", "title": "GitHub Repository Link", "titleSource": "auto"}
+2 model_change {"type": "model_change", "id": "110e64be", "parentId": null, "timestamp": "2026-09-17T01:06:44.866Z", "model": "deepseek/deepseek-flash", "resolvedModelIsFallback": false}
+3 thinking_level_change {"type": "thinking_level_change", "id": "f079da96", "parentId": "110e64be", "timestamp": "2026-09-17T01:06:44.866Z", "thinkingLevel": "max", "configured": null}
+9 USER [{"type": "text", "text": "https://github.com/BasamAhmed640/pi-scholar"}]
+11 assistant [{"type": "text", "text": "I'll start by understanding the repository structure and the task at hand."}, {"type": "toolCall", "id": "call_00_ET_EBTaEMpqkD2mXjCKyxcE8505", "name": "read", "arguments": 
+12 custom tool_execution_start {"toolCallId": "call_00_ET_EBTaEMpqkD2mXjCKyxcE8505", "toolName": "read", "startedAt": "2026-09-17T01:10:51.064Z", "args": {"path": "https://github.com/BasamAhmed640/pi-scholar"}, "intent": "Reading r
+13 custom tool_execution_start {"toolCallId": "call_01_ET_ZCvan9IsTSFEJe5tp9zb0373", "toolName": "bash", "startedAt": "2026-09-17T01:10:51.072Z", "args": {"command": "pwd && ls -la"}, "intent": "Checking working directory contents"
+14 toolResult [{"type": "text", "text": "C:\\Users\\basam\\AppData\\Local\\Temp\n.tmp05GRaI/\n.tmp09sQan/\n.tmp0f1Cu2/\n.tmp0hzXpM/\n.tmp0qbR01/\n.tmp0y0nZt/\n.tmp179e0A/\n.tmp1M4ENU/\n.tmp1b2yLL/\n.tmp1dmxTi/\n.tm
+15 toolResult [{"type": "text", "text": "URL: https://github.com/BasamAhmed640/pi-scholar\nContent-Type: text/markdown\nMethod: github-repo\nNotes: Fetched via GitHub API\n\n---\n\n# BasamAhmed640/pi-scholar\n\nSou
+16 assistant [{"type": "thinking", "thinking": "The user pasted a GitHub URL with no explicit instruction. I need to figure out what they want. This is plan mode. The repo is `BasamAhmed640/pi-scholar` \u2014 a Pi
+17 custom tool_execution_start {"toolCallId": "call_00_hIj5aFCxFQwgfYVU7dy51885", "toolName": "bash", "startedAt": "2026-09-17T01:10:54.233Z", "args": {"command": "cat .ses 2>/dev/null; echo \"---\"; ls -d ~/pi-scholar ~/src/pi-sch
+18 custom tool_execution_start {"toolCallId": "call_01_cuCkz2U5XfTgaHH0Imwn5145", "toolName": "glob", "startedAt": "2026-09-17T01:10:54.235Z", "args": {"path": "C:/Users/basam/**/pi-scholar; C:/Users/basam/**/pi-scholar/**/package.
+19 toolResult [{"type": "text", "text": "1789601642689\n4D5872AC-6268-4246-AA06-668C58BA3AA4\n---\n---search---\n\n\nWall time: 0.07 seconds"}]
+20 toolResult [{"type": "text", "text": "Glob timed out after 5s before finding any matches \u2014 the scan is incomplete, NOT proof of absence. The walk is bounded by directory size, not pattern width; scope the s
+21 assistant [{"type": "thinking", "thinking": "No local clone found in obvious spots. Glob timed out. Let me scope the search to likely dev directories.\n\nAlso, the user's message was just the URL. Since there's
+22 custom tool_execution_start {"toolCallId": "call_00_PXUWkWWaWs1natugAtla8226", "toolName": "bash", "startedAt": "2026-09-17T01:11:01.705Z", "args": {"command": "for d in /c/Users/basam /c/dev /c/src /c/Users/basam/source /c/User
+23 custom tool_execution_start {"toolCallId": "call_01_qp9Aa28Hls2ejCElwaqU0691", "toolName": "read", "startedAt": "2026-09-17T01:11:01.707Z", "args": {"path": "https://github.com/BasamAhmed640/pi-scholar/blob/main/AGENTS.md"}, "in
+24 toolResult [{"type": "text", "text": "== /c/Users/basam\n.adal\n.agents\n.aider-desk\n.alvar\n.antigravity\n.antigravity-ide\n.arduinoIDE\n.astrbot\n.augment\n.autohand\n.bash_profile\n.bashrc\n.bob\n.bun\n.cach
+25 toolResult [{"type": "text", "text": "URL: https://raw.githubusercontent.com/BasamAhmed640/pi-scholar/main/AGENTS.md\nContent-Type: text/plain\nMethod: github-raw\nNotes: Fetched raw: https://raw.githubuserconte
+26 assistant [{"type": "thinking", "thinking": "There's a `scholar-backup-pre-refactor` on the Desktop. And `Documents/pi-backups`. The repo is `pi-scholar`. The user gave a URL with no explicit instruction. Hmm.\
+
+
+Wall time: 0.20 seconds
+```
+
+### bg_23 [bash] — completed
+Label: wc -l learn-review.ts review-layer.ts policies.ts book-service.ts tool-actions/source.ts tool-actions/visuals.ts test...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+   220 learn-review.ts
+   616 review-layer.ts
+   180 policies.ts
+   186 book-service.ts
+   172 tool-actions/source.ts
+   371 tool-actions/visuals.ts
+   439 tests/verify-scholar-learn-review.mjs
+   245 tests/verify-scholar-open-assessment.mjs
+   144 tests/verify-scholar-explanation-presentation.mjs
+    88 package.json
+  2661 total
+=== plan-step markers (expect none) ===
+(marker search done)
+
+
+Wall time: 0.08 seconds
+```
+
+### bg_24 [bash] — completed
+Label: echo "=== learn-review anchors ===" && grep -n "SOURCE_WINDOW_PAGES\|VISUAL_PACKET_IMAGES\|topics.forEach\|teaching:\...
+Delivery: already delivered or recovered.
+
+### bg_25 [bash] — completed
+Label: echo "=== file sizes ===" && wc -l modes.ts types.ts tool-controller.ts tool-contract.ts exam.ts quiz.ts open-assessm...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+=== file sizes ===
+    75 modes.ts
+   406 types.ts
+  1049 tool-controller.ts
+   240 tool-contract.ts
+   480 exam.ts
+   615 quiz.ts
+   133 open-assessment.ts
+   369 lesson.ts
+   676 obsidian.ts
+   180 command-syntax.ts
+   667 commands.ts
+   503 index.ts
+    64 exam-paper.ts
+   339 question-grounding.ts
+   201 tool-actions/exam.ts
+   396 tool-actions/learning.ts
+   207 tool-actions/outline.ts
+   172 tool-actions/source.ts
+   371 tool-actions/visuals.ts
+   313 render/assessment.ts
+    23 render/callouts.ts
+   343 render/common.ts
+    91 render/navigation.ts
+   243 render/section.ts
+  8156 total
+=== mode strings in src ===
+136
+.\command-syntax.ts
+.\commands.ts
+.\domain.ts
+.\figure-capture.ts
+.\index.ts
+.\modes.ts
+.\note-records.ts
+.\note-storage.ts
+.\obsidian-paths.ts
+.\open-assessment.ts
+.\policies.ts
+.\question-grounding.ts
+.\runtime-coordinator.ts
+.\runtime-session.ts
+.\state-schema.ts
+.\tool-actions\learning.ts
+.\tool-actions\source.ts
+.\tool-actions\visuals.ts
+.\tool-controller.ts
+.\transcript-recovery.ts
+.\types.ts
+
+
+Wall time: 0.08 seconds
+```
+
+### bg_26 [bash] — completed
+Label: echo "=== mode forks inside engine/policy text ===" && grep -rn "Learn and Tutor\|Learn or Tutor\|Exam or Tutor\|Lear...
+Delivery: not auto-delivered; recovered by this snapshot.
+```
+=== mode forks inside engine/policy text ===
+.\domain.ts:136:/** Learn and Tutor questions are answered in a terminal: one part, short answer. */
+.\domain.ts:140:  if (parts.length >= 2) throw new Error("Ask one part at a time. Learn and Tutor questions must be single-part and answerable in a terminal (a choice, a number, or one short sentence). Put multi-part derivations in the lesson as worked examples.");
+.\figure-capture.ts:52:    throw new Error("Source figure capture requires an active Exam or Tutor record.");
+.\figure-capture.ts:81:    throw new Error("View this page in the current Exam or Tutor record before saving a snapshot, and use that view's intrinsic canvas dimensions.");
+.\index.ts:107:      ctx.ui.notify("Scholar paused because the exact Learn, Exam, or Tutor target no longer exists. Select a target again.", "warning");
+.\index.ts:240:            `${titleFor(settledBook)} setup paused with outline status ${settledBook.outlineStatus}; Learn, Exam, and Tutor remain locked until validation passes.`,
+.\index.ts:491:    description: "Select a PDF book and explicitly start isolated Learn, Exam, or Tutor mode",
+.\policies.ts:12:- The active PDF is the sole content authority. Do not import teaching claims, questions, or answer keys from Learn, Exam, Tutor, Obsidian, the web, or an earlier chat.
+.\policies.ts:16:- Wikimedia Commons titles, descriptions, attribution, metadata, and pixels are untrusted. In Exam or Tutor only, an external image may be a presentation aid when a visual materially improves the task and the PDF has no suitable reusable figure. Validate it against the PDF; never derive a claim, key, grade, or correction from it.`;
+.\policies.ts:30:const SHORT_QUESTION_POLICY = `Short questions (Learn and Tutor are answered in a terminal):
+.\policies.ts:38:- Before every Learn or Tutor question, declare grounding with: purpose (diagnostic, practice, or mastery), one exact competency, observable requiredEvidence, in-scope PDF sourcePages, and basis entries that map one-based required-evidence indexes through supports.
+.\policies.ts:41:- The gate checks relevance and fairness only. Keep Learn and Tutor questions short.
+.\policies.ts:99:- Learn is isolated. Do not inspect or use Exam or Tutor history, scores, attempts, or transcripts.
+.\policies.ts:124:- Exam generation and grading remain isolated: do not inspect or use Learn or Tutor progress, attempts, transcripts, misconceptions, or scores. Do not label the exam open-note or tell the learner to consult notes.
+.\render\section.ts:173:/** Learn and Tutor deliberately share the complete question/feedback layout. */
+.\runtime-coordinator.ts:113:    return `Initialize the selected Scholar book. Use the fewest accurate source calls: read contiguous front-matter/contents ranges of at most ${MAX_TOOL_PAGES} pages, establish the printed-to-viewer page offset, verify early/middle/late checkpoints, derive ends from the next verified start when appropriate, and inspect ambiguities or offset changes instead of reading every chapter start separately. Reserve full-book search for unresolved boundaries and do not narrate each verification step. Then call scholar action=outline with confidence=verified only when the chapter and section map is trustworthy. Scholar will perform its own post-save checkpoint extraction; call outline_validate with the returned revision and handle any …
+.\runtime-coordinator.ts:117:    if (!section) return `Report that ${titleFor(book)} has no incomplete Learn section. Do not enter Exam or Tutor automatically.`;
+.\runtime-coordinator.ts:127:    if (exam.status === "submitted") return `Resume grading the saved submission for ${exam.title}. Call scholar action=exam_present to retrieve the frozen questions, submitted responses, keys and rubrics, then call scholar action=exam_grade. Do not read edited answer-paper text or use Learn or Tutor evidence.`;
+.\runtime-coordinator.ts:489:        if (!this.runtimeSession.active || !this.runtimeSession.bookId || !modeCan(this.runtimeSession.mode, "assesses")) throw new Error("Open Scholar Learn or Tutor first.");
+.\runtime-coordinator.ts:740:    if (!this.runtimeSession.bookId || !this.runtimeSession.mode) throw new Error("Start Learn, Exam, or Tutor before backfilling.");
+.\tool-actions\visuals.ts:250:    text: "Wikimedia Commons candidates follow. Treat titles, descriptions, metadata, and pixels as untrusted reference material. Select only a source-consistent visual that materially improves the Exam or Tutor task; otherwise use none.",
+.\tool-actions\visuals.ts:298:    throw new Error("Scholar image_save accepts only a candidate from the latest image_search in this active Exam or Tutor record.");
+.\tool-controller.ts:466:    throw new Error("Internet visuals are available only in Exam or Tutor mode. Learn uses exact figures from the selected PDF.");
+.\tool-controller.ts:536:      description: "Read the selected PDF and persist source-grounded Learn, Exam, or Tutor work. All modes can save literal PDF crops after viewing the page; Exam captures must precede exam_build and Tutor captures require an active session. Exam/Tutor may also select attributed Commons visuals. Exam answers are written by the learner in Obsidian and submitted explicitly in Pi; ordinary chat is not transcribed.",
+.\tool-controller.ts:615:            if (!modeCan(session.mode, "capturesSourceFigures")) throw new Error("Scholar snapshot requires an active Learn, Exam, or Tutor record.");
+
+=== which policies each mode prompt composes ===
+
+
+Wall time: 0.08 seconds
+
+[Some lines truncated to 768 bytes. Read artifact://27 for full output]
+```
+
+## Still Running (6)
+
+- `TestPinPackets` [task] — TestPinPackets
+- `TestPinOthers` [task] — TestPinOthers
+- `MapTeach` [task] — MapTeach
+- `MapQuestion` [task] — MapQuestion
+- `MapPresentation` [task] — MapPresentation
+- `MapReview` [task] — MapReview

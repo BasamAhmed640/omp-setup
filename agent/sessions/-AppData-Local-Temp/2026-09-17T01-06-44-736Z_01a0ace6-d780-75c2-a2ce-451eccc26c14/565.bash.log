@@ -1,0 +1,36 @@
+index.ts:61:    onReviewProgress: (event, total) => coordinator.loadingReview(event, total),
+index.ts:358:      const verifyReview = targetRecord && frozen && !targetRecord.attempts.some(item => item.toolCallId === event.toolCallId)
+index.ts:367:          verifyReview?.(currentSection);
+index.ts:372:          verifyReview?.(currentSection);
+index.ts:375:          verifyReview?.(currentTutor);
+index.ts:455:        : details.correct === true ? "pass" : "review";
+index.ts:467:        markdown: `**Outcome:** ${attempt.outcome === "pass" ? "Correct" : attempt.outcome === "unsure" ? "Knowledge gap identified" : attempt.outcome === "review" ? "Needs review" : attempt.outcome}. ${attempt.correctAnswer ? `Correct answer: ${attempt.correctAnswer}. ` : ""}${attempt.feedback || ""}`.trim(),
+lesson.ts:249:/** Exact editorial state; review receipts themselves never contribute to this hash. */
+runtime-coordinator.ts:25:import { DEFAULT_REVIEWER_LIMITS, type ReviewerProgress } from "./review-runtime.ts";
+runtime-coordinator.ts:96:    return `${setupBase} A provisional outline is saved at revision ${book.revision}. Call scholar action=outline_validate with outlineRevision=${book.revision}. Scholar will extract and check every checkpoint itself. If it requests visual review, inspect every listed page and call outline_validate once more with only the requested checkpoint decisions (id, outcome, and an optional concise observation). Do not copy source excerpts into the request. Stop only after Scholar reports ready or needs-review.`;
+runtime-coordinator.ts:98:  const review = book.outlineStatus === "needs-review"
+runtime-coordinator.ts:99:    ? "The prior candidate needs review. Correct its disputed headings or boundaries and submit the complete replacement outline again. "
+runtime-coordinator.ts:101:  return `${setupBase} ${review}Build the outline with the fewest bounded calls that preserve accuracy: read contiguous front-matter/table-of-contents ranges (at most ${MAX_TOOL_PAGES} pages per read), establish the printed-page to PDF-viewer-page offset, verify early/middle/late checkpoints, and inspect every ambiguity or offset change. Derive an item's end from the next verified start when appropriate. Reserve full-book search for boundaries the contents and verified offset cannot resolve. Do not read every chapter start separately when the contents and a stable verified offset already establish it. Record chapter and subsection boundaries in PDF viewer-page coordinates, then call scholar action=outline. Scholar owns the post-save checkpoint extraction; call outline_validate once with the returned revision and respond only to any visual-review decisions it explicitly requests.`;
+runtime-coordinator.ts:111:      return `Resume validation of the provisional Scholar outline at revision ${book.revision}. Call scholar action=outline_validate with that revision. Scholar owns the checkpoint reads. If visual review is requested, view every listed page and submit only the requested id/outcome decisions with optional concise observations. Do not teach or stop before validation reports ready or needs-review.`;
+runtime-coordinator.ts:163:        this.loadingRepair ? "Repairing after review" : undefined);
+runtime-coordinator.ts:374:    this.loadingSourceActive = ["read", "view", "search", "snapshot", "image_search", "image_save"].includes(action);
+runtime-coordinator.ts:383:        this.loadingRepair ? "Repairing after review" : undefined);
+runtime-coordinator.ts:389:  loadingReview(event: ReviewerProgress | undefined, total: number): void {
+runtime-coordinator.ts:396:      this.loading.update(3, total === 3 ? `Lesson review · round ${this.loadingRound} · ${Math.round(DEFAULT_REVIEWER_LIMITS.timeoutMs / 60_000)}m shared deadline` : "Checking the next question");
+===
+Runaway execution is strictly bounded by count and progress limits (8 rejections, 250 actions, and a 180s stall watchdog) while Pi tools are isolated during active study.
+Robust output handling defaults to resilient JSON parsing, follow-up prompt fallbacks, and text fallbacks for non-vision models.
+
+### Recoverable Learn preparation (0.5.4)
+
+Reopening a saved, unfinished lesson asks whether to continue preparing it now or
+only show its Obsidian draft location. Only viewing starts no generation and leaves
+Learn inactive, so chat cannot resume it. `/scholar learn "9.3" continue` skips the
+question; without an interactive UI, reopening only shows the draft. Existing
+unanswered questions retain their normal resume behavior. A visible draft is not
+scientific approval or mastery.
+
+Lesson review runs as a crew of small, isolated checks that Scholar coordinates,
+up to six at a time: a fidelity check per four-page source window, an explanation
+check per lesson topic, a figure/equation check per topic (at most six images, each
+crop with its full page) and one whole-lesson coherence check. Each check receives

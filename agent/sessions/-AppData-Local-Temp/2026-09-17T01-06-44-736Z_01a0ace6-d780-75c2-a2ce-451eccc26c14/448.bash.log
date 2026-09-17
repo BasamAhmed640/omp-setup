@@ -1,0 +1,27 @@
+.\policies.ts:108:- Complete the source-grounded explanations of every objective and essential equation/figure, perform the focused editorial review, and save repairs before setting notes.lessonComplete=true. Each saved explanation revision is audited once, as it is saved, while you continue authoring, using the current Pi model and a fixed low reviewer reasoning level; unchanged content is never audited again. Unresolved blocking findings arrive on your next Scholar tool result as [F-<key>] blocks naming the repair. Repair them with real edits to the saved revision (a lesson save or notes.lessonPatch with the current expectedContentHash), update the checklist's exact evidence, and supply findingResponses: [{ key, action: 'fixed' | 'declined', note }] when you resubmit; the repaired revision is audited in turn, and an unresolved rejected revision is not audited again. lessonComplete waits only for the outstanding audits of the current revisions, and a pending, failed, stale or unresolved audit is never an approval.
+.\policies.ts:144:- exam_build runs an independent assessment review of the frozen form before it activates. If it returns blocking findings, address each [F-<key>] and resubmit exam_build with findingResponses: [{ key, action: 'fixed' | 'declined', note }]; that resubmission checks your responses instead of running the crew again.
+.\policies.ts:177:- Each saved tutor explanation revision is audited once, as it is saved, while you continue authoring; unchanged content is never audited again, and unresolved blocking findings arrive on your next Scholar tool result as [F-<key>] blocks. Repair them with real edits to the saved revision (a lesson save or notes.lessonPatch with the current expectedContentHash) and supply findingResponses: [{ key, action: 'fixed' | 'declined', note }]. Every practice/mastery question is independently reviewed before delivery; a question review that fails blocks the question, never the learner's answer.
+.\tool-actions\exam.ts:45:  findingResponses?: FindingResponse[],
+.\tool-actions\exam.ts:69:    if (findingResponses?.length) {
+.\tool-actions\exam.ts:72:      for (const resp of findingResponses) existing.set(resp.key, resp);
+.\tool-actions\learning.ts:65:    findingResponses?: FindingResponse[];
+.\tool-actions\learning.ts:77:  if (params.findingResponses !== undefined) {
+.\tool-actions\learning.ts:78:    if (!Array.isArray(params.findingResponses) || !params.findingResponses.length || !params.findingResponses.every(isFindingResponse)) {
+.\tool-actions\learning.ts:79:      throw new Error("findingResponses must be an array of valid responses with key, action ('fixed' | 'declined'), and note (1-600 chars).");
+.\tool-actions\learning.ts:83:    params.synthesis, params.keyPoints, params.objectives, params.coveredObjectives, params.objectiveChecks, params.requiredChecks, params.misconceptions, params.findingResponses].some(value => value !== undefined)) {
+.\tool-actions\learning.ts:84:    throw new Error("Nothing saved. Supply a lesson, recap, source plan, figureReviews, objectiveChecks, coverageUpdates or findingResponses. These fields may be saved independently.");
+.\tool-actions\learning.ts:95:      if (params.findingResponses?.length) {
+.\tool-actions\learning.ts:98:        for (const resp of params.findingResponses) existing.set(resp.key, resp);
+.\tool-actions\learning.ts:181:    if (params.findingResponses?.length && section.learnQuality) {
+.\tool-actions\learning.ts:183:      for (const resp of params.findingResponses) existing.set(resp.key, resp);
+.\tool-contract.ts:192:  findingResponses: Type.Optional(Type.Array(FindingResponseSchema, { description: "Author responses to specialist review findings: address each blocking finding with action fixed or declined and an explanatory note (1-600 chars)." })),
+.\tool-controller.ts:907:                  ? "Draft saved; specialist review found repairs. Address each blocking finding [F-<key>] by revising passages in their existing lesson IDs and supplying findingResponses: [{ key, action: 'fixed' | 'declined', note }] before submitting lessonComplete again."
+.\tool-controller.ts:939:            if (params.findingResponses !== undefined) {
+.\tool-controller.ts:940:              if (!Array.isArray(params.findingResponses) || !params.findingResponses.length || !params.findingResponses.every(isFindingResponse)) {
+.\tool-controller.ts:941:                throw new Error("findingResponses must be an array of valid responses with key, action ('fixed' | 'declined'), and note (1-600 chars).");
+.\tool-controller.ts:958:            const examResponses = [...(current.review?.responses || []), ...(params.findingResponses || [])];
+.\tool-controller.ts:964:              return await handleExamBuild(book, examId, params.questions || [], ctx, mutateBook, presentExam, toolResult, params.findingResponses);
+.\tool-controller.ts:989:              if (params.findingResponses?.length) {
+.\tool-controller.ts:991:                for (const resp of params.findingResponses) existing.set(resp.key, resp);
+.\tool-controller.ts:997:              const result = toolResult("exam_build", "Exam form built; specialist review found repairs. Address each blocking finding [F-<key>] and supply findingResponses: [{ key, action: 'fixed' | 'declined', note }] with exam_build before freezing.", { bookId: book.id, tone: "review" });
+.\tool-controller.ts:1010:            return await handleExamBuild(freshBook, examId, params.questions || [], ctx, mutateBook, presentExam, toolResult, params.findingResponses);

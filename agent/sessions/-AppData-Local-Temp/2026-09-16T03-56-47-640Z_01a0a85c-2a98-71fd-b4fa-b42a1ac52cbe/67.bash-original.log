@@ -1,0 +1,135 @@
+359:        ? await toolController.reviewQuestion(book, targetRecord, { quiz: frozen, grounding: input.grounding, kind: input.kind, difficulty: input.difficulty }, input.grounding!.sourcePages, ctx)
+===
+diff --git a/index.ts b/index.ts
+index b733a30..c8a3dfd 100644
+--- a/index.ts
++++ b/index.ts
+@@ -354,18 +354,25 @@ export default function scholarExtension(pi: ExtensionAPI) {
+       // Invalid forms still receive the quiz tool's field-level error. Only a
+       // validated form can be shown or become a resumable unanswered question.
+       const frozen = prepareScholarQuiz(event.input);
++      const targetRecord = coordinator.runtimeSession.mode === "learn" ? section : tutor;
++      const verifyReview = targetRecord && frozen && !targetRecord.attempts.some(item => item.toolCallId === event.toolCallId)
++        ? await toolController.reviewQuestion(book, targetRecord, { quiz: frozen, grounding: input.grounding, kind: input.kind, difficulty: input.difficulty }, input.grounding!.sourcePages, ctx)
++        : undefined;
+       await coordinator.mutateBook(coordinator.runtimeSession.bookId, async (targetBook) => {
+         if (!coordinator.ownsActiveAuthority(targetBook)) throw new Error("Scholar blocked this question because the active book authority changed.");
+         const currentSection = coordinator.runtimeSession.mode === "learn" ? findSection(targetBook, coordinator.runtimeSession.recordId) : undefined;
+         const currentTutor = coordinator.runtimeSession.mode === "tutor" ? targetBook.tutorSessions.find((item) => item.id === coordinator.runtimeSession.recordId) : undefined;
+         if (coordinator.runtimeSession.mode === "learn") {
+           if (!currentSection) throw new Error("Scholar blocked this question before presentation: no Learn section is active.");
++          verifyReview?.(currentSection);
+           if (input.grounding) input.grounding = learnQuestionGrounding(currentSection, input.grounding);
+           assertQuestionGrounding(input.grounding, targetBook, { mode: "learn", section: currentSection });
+           if (input.grounding.purpose === "mastery" && input.grounding.basis.filter(basis => basis.kind === "objective").length !== 1) throw new Error("A mastery multiple-choice question must assess one focused objective.");
+           if (input.grounding.purpose !== "diagnostic") await assertLearnFigureCoverage(coordinator.getConfig(), targetBook, currentSection);
++          verifyReview?.(currentSection);
+         } else {
+           if (!currentTutor || currentTutor.status !== "active") throw new Error("Scholar blocked this question before presentation: no Tutor session is active.");
++          verifyReview?.(currentTutor);
+           assertQuestionGrounding(input.grounding, targetBook, { mode: "tutor", tutor: currentTutor });
+         }
+         const attempts = currentSection?.attempts || currentTutor?.attempts;
+diff --git a/lesson.ts b/lesson.ts
+index db7bd02..60ddb68 100644
+--- a/lesson.ts
++++ b/lesson.ts
+@@ -346,7 +346,7 @@ export function lessonCoverageIssues(section: ScholarSection, sourceHash?: strin
+ }
+ 
+ export function commitLesson(section: ScholarSection, book: ScholarBook): void {
+-  const issues = lessonCoverageIssues(section, book.source.fingerprint.sha256);
++  const issues = [...lessonCoverageIssues(section, book.source.fingerprint.sha256), ...learnReviewIssues(section, book.source.fingerprint.sha256)];
+   if (issues.length) throw new Error(`The lesson is not ready: ${issues.join("; ")}. Save explanations in parts, then set lessonComplete=true.`);
+   const entries = validLessonEntries(section, book.source.fingerprint.sha256);
+   section.lessonCommit = { entryIds: entries.map(entry => entry.id), contentHash: commitHash(section, entries), sourceHash: book.source.fingerprint.sha256 };
+@@ -359,6 +359,7 @@ export function lessonReady(section: ScholarSection, sourceHash?: string): boole
+   if (!isLessonCommit(commit) || (sourceHash && commit.sourceHash !== sourceHash)) return false;
+   const entries = validLessonEntries(section, commit.sourceHash).filter(entry => commit.entryIds.includes(entry.id));
+   return entries.length === commit.entryIds.length && lessonCoverageIssues(section, commit.sourceHash).length === 0
++    && learnReviewIssues(section, commit.sourceHash).length === 0
+     && commit.contentHash === commitHash(section, entries);
+ }
+ 
+diff --git a/render/section.ts b/render/section.ts
+index 7635819..06e9ae3 100644
+--- a/render/section.ts
++++ b/render/section.ts
+@@ -201,7 +201,18 @@ export function renderSection(config: ScholarConfig, book: ScholarBook, chapter:
+   const keyPoints = uniqueSupplementLines(section.keyPoints, [...lesson, ...summary]);
+   const pitfalls = uniqueSupplementLines(section.misconceptions, [...lesson, ...summary, ...keyPoints]);
+   const current = book.currentSectionId === section.id;
+-  const lessonLines = lesson;
++  const commitWarnings: string[] = [];
++  if (section.lessonCommit && section.learnQuality?.reviews) {
++    for (const review of section.learnQuality.reviews) {
++      if (review.failure) {
++        commitWarnings.push(`> [!warning] Not independently reviewed: ${review.role} (${review.failure.code})`);
++      }
++      if (review.role === "visual" && review.findings.some(f => f.issue === "Figures were not visually checked (text-only model).")) {
++        commitWarnings.push("> [!warning] Figures were not visually checked (text-only model).");
++      }
++    }
++  }
++  const lessonLines = commitWarnings.length ? [...commitWarnings, "", ...lesson] : lesson;
+   const content = [
+     ...(lessonLines.length ? block("## Lesson", lessonLines) : [section.synthesis?.trim()
+       ? "A recap is saved below. The full explanation has not been saved yet."
+diff --git a/runtime-coordinator.ts b/runtime-coordinator.ts
+index 5af20f8..a5dae9c 100644
+--- a/runtime-coordinator.ts
++++ b/runtime-coordinator.ts
+@@ -22,7 +22,7 @@ import {
+ import { inspectBook, scanLibrary } from "./ingest.ts";
+ import { ScholarLoadingProgress } from "./loading-progress.ts";
+ import { lessonReady } from "./lesson.ts";
+-import type { ReviewerProgress } from "./review-runtime.ts";
++import { DEFAULT_REVIEWER_LIMITS, type ReviewerProgress } from "./review-runtime.ts";
+ import {
+   createScholarInputLockController,
+   type InputLockContext,
+@@ -393,7 +393,7 @@ export class ScholarRuntimeCoordinator {
+       this.loadingReviews.clear();
+       this.loadingNeedsWriting = false;
+       this.loadingRound++;
+-      this.loading.update(3, total === 3 ? `Lesson review · round ${this.loadingRound} · 12m shared deadline` : "Checking the next question");
++      this.loading.update(3, total === 3 ? `Lesson review · round ${this.loadingRound} · ${Math.round(DEFAULT_REVIEWER_LIMITS.timeoutMs / 60_000)}m shared deadline` : "Checking the next question");
+       return;
+     }
+     if (event.stage === "complete") this.loadingReviews.add(event.role);
+diff --git a/tool-actions/learning.ts b/tool-actions/learning.ts
+index 93ad4bb..5fec508 100644
+--- a/tool-actions/learning.ts
++++ b/tool-actions/learning.ts
+@@ -215,6 +215,7 @@ export async function handleAssess(
+   mutateBook: MutateBook,
+   toolResult: ToolResultFn,
+   responseGate?: OpenResponseGate,
++  reviewQuestion?: (attempt: AssessmentAttempt, target: ScholarSection | TutorSession) => Promise<(current: ScholarSection | TutorSession) => void>,
+ ): Promise<{ content: Array<{ type: "text"; text: string }>; details: ToolDetails }> {
+   const outcome = params.outcome as AssessmentOutcome | undefined;
+   const attemptId = params.attemptId?.trim();
+@@ -264,17 +265,23 @@ export async function handleAssess(
+       createdAt: now,
+     };
+ 
++    const targetRecord = session.mode === "tutor"
++      ? book.tutorSessions.find((item) => item.id === session.recordId && item.status === "active")
++      : requireLearnSection(book);
++    const verifyReview = targetRecord && reviewQuestion ? await reviewQuestion(attempt, targetRecord) : undefined;
+     await mutateBook(book.id, (state) => {
+       const target = session.mode === "tutor"
+         ? state.tutorSessions.find((item) => item.id === session.recordId && item.status === "active")
+         : findSection(state, sectionId);
+       if (!target) throw new Error(`The active ${session.mode} record changed while Scholar prepared the question.`);
+       if (session.mode === "learn") {
++        verifyReview?.(target as ScholarSection);
+         if (sectionId !== session.recordId) throw new Error("The frozen Learn target changed while Scholar prepared the question.");
+         grounding = learnQuestionGrounding(target as ScholarSection, grounding);
+         attempt.grounding = grounding;
+         assertQuestionGrounding(grounding, state, { mode: "learn", section: target as ScholarSection });
+       } else {
++        verifyReview?.(target as TutorSession);
+         assertQuestionGrounding(grounding, state, { mode: "tutor", tutor: target as TutorSession });
+       }
+       const pending = unansweredQuestionMessage(target.attempts);

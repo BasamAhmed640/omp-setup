@@ -1,0 +1,64 @@
+modelRoleStorage: global
+modelRoles:
+  default: deepseek/deepseek-flash:max
+  plan: deepseek/deepseek-flash:max
+  slow: deepseek/deepseek-flash:max
+  smol: deepseek/deepseek-flash:low
+  tiny: deepseek/deepseek-flash:low
+  task: deepseek/deepseek-flash:max
+  commit: deepseek/deepseek-flash:low
+  advisor: deepseek/deepseek-flash:high
+  vision: deepseek/deepseek-flash:low
+advisor:
+  enabled: false
+providers:
+  webSearchOrder:
+    []
+symbolPreset: unicode
+composer:
+  shape: rail
+theme:
+  dark: titanium
+setupVersion: 2
+bash:
+  allowCompoundCommands: false
+defaultThinkingLevel: max
+bashInterceptor:
+  enabled: false
+tools:
+  approvalMode: yolo
+  approval:
+    read: allow
+    write: allow
+    edit: allow
+    bash: allow
+    glob: allow
+    grep: allow
+    lsp: allow
+    task: allow
+    todo: allow
+    web_search: allow
+    ask: allow
+    browser: allow
+    python: allow
+    notebook: allow
+display:
+  showTurnTime: false
+  shimmer: disabled
+  pinnedAgents: "off"
+stt:
+  enabled: true
+startup:
+  quiet: false
+  changelogMode: hidden
+marketplace:
+  autoUpdate: "off"
+completion:
+  notify: "off"
+recap:
+  enabled: false
+statusLine:
+  showHookStatus: false
+  preset: default
+tui:
+  reactions: false

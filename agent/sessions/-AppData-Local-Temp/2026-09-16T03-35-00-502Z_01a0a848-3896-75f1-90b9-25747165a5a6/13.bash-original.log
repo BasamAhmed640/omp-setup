@@ -1,0 +1,151 @@
+diff --git a/index.ts b/index.ts
+index 480769c..b733a30 100644
+--- a/index.ts
++++ b/index.ts
+@@ -1,20 +1,21 @@
+ import type {
+   ExtensionAPI,
+   ExtensionCommandContext,
+   ExtensionContext,
+ } from "@earendil-works/pi-coding-agent";
+ 
+ import { getScholarArgumentCompletions } from "./command-syntax.ts";
+ import { handleScholarCommand } from "./commands.ts";
+ import {
+   appendTranscript,
++  assertShortQuestion,
+   findQuizAttempt,
+   findSection,
+   findTutorQuizAttempt,
+   messageTranscriptEntry,
+   learnQuestionGrounding,
+   quizKind,
+   recomputeProgress,
+   sectionProgressMessage,
+   unansweredQuestion,
+   unansweredQuestionMessage,
+@@ -328,56 +329,50 @@ export default function scholarExtension(pi: ExtensionAPI) {
+             (attempt.resumeToolCallIds ||= []).push(event.toolCallId);
+           }
+           attempt.outcome = "pending";
+         });
+         return;
+       } catch (error) { return { block: true, reason: error instanceof Error ? error.message : String(error) }; }
+     }
+     try {
+       const pending = unansweredQuestion(section?.attempts || tutor?.attempts || []);
+       if (pending && pending.toolCallId !== event.toolCallId) throw new Error(unansweredQuestionMessage([pending]));
++      assertShortQuestion(input.question);
+       if (coordinator.runtimeSession.mode === "learn") {
+         if (!section) throw new Error("Scholar blocked this question before presentation: no Learn section is active.");
+         if (input.grounding) input.grounding = learnQuestionGrounding(section, input.grounding);
+         assertQuestionGrounding(input.grounding, book, { mode: "learn", section });
+         if (input.grounding.purpose === "mastery" && input.grounding.basis.filter(basis => basis.kind === "objective").length !== 1) throw new Error("A mastery multiple-choice question must assess one focused objective. Use separate probes or an open multi-step question for multiple competencies.");
+         if (input.grounding.purpose !== "diagnostic") await assertLearnFigureCoverage(coordinator.getConfig(), book, section);
+       } else {
+         if (!tutor || tutor.status !== "active") throw new Error("Scholar blocked this question before presentation: no Tutor session is active.");
+         assertQuestionGrounding(input.grounding, book, { mode: "tutor", tutor });
+       }
+     } catch (error) {
+       return { block: true, reason: error instanceof Error ? error.message : String(error) };
+     }
+     try {
+       // Invalid forms still receive the quiz tool's field-level error. Only a
+       // validated form can be shown or become a resumable unanswered question.
+       const frozen = prepareScholarQuiz(event.input);
+-      const targetRecord = coordinator.runtimeSession.mode === "learn" ? section : tutor;
+-      const verifyReview = targetRecord && frozen && !targetRecord.attempts.some(item => item.toolCallId === event.toolCallId)
+-        ? await toolController.reviewQuestion(book, targetRecord, { quiz: frozen, grounding: input.grounding, kind: input.kind, difficulty: input.difficulty }, input.grounding!.sourcePages, ctx)
+-        : undefined;
+       await coordinator.mutateBook(coordinator.runtimeSession.bookId, async (targetBook) => {
+         if (!coordinator.ownsActiveAuthority(targetBook)) throw new Error("Scholar blocked this question because the active book authority changed.");
+         const currentSection = coordinator.runtimeSession.mode === "learn" ? findSection(targetBook, coordinator.runtimeSession.recordId) : undefined;
+         const currentTutor = coordinator.runtimeSession.mode === "tutor" ? targetBook.tutorSessions.find((item) => item.id === coordinator.runtimeSession.recordId) : undefined;
+         if (coordinator.runtimeSession.mode === "learn") {
+           if (!currentSection) throw new Error("Scholar blocked this question before presentation: no Learn section is active.");
+-          verifyReview?.(currentSection);
+           if (input.grounding) input.grounding = learnQuestionGrounding(currentSection, input.grounding);
+           assertQuestionGrounding(input.grounding, targetBook, { mode: "learn", section: currentSection });
+           if (input.grounding.purpose === "mastery" && input.grounding.basis.filter(basis => basis.kind === "objective").length !== 1) throw new Error("A mastery multiple-choice question must assess one focused objective.");
+           if (input.grounding.purpose !== "diagnostic") await assertLearnFigureCoverage(coordinator.getConfig(), targetBook, currentSection);
+-          verifyReview?.(currentSection);
+         } else {
+           if (!currentTutor || currentTutor.status !== "active") throw new Error("Scholar blocked this question before presentation: no Tutor session is active.");
+-          verifyReview?.(currentTutor);
+           assertQuestionGrounding(input.grounding, targetBook, { mode: "tutor", tutor: currentTutor });
+         }
+         const attempts = currentSection?.attempts || currentTutor?.attempts;
+         if (!attempts || attempts.some((item) => item.toolCallId === event.toolCallId)) return;
+         const pending = unansweredQuestion(attempts);
+         if (pending) throw new Error(unansweredQuestionMessage([pending]));
+         attempts.push({
+           id: `quiz-${event.toolCallId}`,
+           toolCallId: event.toolCallId,
+           kind: input.grounding!.purpose === "diagnostic" ? "quiz" : quizKind(input.details, input.difficulty, currentSection, input.kind),
+diff --git a/runtime-coordinator.ts b/runtime-coordinator.ts
+index 63f08dd..5af20f8 100644
+--- a/runtime-coordinator.ts
++++ b/runtime-coordinator.ts
+@@ -56,21 +56,20 @@ import {
+   loadBookState,
+   loadConfig,
+   resolveScholarConfig,
+   saveBookState,
+   saveConfig,
+   updateCatalog,
+ } from "./storage.ts";
+ import { MAX_TOOL_PAGES } from "./tool-contract.ts";
+ import {
+   createScholarToolController,
+-  PROGRESS_STALL_MS,
+   type ScholarToolController,
+ } from "./tool-controller.ts";
+ import {
+   SCHOLAR_SCHEMA_VERSION,
+   type BookCandidate,
+   type ScholarBook,
+   type ScholarConfig,
+   type ScholarExam,
+   type ScholarMode,
+   type ScholarSection,
+@@ -571,33 +570,20 @@ export class ScholarRuntimeCoordinator {
+       this.loading.start(ctx, `${newLesson ? "Learn" : title}${section ? ` · ${section.number} ${section.title}` : ""}`,
+         ["Loading section", "Reading source", newLesson ? "Writing explanation" : "Preparing response", "Reviewing", "Saving"], Boolean(this.navigationRun));
+       this.loadingTarget = { bookId: book.id, instanceId: book.instanceId, kind: newLesson ? "learn" : "response", sectionId: section?.id };
+       const exam = this.runtimeSession.mode === "exam" ? book.exams.find(item => item.id === this.runtimeSession.recordId) : undefined;
+       if (exam?.status === "draft" || exam?.status === "submitted") this.loadingTarget.exam = { id: exam.id, expected: exam.status === "draft" ? "active" : "graded" };
+       this.loadingFailed = false;
+       this.loadingProblem = undefined;
+       this.loadingRound = 0;
+       this.loadingRepair = this.loadingNeedsWriting = false;
+       this.loadingSourcePrepared = false;
+-      if (newLesson) {
+-        const run = this.scholarTurnRun, token = this.loading.token;
+-        const releaseInput = run.releaseInput;
+-        const deadline = setInterval(() => {
+-          if (this.scholarTurnRun !== run || this.loading.token !== token || !this.loading.active) { clearInterval(deadline); return; }
+-          if (this.loading.stallElapsedMs >= PROGRESS_STALL_MS) {
+-            clearInterval(deadline);
+-            this.toolController.stopDelivery(`Scholar stopped: active turn had no progress for 15 minutes. Saved draft preserved; generation stopped. Chat will not resume it. To continue preparation: /scholar learn "${section!.number || section!.id}" continue`, ctx as ExtensionContext);
+-          }
+-        }, 1000);
+-        deadline.unref?.();
+-        run.releaseInput = () => { clearInterval(deadline); releaseInput(); };
+-      }
+     }
+     return this.scholarTurnRun;
+   }
+ 
+   async startScholarModeTurn(
+     book: ScholarBook,
+     mode: ScholarMode,
+     target: ScholarSection | ScholarExam | TutorSession,
+     ctx: ExtensionCommandContext | ExtensionContext,
+   ): Promise<void> {
+=== v0.6.0 budget symbols ===
+export const PROGRESS_STALL_MS = 15 * 60_000;
+  /** Injectable wall clock for the preparation budget; tests only. */
+  // Round, rejection and time budgets and the stop latch belong to one explicit
+    // clears a delivery stop or resets the round/time budgets.
+              const message = "scholar: paused delivery after reaching the 250-action budget limit to prevent a runaway loop. Call scholar to resume.";
+            if (turnActive && clock() - lastProgressAt >= PROGRESS_STALL_MS && params.action !== "status") {

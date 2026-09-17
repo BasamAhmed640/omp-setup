@@ -1,0 +1,43 @@
+commit 5d959e283a295390b76755ac25a707bc6382cd59
+Author: Basam Ahmed <219071866+BasamAhmed640@users.noreply.github.com>
+Date:   Mon Sep 14 21:41:45 2026 -0400
+
+    Ship v0.7.0: save lessons on coverage, ask 3 short questions, remove reviewers
+
+ tests/verify-scholar-audit-fixes.mjs              |   5 +-
+ tests/verify-scholar-completion-practice.mjs      |   7 +-
+ tests/verify-scholar-engine-contract.mjs          |  14 +-
+ tests/verify-scholar-explanation-presentation.mjs |  12 +-
+ tests/verify-scholar-figure-coverage.mjs          |  11 +-
+ tests/verify-scholar-history.mjs                  |   2 +-
+ tests/verify-scholar-learn-quality.mjs            |   7 -
+ tests/verify-scholar-learn-review-integration.mjs | 653 ----------------------
+ tests/verify-scholar-lesson-delivery.mjs          |   9 +-
+ tests/verify-scholar-modes.mjs                    |   3 +-
+ tests/verify-scholar-note-design.mjs              |   4 +-
+ tests/verify-scholar-obsidian-exam.mjs            |  67 +--
+ tests/verify-scholar-question-guard.mjs           |  13 +-
+ tests/verify-scholar-reviewed-progress.mjs        |  26 +-
+ tests/verify-scholar-second-pass.mjs              |   4 +-
+ tests/verify-scholar-simple-learn.mjs             | 143 +++++
+ tests/verify-scholar-ui-contract.mjs              |   8 +-
+ 17 files changed, 210 insertions(+), 778 deletions(-)
+---
+ tests/verify-scholar-audit-fixes.mjs              |   5 +-
+ tests/verify-scholar-completion-practice.mjs      |   7 +-
+ tests/verify-scholar-engine-contract.mjs          |  14 +-
+ tests/verify-scholar-explanation-presentation.mjs |  12 +-
+ tests/verify-scholar-figure-coverage.mjs          |  11 +-
+ tests/verify-scholar-history.mjs                  |   2 +-
+ tests/verify-scholar-learn-quality.mjs            |   7 -
+ tests/verify-scholar-learn-review-integration.mjs | 653 ----------------------
+ tests/verify-scholar-lesson-delivery.mjs          |   9 +-
+ tests/verify-scholar-modes.mjs                    |   3 +-
+ tests/verify-scholar-note-design.mjs              |   4 +-
+ tests/verify-scholar-obsidian-exam.mjs            |  67 +--
+ tests/verify-scholar-question-guard.mjs           |  13 +-
+ tests/verify-scholar-reviewed-progress.mjs        |  26 +-
+ tests/verify-scholar-second-pass.mjs              |   4 +-
+ tests/verify-scholar-simple-learn.mjs             | 143 +++++
+ tests/verify-scholar-ui-contract.mjs              |   8 +-
+ 17 files changed, 210 insertions(+), 778 deletions(-)

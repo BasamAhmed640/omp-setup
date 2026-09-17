@@ -1,0 +1,25 @@
+ AGENTS.md                                         |   6 +-
+ README.md                                         |   5 +-
+ command-syntax.ts                                 |  10 +-
+ commands.ts                                       | 206 ++++++-----
+ docs/architecture.md                              |  54 +--
+ learn-quality.ts                                  |  58 ++-
+ learn-review.ts                                   | 235 +++---------
+ lesson.ts                                         |  44 ++-
+ note-records.ts                                   |   9 +-
+ policies.ts                                       |   4 +-
+ render/section.ts                                 |  20 +-
+ review-layer.ts                                   |   2 +-
+ tests/verify-scholar-exam-experience.mjs          |  43 +--
+ tests/verify-scholar-exam-scope-prompt.mjs        |  31 +-
+ tests/verify-scholar-explanation-presentation.mjs |   2 +-
+ tests/verify-scholar-figure-coverage.mjs          |  17 +-
+ tests/verify-scholar-learn-review.mjs             | 418 ++++++++++------------
+ tests/verify-scholar-mode-figures.mjs             |  31 +-
+ tests/verify-scholar-note-design.mjs              |  53 +++
+ tests/verify-scholar-open-assessment.mjs          |   7 +
+ tests/verify-scholar-projection.mjs               |   7 +
+ tests/verify-scholar-reviewed-progress.mjs        |   8 +-
+ tests/verify-scholar-simple-learn.mjs             |  60 ++--
+ tool-controller.ts                                | 369 ++++++++++++-------
+ 24 files changed, 899 insertions(+), 800 deletions(-)

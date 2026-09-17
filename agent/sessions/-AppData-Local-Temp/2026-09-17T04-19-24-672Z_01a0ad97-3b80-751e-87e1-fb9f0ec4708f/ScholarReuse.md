@@ -1,0 +1,78 @@
+{
+  "summary": "pi-scholar (v0.7.1) is a separate Pi/omp extension at C:\\Users\\basam\\.pi\\agent\\extensions\\scholar — TypeScript ESM against @earendil-works/pi-coding-agent | pi-ai | pi-tui and typebox. Its 'beauty layer' is a small pure render/ package (callouts.ts, common.ts, section.ts, navigation.ts, assessment.ts) plus math-formatting.ts and equation-presentation.ts. Final Markdown assembly happens in two stages: per-note render*() functions build a full string via frontmatter()+generatedDocument(); note-storage.ts documents()/writeNoteBook() and obsidian.ts renderScholarWorkspace() project/write it into the vault. State is authoritative in note bodies (generated markers + collapsed [!info]- JSON details), never in a persistent index (only a WeakMap optimistic-concurrency snapshot in memory). Multiple LLM calls are driven via the harness model registry (modelRegistry.complete), NOT raw HTTP and NOT harness subagents, with a 12-wide worker pool, one retry per failed packet, fixed 'low' reasoning, and a custom stage-bar TUI.",
+  "architecture": "Render pipeline: render/section.ts|navigation.ts|assessment.ts → generatedDocument(frontmatter(...)) → note-records.studyDocument()/attachDetails() (splices question blocks + JSON details into the marker region) → note-storage.writeNoteBook()/obsidian.renderScholarWorkspace() writes atomically with a WeakMap snapshot guard. Pure formatting utilities live in render/common.ts + render/callouts.ts + math-formatting.ts; equation-presentation.ts composes validated equation callouts. Validation is code-side (lessonMarkdownIssues, normalizeObsidianMath, equation-presentation) plus model-facing rules in policies.ts PRESENTATION_POLICY. Review orchestration: review-layer.ts plans packets, runReviewPass() runs a REVIEW_CONCURRENCY=12 worker pool of runReviewer() calls over modelRegistry.complete; tool-controller.ts schedules audits and commits receipts; loading-progress.ts renders progress.",
+  "files": [
+    {
+      "path": "render/callouts.ts",
+      "description": "Generic callout() builder + unframeQuestion(); comment markers FEEDBACK_START/END"
+    },
+    {
+      "path": "render/common.ts",
+      "description": "Pure Markdown building blocks: markdownText, tableText, wikiLink, wikiEmbed, block, collapsedRecord, statusCallout, frontmatter, generatedDocument, preservedUserContent, GeneratedMarkerError"
+    },
+    {
+      "path": "render/section.ts",
+      "description": "renderSection() — the section note composition: status header, Lesson block, figure/recap/learning-record collapsed callouts, question block"
+    },
+    {
+      "path": "render/navigation.ts",
+      "description": "renderScholarHome/renderBook/renderChapter — hierarchy + Markdown tables + status callouts"
+    },
+    {
+      "path": "render/assessment.ts",
+      "description": "renderExam/renderTutorSession/renderExamAnswerKey/examAnswerNoteText — exam paper, answer key, tutor note"
+    },
+    {
+      "path": "math-formatting.ts",
+      "description": "normalizeObsidianMath() — converts \\(..\\)/\\[..\\] to $...$/$$...$$, fence- and prefix-aware"
+    },
+    {
+      "path": "equation-presentation.ts",
+      "description": "renderKeyEquations()/KeyEquation — validates and renders [!scholar-equation] callouts from explicit [[scholar-equation:ID]] markers"
+    },
+    {
+      "path": "note-records.ts",
+      "description": "details()/readDetails()/attachDetails()/studyDocument() — collapses JSON state into > [!info]- Scholar <kind> details callouts; question block framing"
+    },
+    {
+      "path": "note-storage.ts",
+      "description": "documents()/writeNoteBook() — final note projection, atomic writes, WeakMap optimistic-concurrency snapshot, legacy migration"
+    },
+    {
+      "path": "obsidian.ts",
+      "description": "renderScholarWorkspace() — vault hierarchy writer + legacy-note migration; re-exports paths/helpers"
+    },
+    {
+      "path": "obsidian-paths.ts",
+      "description": "Folder/filename literals (Scholar/Books, Chapters, Sections, Exams, Tutor, Assets) and path builders"
+    },
+    {
+      "path": "review-runtime.ts",
+      "description": "runReviewer() — in-process modelRegistry.complete loop with bounded limits, stall/backstop timeouts"
+    },
+    {
+      "path": "review-layer.ts",
+      "description": "runReviewPass() — REVIEW_CONCURRENCY=12 worker pool, packet retry, batch cache; REVIEW_INSTRUCTIONS per role"
+    },
+    {
+      "path": "runtime-coordinator.ts",
+      "description": "Mode/run orchestration, stage arrays, loadingReview progress strings"
+    },
+    {
+      "path": "loading-progress.ts",
+      "description": "ScholarLoadingProgress — TUI stage bar, elapsed/stall labels, widget key 'scholar-progress'"
+    },
+    {
+      "path": "appearance.ts",
+      "description": "installScholarAppearance() — installs scholar.css snippet into .obsidian/snippets with a sha256 receipt"
+    },
+    {
+      "path": "index.ts",
+      "description": "scholarExtension(pi) — all pi.on(...) hooks, pi.registerCommand('scholar'); entry per package.json pi.extensions"
+    },
+    {
+      "path": "docs/architecture.md",
+      "description": "Authoritative design doc: reviewers are fresh in-memory conversations, not Pi sessions; responsibility table"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+diff --git a/tool-controller.ts b/tool-controller.ts
+index 8e552a6..f02b600 100644
+--- a/tool-controller.ts
++++ b/tool-controller.ts
+@@ -9,6 +9,7 @@ import { Text } from "@earendil-works/pi-tui";
+ import {
+   activeProgressSummary,
+   recomputeProgress,
++  QUICK_QUESTIONS,
+ } from "./domain.ts";
+ import {
+   examAnswerProgress,
+@@ -82,7 +83,6 @@ import {
+   handleExamPresent,
+ } from "./tool-actions/exam.ts";
+ 
+-export const PROGRESS_STALL_MS = 15 * 60_000;
+ const MAX_PREREVIEW_REJECTIONS = 4;
+ 
+ export type MutateBook = <T>(
+@@ -150,7 +150,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+   const endAgentTurn = (): void => {
+     turnActive = false;
+   };
+-  const continueHint = (section: ScholarSection) => `Chat will not resume it; nothing more runs until the learner explicitly enters /scholar learn "${section.number || section.id}" continue.`;
++  const continueHint = (section: ScholarSection) => `Chat will not resume it; nothing more runs until the learner enters /scholar learn "${section.number || section.id}".`;
+   const stopDelivery = (message: string, ctx: ExtensionContext): void => {
+     if (stoppedDelivery) return;
+     stoppedDelivery = message;
+@@ -544,7 +544,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+           if (tone === "retry" || tone === "error") {
+             consecutiveRejections++;
+             if (consecutiveRejections >= 8) {
+-              const breakerMsg = "scholar: paused delivery after 8 consecutive rejections to prevent a runaway loop. Call scholar to resume.";
++              const breakerMsg = "scholar: paused delivery after 8 consecutive rejections to prevent a runaway loop. Run /scholar learn to resume.";
+               stopDelivery(breakerMsg, ctx);
+               return toolResult(params.action, breakerMsg, { tone: "error" });
+             }
+@@ -559,12 +559,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+           try {
+             if (stoppedDelivery && params.action !== "status") throw new Error(stoppedDelivery);
+             if (actionCallCount >= 250 && params.action !== "status") {
+-              const message = "scholar: paused delivery after reaching the 250-action budget limit to prevent a runaway loop. Call scholar to resume.";
+-              stopDelivery(message, ctx);
+-              throw new Error(message);
+-            }
+-            if (turnActive && clock() - lastProgressAt >= PROGRESS_STALL_MS && params.action !== "status") {
+-              const message = "Scholar stopped: active turn had no progress for 15 minutes. Call scholar to resume.";
++              const message = "scholar: paused delivery after reaching the 250-action budget limit to prevent a runaway loop. Run /scholar learn to resume.";
+               stopDelivery(message, ctx);
+               throw new Error(message);
+             }
+@@ -821,7 +816,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+               return result;
+             }
+             try { ports.onReviewOutcome?.(); } catch { /* display only */ }
+-            return toolResult("notes", "Full lesson committed after source, teaching and visual review. Begin the planned learner checks; this does not award mastery.", { bookId: book.id, sectionId: section.id });
++            return toolResult("notes", `Full lesson committed after source, teaching and visual review. Now ask ${QUICK_QUESTIONS} short questions, one at a time; this does not award mastery.`, { bookId: book.id, sectionId: section.id });
+           }
+ 
+           if (params.action === "assess") {
+=== stat:
+ AGENTS.md                                         |  96 ++++
+ README.md                                         |  17 +-
+ commands.ts                                       |  24 +-
+ docs/architecture.md                              |   2 +-
+ domain.ts                                         |  29 +-
+ index.ts                                          |   2 +
+ learn-quality.ts                                  |   1 -
+ lesson.ts                                         |   2 -
+ npm-shrinkwrap.json                               |   4 +-
+ package.json                                      |   2 +-
+ policies.ts                                       |  34 +-
+ render/section.ts                                 |  23 +-
+ runtime-coordinator.ts                            |  18 +-
+ tests/verify-scholar-audit-fixes.mjs              |   5 +-
+ tests/verify-scholar-completion-practice.mjs      |   7 +-
+ tests/verify-scholar-engine-contract.mjs          |  14 +-
+ tests/verify-scholar-explanation-presentation.mjs |  12 +-
+ tests/verify-scholar-figure-coverage.mjs          |  11 +-
+ tests/verify-scholar-history.mjs                  |   2 +-
+ tests/verify-scholar-learn-quality.mjs            |   7 -
+ tests/verify-scholar-learn-review-integration.mjs | 653 ----------------------
+ tests/verify-scholar-lesson-delivery.mjs          |   9 +-
+ tests/verify-scholar-modes.mjs                    |   3 +-
+ tests/verify-scholar-note-design.mjs              |   4 +-
+ tests/verify-scholar-obsidian-exam.mjs            |  67 +--
+ tests/verify-scholar-question-guard.mjs           |  13 +-
+ tests/verify-scholar-reviewed-progress.mjs        |  26 +-
+ tests/verify-scholar-second-pass.mjs              |   4 +-
+ tests/verify-scholar-simple-learn.mjs             | 143 +++++
+ tests/verify-scholar-ui-contract.mjs              |   8 +-
+ tool-actions/learning.ts                          |   2 +
+ tool-controller.ts                                |  15 +-
+ 32 files changed, 389 insertions(+), 870 deletions(-)

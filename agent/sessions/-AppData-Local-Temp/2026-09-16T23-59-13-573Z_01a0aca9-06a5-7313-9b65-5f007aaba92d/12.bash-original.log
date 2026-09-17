@@ -1,0 +1,8 @@
+{"key":"rust-analyzer","command":"rust-analyzer","args":[],"fileTypes":[".rs"],"rootMarkers":["Cargo.toml","rust-analyzer.toml"],"isLinter":null}
+{"key":"clangd","command":"clangd","args":["--background-index","--clang-tidy","--header-insertion=iwyu"],"fileTypes":[".c",".cpp",".cc",".cxx",".h",".hpp",".hxx",".cu",".cuh",".m",".mm"],"rootMarkers":["compile_commands.json","CMakeLists.txt",".clangd",".clang-format","Makefile"],"isLinter":null}
+{"key":"typescript-language-server","command":"typescript-language-server","args":["--stdio"],"fileTypes":[".ts",".tsx",".js",".jsx",".mjs",".cjs"],"rootMarkers":["package.json","tsconfig.json","jsconfig.json"],"isLinter":null}
+{"key":"typescript-native","command":"tsc","args":["--lsp","--stdio"],"fileTypes":[".ts",".tsx",".js",".jsx",".mjs",".cjs"],"rootMarkers":["package.json","tsconfig.json","jsconfig.json"],"isLinter":null}
+{"key":"biome","command":"biome","args":["lsp-proxy"],"fileTypes":[".ts",".tsx",".js",".jsx",".mjs",".cjs",".json",".jsonc",".css"],"rootMarkers":["biome.json","biome.jsonc"],"isLinter":true}
+{"key":"pyright","command":"pyright-langserver","args":["--stdio"],"fileTypes":[".py",".pyi"],"rootMarkers":["pyproject.toml","pyrightconfig.json","setup.py","setup.cfg","requirements.txt","Pipfile"],"isLinter":null}
+{"key":"basedpyright","command":"basedpyright-langserver","args":["--stdio"],"fileTypes":[".py",".pyi"],"rootMarkers":["pyproject.toml","pyrightconfig.json","setup.py","requirements.txt"],"isLinter":null}
+{"key":"ruff","command":"ruff","args":["server"],"fileTypes":[".py",".pyi"],"rootMarkers":["pyproject.toml","ruff.toml",".ruff.toml"],"isLinter":true}

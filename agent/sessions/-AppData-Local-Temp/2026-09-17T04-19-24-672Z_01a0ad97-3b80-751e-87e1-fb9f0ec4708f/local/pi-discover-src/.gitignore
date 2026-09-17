@@ -1,0 +1,9 @@
+node_modules/
+*.tgz
+.env*
+*.log
+.DS_Store
+coverage/
+test-results/
+.pi/
+demo-vault/

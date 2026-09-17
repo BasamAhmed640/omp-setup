@@ -1,0 +1,846 @@
+diff --git a/commands.ts b/commands.ts
+index 70cfbaf..814a888 100644
+--- a/commands.ts
++++ b/commands.ts
+@@ -9,14 +9,12 @@ import {
+   recomputeProgress,
+   resolveLearnSection,
+   resolveScope,
+-  sectionLabel,
+   titleFor,
+ } from "./domain.ts";
+ import { scanLibrary } from "./ingest.ts";
+ import { examAnswerProgress } from "./exam.ts";
+ import { readExamAnswerNote } from "./exam-paper.ts";
+-import { answerKeyNotePath, scholarWorkspaceRoot, sectionNotePath } from "./obsidian-paths.ts";
+-import { lessonReady } from "./lesson.ts";
++import { answerKeyNotePath, scholarWorkspaceRoot } from "./obsidian-paths.ts";
+ import { validateNoteOwnership } from "./obsidian.ts";
+ import type { InputLockContext } from "./input-lock.ts";
+ import type { ScholarRuntimeSession } from "./runtime-session.ts";
+@@ -134,7 +132,7 @@ export function scholarGuide(book?: ScholarBook): string {
+     "  Open or switch textbooks from your configured PDF library. Run bare to browse all available books in a selector, or specify a partial title to jump directly.",
+     "",
+     "• /scholar learn <chapter/section>",
+-    '  Guided study with source-grounded explanations and checks. Reopening a saved unfinished lesson asks whether to continue preparing it or only show its draft. /scholar learn "1.1" continue resumes preparation without asking. Pending unanswered questions resume unchanged.',
++    '  Guided study with source-grounded explanations and 3 short questions. Reopening a section continues where it stopped. Pending unanswered questions resume unchanged.',
+     "",
+     "• /scholar exam <scope>",
+     '  Answer an exam in Obsidian. Specify chapters (e.g. "1-3", "1, 2", or "all"), or reopen an exam by ID. Run bare (/scholar exam) to resume an in-progress exam or begin a new one.',
+@@ -512,24 +510,6 @@ export async function handleScholarCommand(
+         });
+         book = mutation.book;
+         const section = findSection(book, selected.id)!;
+-        const unapprovedDraft = !section.attempts.some(attempt => attempt.outcome === "pending")
+-          && section.transcript.some(entry => entry.lesson && entry.markdown.trim()) && !lessonReady(section, book.source.fingerprint.sha256);
+-        let continuePreparation = parsed.continue === true;
+-        if (unapprovedDraft && !continuePreparation && ctx.hasUI && typeof ctx.ui.select === "function") {
+-          // Never leave an interactive reopen silently doing nothing: the learner chooses.
+-          const resume = "Continue preparing it now (stops after 20 minutes or 3 review rounds)";
+-          const view = "Only show the saved draft (no generation)";
+-          continuePreparation = await ctx.ui.select(`${sectionLabel(book, section)} has a saved draft that is not yet approved.`, [resume, view]) === resume;
+-        }
+-        if (unapprovedDraft && !continuePreparation) {
+-          // Select the book without entering Learn: no Learn instructions or write/review
+-          // actions, so ordinary chat cannot quietly resume preparation of this draft.
+-          await coordinator.activateBook(book, ctx);
+-          const chapter = book.chapters.find(item => item.sections.some(candidate => candidate.id === section.id))!;
+-          const path = await safePathWithinRoot(activeConfig.obsidianRoot, sectionNotePath(activeConfig, book, chapter, section));
+-          ctx.ui.notify(`Saved draft available in Obsidian: ${path}\nThis lesson is not yet approved. No generation started, and chat will not resume it. To continue preparation: /scholar learn ${quoted(section.number || section.id)} continue`, "info");
+-          return;
+-        }
+         await coordinator.activateBook(book, ctx, "learn", section.id);
+         await coordinator.startScholarModeTurn(book, "learn", section, ctx);
+         return;
+diff --git a/domain.ts b/domain.ts
+index 4635c07..a8ecb9d 100644
+--- a/domain.ts
++++ b/domain.ts
+@@ -116,16 +116,31 @@ export function sectionCompletionBlockers(section: ScholarSection, sourceHash?:
+     ...(!coverageComplete ? ["teaching coverage for every declared objective"] : []),
+     ...(!notesComplete ? ["saved synthesis and key points"] : []),
+     ...(!figuresComplete ? ["source-page and figure review"] : []),
+-    ...(section.legacyLessonCompletion ? [] : [
+-      ...(!lessonReady(section, sourceHash) ? ["complete saved instructional lesson"] : []),
+-      ...objectiveMasteryBlockers(section),
+-    ]),
+-    ...(section.legacyCompletion === true ? [] : requiredChecks(section.requiredChecks)
+-      .filter((kind) => latestAttemptForKind(section, kind)?.outcome !== "pass")
+-      .map((kind) => `${kind} check`)),
++    ...(section.legacyLessonCompletion || lessonReady(section, sourceHash) ? [] : ["complete saved instructional lesson"]),
++    ...(section.legacyCompletion === true ? [] : quickQuestionBlockers(section)),
+   ];
+ }
+ 
++/** Learn ends with a few short questions. Answered, missed or skipped all count. */
++export const QUICK_QUESTIONS = 3;
++
++export function answeredQuickQuestions(section: ScholarSection): number {
++  return (section.attempts || []).filter(attempt => attempt.grounding?.purpose !== "diagnostic" && attempt.outcome !== "pending").length;
++}
++
++export function quickQuestionBlockers(section: ScholarSection): string[] {
++  const left = QUICK_QUESTIONS - answeredQuickQuestions(section);
++  return section.status === "complete" || left <= 0 ? [] : [`${left} more short question${left === 1 ? "" : "s"}`];
++}
++
++/** Learn and Tutor questions are answered in a terminal: one part, short answer. */
++export function assertShortQuestion(text: unknown): void {
++  const question = typeof text === "string" ? text : "";
++  const parts = question.match(/(?:^|\s)\((?:[a-h]|i{1,3}|iv|v)\)\s/gi) || [];
++  if (parts.length >= 2) throw new Error("Ask one part at a time. Learn and Tutor questions must be single-part and answerable in a terminal (a choice, a number, or one short sentence). Put multi-part derivations in the lesson as worked examples.");
++  if (question.length > 600) throw new Error("This question is too long for a terminal. Keep it under 600 characters with one short expected answer.");
++}
++
+ /** A pass for one objective never replaces a miss or missing evidence for another. */
+ export function objectiveMasteryBlockers(section: ScholarSection): string[] {
+   if (!isObjectiveChecks(section.objectiveChecks) || section.objectives.some(objective => !section.objectiveChecks!.some(item => item.objective === objective))) return ["mastery plan for every objective"];
+diff --git a/index.ts b/index.ts
+index 480769c..b733a30 100644
+--- a/index.ts
++++ b/index.ts
+@@ -8,6 +8,7 @@ import { getScholarArgumentCompletions } from "./command-syntax.ts";
+ import { handleScholarCommand } from "./commands.ts";
+ import {
+   appendTranscript,
++  assertShortQuestion,
+   findQuizAttempt,
+   findSection,
+   findTutorQuizAttempt,
+@@ -335,6 +336,7 @@ export default function scholarExtension(pi: ExtensionAPI) {
+     try {
+       const pending = unansweredQuestion(section?.attempts || tutor?.attempts || []);
+       if (pending && pending.toolCallId !== event.toolCallId) throw new Error(unansweredQuestionMessage([pending]));
++      assertShortQuestion(input.question);
+       if (coordinator.runtimeSession.mode === "learn") {
+         if (!section) throw new Error("Scholar blocked this question before presentation: no Learn section is active.");
+         if (input.grounding) input.grounding = learnQuestionGrounding(section, input.grounding);
+@@ -352,25 +354,18 @@ export default function scholarExtension(pi: ExtensionAPI) {
+       // Invalid forms still receive the quiz tool's field-level error. Only a
+       // validated form can be shown or become a resumable unanswered question.
+       const frozen = prepareScholarQuiz(event.input);
+-      const targetRecord = coordinator.runtimeSession.mode === "learn" ? section : tutor;
+-      const verifyReview = targetRecord && frozen && !targetRecord.attempts.some(item => item.toolCallId === event.toolCallId)
+-        ? await toolController.reviewQuestion(book, targetRecord, { quiz: frozen, grounding: input.grounding, kind: input.kind, difficulty: input.difficulty }, input.grounding!.sourcePages, ctx)
+-        : undefined;
+       await coordinator.mutateBook(coordinator.runtimeSession.bookId, async (targetBook) => {
+         if (!coordinator.ownsActiveAuthority(targetBook)) throw new Error("Scholar blocked this question because the active book authority changed.");
+         const currentSection = coordinator.runtimeSession.mode === "learn" ? findSection(targetBook, coordinator.runtimeSession.recordId) : undefined;
+         const currentTutor = coordinator.runtimeSession.mode === "tutor" ? targetBook.tutorSessions.find((item) => item.id === coordinator.runtimeSession.recordId) : undefined;
+         if (coordinator.runtimeSession.mode === "learn") {
+           if (!currentSection) throw new Error("Scholar blocked this question before presentation: no Learn section is active.");
+-          verifyReview?.(currentSection);
+           if (input.grounding) input.grounding = learnQuestionGrounding(currentSection, input.grounding);
+           assertQuestionGrounding(input.grounding, targetBook, { mode: "learn", section: currentSection });
+           if (input.grounding.purpose === "mastery" && input.grounding.basis.filter(basis => basis.kind === "objective").length !== 1) throw new Error("A mastery multiple-choice question must assess one focused objective.");
+           if (input.grounding.purpose !== "diagnostic") await assertLearnFigureCoverage(coordinator.getConfig(), targetBook, currentSection);
+-          verifyReview?.(currentSection);
+         } else {
+           if (!currentTutor || currentTutor.status !== "active") throw new Error("Scholar blocked this question before presentation: no Tutor session is active.");
+-          verifyReview?.(currentTutor);
+           assertQuestionGrounding(input.grounding, targetBook, { mode: "tutor", tutor: currentTutor });
+         }
+         const attempts = currentSection?.attempts || currentTutor?.attempts;
+diff --git a/learn-quality.ts b/learn-quality.ts
+index a875561..56b3299 100644
+--- a/learn-quality.ts
++++ b/learn-quality.ts
+@@ -141,7 +141,6 @@ export function sourceCoverageIssues(value: unknown, context: SourceCoverageCont
+       issues.push(`${prefix} needs a saved snapshot ID actually embedded in this lesson unit.`);
+     }
+   }
+-  if (delivered) issues.push(...sourceAssessmentIssues(value, context.objectiveChecks));
+   return [...new Set(issues)];
+ }
+ 
+diff --git a/lesson.ts b/lesson.ts
+index 7ae27a4..db7bd02 100644
+--- a/lesson.ts
++++ b/lesson.ts
+@@ -341,14 +341,12 @@ export function lessonCoverageIssues(section: ScholarSection, sourceHash?: strin
+     ...learnDeliveryIssues(section, sourceHash),
+     ...(!entries.length ? ["save the actual instructional explanation"] : []),
+     ...section.objectives.filter(objective => !covered.has(objective)).map(objective => `explain: ${objective}`),
+-    ...(!isObjectiveChecks(section.objectiveChecks) || section.objectives.some(objective => !section.objectiveChecks!.some(item => item.objective === objective))
+-      || section.objectiveChecks!.some(item => !section.objectives.includes(item.objective)) ? ["declare appropriate objectiveChecks for every objective"] : []),
+     ...(!section.synthesis?.trim() || !section.keyPoints.length ? ["save a recap and key points"] : []),
+   ];
+ }
+ 
+ export function commitLesson(section: ScholarSection, book: ScholarBook): void {
+-  const issues = [...lessonCoverageIssues(section, book.source.fingerprint.sha256), ...learnReviewIssues(section, book.source.fingerprint.sha256)];
++  const issues = lessonCoverageIssues(section, book.source.fingerprint.sha256);
+   if (issues.length) throw new Error(`The lesson is not ready: ${issues.join("; ")}. Save explanations in parts, then set lessonComplete=true.`);
+   const entries = validLessonEntries(section, book.source.fingerprint.sha256);
+   section.lessonCommit = { entryIds: entries.map(entry => entry.id), contentHash: commitHash(section, entries), sourceHash: book.source.fingerprint.sha256 };
+@@ -361,7 +359,6 @@ export function lessonReady(section: ScholarSection, sourceHash?: string): boole
+   if (!isLessonCommit(commit) || (sourceHash && commit.sourceHash !== sourceHash)) return false;
+   const entries = validLessonEntries(section, commit.sourceHash).filter(entry => commit.entryIds.includes(entry.id));
+   return entries.length === commit.entryIds.length && lessonCoverageIssues(section, commit.sourceHash).length === 0
+-    && learnReviewIssues(section, commit.sourceHash).length === 0
+     && commit.contentHash === commitHash(section, entries);
+ }
+ 
+diff --git a/npm-shrinkwrap.json b/npm-shrinkwrap.json
+index bc5e5ee..3cd386d 100644
+--- a/npm-shrinkwrap.json
++++ b/npm-shrinkwrap.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "pi-scholar",
+-  "version": "0.6.0",
++  "version": "0.7.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "pi-scholar",
+-      "version": "0.6.0",
++      "version": "0.7.0",
+       "license": "UNLICENSED",
+       "devDependencies": {
+         "marked": "18.0.5"
+diff --git a/package.json b/package.json
+index da89cfb..2ba28a7 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "pi-scholar",
+-  "version": "0.6.0",
++  "version": "0.7.0",
+   "private": true,
+   "description": "Local PDF study workflows for Pi and Obsidian",
+   "type": "module",
+diff --git a/policies.ts b/policies.ts
+index 8308ce2..087f4ca 100644
+--- a/policies.ts
++++ b/policies.ts
+@@ -27,12 +27,19 @@ export const QUESTION_ENGINE_POLICY = `Question engine (general, concept-centere
+ 9. After an attempt, identify the first decisive error, contrast the learner's model with the correct model, give the concise correct reasoning, extract a transferable lesson, and use a fresh near-transfer retry when repair is needed.
+ 10. Never infer deep mastery from one familiar item. Important concepts should eventually survive discrimination, independent generation, and changed-context transfer.`;
+ 
++const SHORT_QUESTION_POLICY = `Short questions (Learn and Tutor are answered in a terminal):
++- One question tests one idea from the saved explanation. One part only.
++- The answer is a choice, a number with units, or one short sentence, answerable in about two minutes. Prefer multiple choice with three or four plausible options and no all/none-of-the-above.
++- Never ask for a derivation, proof, sketch, table or multi-part (a)/(b) answer. Put that material in the lesson as a worked example.
++- Solve the question before asking it. Grade against the expected answer, allowing equivalent forms.
++- After an answer, give the correct reasoning in two or three sentences and move on.`;
++
+ const QUESTION_GROUNDING_POLICY = `Question safety gate (fairness without reduced rigor):
+ - Before every Learn or Tutor question, declare grounding with: purpose (diagnostic, practice, or mastery), one exact competency, observable requiredEvidence, in-scope PDF sourcePages, and basis entries that map one-based required-evidence indexes through supports.
+ - A basis is an exact saved objective, an exact saved key-point, or an explicit prerequisite. Label each prerequisite ordinary or source-declared; source-declared prerequisites must cite one of sourcePages. Never disguise a book-specific fact, later-section fact, unintroduced notation, or answer-bearing insight as ordinary knowledge.
+-- Practice and mastery evidence must each link to an explanation actually saved in the current visible note. A synthesis, declared key point, or covered-objective label alone is not evidence of delivery. Diagnostic questions may precede teaching, but need either taught material or a source-declared in-scope basis. If the gate rejects an item, save the missing explanation or correct the receipt and retry at equal rigor.
+-- The gate constrains relevance and fairness—not cognitive demand. Continue to require difficult model selection, chained reasoning, computation, misconception discrimination, independent generation, and novel transfer whenever the competency warrants them.
+-- Only purpose=mastery can satisfy a Learn completion check, and only for the objectives its required evidence actually tests. Diagnostic and practice attempts guide adaptation but never certify mastery. Do not certify unrelated computational skills from a conceptual recognition item.
++- Practice and mastery evidence must each link to an explanation actually saved in the current visible note. A synthesis, declared key point, or covered-objective label alone is not evidence of delivery. Diagnostic questions may precede teaching, but need either taught material or a source-declared in-scope basis. If the gate rejects an item, save the missing explanation or correct the receipt and retry.
++- The gate checks relevance and fairness only. Keep Learn and Tutor questions short.
++- Learn's short questions use purpose=mastery. Diagnostic questions do not count toward them.
+ - Multiple choice must pass scholar_quiz's gate before its picker opens. For an open response, first call scholar action=assess with outcome=pending plus kind, question, grounding, expectedAnswer, and criteria; establish expected reasoning before presenting the exact approved question. Resolve it later with attemptId, outcome, feedback, and evaluation.criteria: for each criterionIndex record met and evidence as an exact short excerpt from the actual learner response. For an attached-photo answer, use its one-based imageIndex and describe the visible evidence instead. Text excerpts and image references are validated transiently, not saved in the note. A legacy pending open question may receive its missing expectedAnswer and criteria using its attemptId with outcome=pending; keep its exact prompt and wait for a fresh response before grading. Closing or stopping pauses a question; cancel it only when the learner explicitly asks to cancel or skip it. Grade against the frozen criteria while allowing valid alternative methods. Wait for an actual response: never create a grade because an explanation was delivered or a question was displayed. Never present an unapproved graded open question.`;
+ 
+ const TEACHING_ENGINE_POLICY = `Teaching engine (guided mastery with fading support):
+@@ -40,7 +47,7 @@ const TEACHING_ENGINE_POLICY = `Teaching engine (guided mastery with fading supp
+ - Model expert decisions, not only algebraic steps: system boundary, knowns, governing principle, selection cues, assumptions, competing methods, and checks.
+ - Use the smallest sufficient path through worked example, completion problem, partial scaffold, independent application, and transfer. Do not force every stage when evidence already supports skipping it.
+ - Require connections among words, equations, diagrams, graphs, tables, or data when the source uses them.
+-- After an error: summarize the approach neutrally, locate the first decisive error, explain the violated principle, contrast models, repair, and retry with a parallel problem.
++- After an error: name the first decisive mistake and give the correct reasoning briefly. Do not add a retry question unless the learner asks.
+ - A section is a complete reading replacement only after every source-grounded objective and essential figure/equation has been covered. Concision may remove repetition, never primary knowledge.`;
+ 
+ const EXPLANATION_POLICY = `Explanation quality (precision with fewer assumed prerequisites):
+@@ -50,7 +57,7 @@ const EXPLANATION_POLICY = `Explanation quality (precision with fewer assumed pr
+ - Organize connected prose into meaningful topical units. Use a worked example when it clarifies an important decision: explain the choice of model or operation, the intermediate reasoning, the result, and a check or interpretation. Where useful, carry the same source example through related results; label any added, checked calculation as a worked application. Keep scientific names and precise notation once explained; remove repeated summaries and administrative objective announcements.
+ - Check interpretive prose independently of formula transcription: which quantities stay fixed, which change, what a sign means, and which limits the assumptions allow. Do not imply that every quantity in a grouped equation shares the same dependence. For example, at a stationary interface the source frequency stays fixed while speed and wavelength can change. Explain a quantity's physical role, not just its technical name; later sections need brief prerequisite reminders, not a retelling of earlier chapters.
+ - Use an analogy only when a specific correspondence makes the idea easier to understand. Explain that correspondence and its relevant limits, then return to the actual source model or mathematics. Analogies, examples, tables, and diagrams are choices, not quotas.
+-- Before finalizing, perform one focused editorial review against the inspected source and the intended reader: find undefined terms, unexplained symbols, missing reasoning, omitted primary content, misleading analogies, and figures without an interpretation. Repair the specific passages in the saved lesson. Independent Learn reviewers then inspect the saved draft; they do not replace your responsibility as author. If the source is unclear, say what remains uncertain rather than filling a gap with an unsupported claim.`;
++- Before finalizing, perform one focused editorial review against the inspected source and the intended reader: find undefined terms, unexplained symbols, missing reasoning, omitted primary content, misleading analogies, and figures without an interpretation. Repair the specific passages in the saved lesson. If the source is unclear, say what remains uncertain rather than filling a gap with an unsupported claim.`;
+ 
+ const PRESENTATION_POLICY = `Native Obsidian presentation (formatting only):
+ - Typeset mathematics with LaTeX: use $...$ for inline notation and paired $$ delimiters on separate lines for central displayed equations, including inside callouts. Never put mathematical equations or symbols in code backticks; code formatting is reserved for actual code. Use vector and unit-vector notation where the source requires it. Lesson units belong under the note's existing Lesson heading: begin their topical headings at ###, without another H1 or a second Lesson heading.
+@@ -67,7 +74,6 @@ export function learnInstructions(book: ScholarBook, section: ScholarSection | u
+     : `This book has no active Learn section. Build and verify its source outline first.`;
+   const lastAssistant = section?.transcript.filter((entry) => entry.kind === "assistant").at(-1)?.markdown;
+   const pending = unansweredQuestionMessage(section?.attempts || []);
+-  const continueCommand = `/scholar learn "${section ? section.number || section.id : "<section>"}" continue`;
+   const resume = lastAssistant ? `Last durable assistant synthesis (resume orientation only): ${lastAssistant.slice(0, 1200)}` : "No prior assistant lesson is stored for this section.";
+   return `Scholar Learn mode is active for ${book.metadata.title}. ${location}
+ ${section ? `Authoritative progress: ${sectionProgressMessage(section)}` : ""}
+@@ -84,7 +90,7 @@ ${EXPLANATION_POLICY}
+ 
+ ${PRESENTATION_POLICY}
+ 
+-${QUESTION_ENGINE_POLICY}
++${SHORT_QUESTION_POLICY}
+ 
+ ${QUESTION_GROUNDING_POLICY}
+ 
+@@ -97,12 +103,10 @@ Learn-mode contract:
+ - Learn's main deliverable is a complete, understandable replacement for the selected section before its confirmation questions. Save the lesson in readable topical units; do not interrupt initial delivery with compulsory quizzes or a diagnostic detour. A learner-requested diagnostic remains possible. Reading every page and saving every crop is source preparation, not evidence that the learner received an explanation.
+ - Save each actual explanation explicitly with scholar action=notes and lesson={id,title,markdown,objectives,keyPoints,sourcePages}. Use a stable id for identical retries; to revise after review, first read status with lessonId and include its current expectedContentHash; associate only objectives and key points the unit genuinely explains, with the PDF pages supporting them. Terminal prose and notes.synthesis do not replace this operation. Keep synthesis as a concise recap. Omit repeated boilerplate such as "What you established" or objective/check records; Obsidian already presents those records.
+ - For a targeted repair, use notes.lessonPatch with the current id/expectedContentHash from status. edits:[{oldText,newText}] changes unique prose. To replace ONE complete equation callout, use calloutEdits:[{oldText,equation:{...all fields of that equation, preserving its existing id}}]. For a replacement crop, use calloutEdits:[{oldText,snapshotId,replacesSnapshotId}], then update figureReviews. oldText is the entire exact saved callout, not a substring. Other callouts remain unchanged. Update changed coverage evidence with coverageUpdates. Do not rewrite the full lesson for local corrections.
+-- An execution failure (provider, timeout, evidence or limit) stops this generation. Preserve the current draft and successful reviews; do not automatically retry, revise optional advice, or start another question. A stop is not cleared by chat: Scholar actions other than status stay blocked until the learner runs ${continueCommand}. After that command, inspect status and retry the unchanged draft first when only execution failures remain. Repeated lessonComplete submissions rejected for delivery gaps also stop preparation, so fix every named gap before resubmitting. Separate real blocking content findings from optional advice and stale findings attached to an older content hash. Learn preparation has a 20-minute total work ceiling; it can stop before the maximum three review rounds.
+-- Complete the source-grounded explanations of every objective and essential equation/figure, perform the focused editorial review, and save repairs before setting notes.lessonComplete=true. For new Learn deliveries this automatically runs independent source, teaching and math/visual reviews in parallel, using the current Pi model and its supported thinking level. They inspect actual source pages/crops and saved explanations. Read their concrete findings, repair the affected passages with current expectedContentHash, update the checklist's exact evidence and resubmit. At most three review rounds run per explicit Learn activation; after persistent failure, stop and tell the learner what remains unresolved. An interrupted, stale or unavailable review is never approval. Only a successful tool result commits delivery; this does not award mastery. Then begin the planned confirmation questions. An independent assessment reviewer checks each new proposed question before it is saved or shown; resume an existing unanswered question unchanged. If interrupted, continue or revise the units still needed; do not erase already saved explanations or restore deleted content from chat.
+-- Plan notes.objectiveChecks before confirmation: associate each exact objective with the check kinds needed to demonstrate it (conceptual, application, computation, or discrimination). Choose from the competency and source demands; do not require all four kinds mechanically or weaken the plan to declare completion. Connect teaching coverage to the saved notes.lesson units, and set lessonComplete only when the entire explanation, recap, and objective check plan are ready.
+-- Each planned check can use a source-grounded multiple-choice or open-response question. Set scholar_quiz kind explicitly to conceptual, application, computation, or discrimination; difficulty is a separate rigor label. Choose open response when independent reasoning or derivation is the evidence needed. Completion requires the complete explanation and recap, full objective and figure coverage, and passing mastery evidence for each objective's planned checks. Required-evidence mappings must test the objective they certify.
+-- Read the authoritative progress returned by notes, assess, and scholar_quiz. Never announce completion unless it says Section complete. Diagnostic and practice results cannot satisfy missing mastery checks. Once complete, all later questions are practice only and must not reset completion.
+-- A miss or 'I don't know' is neutral evidence. Repair only the revealed gap and ask a fresh parallel item.
++- When every objective, essential equation and figure is explained and the recap is saved, set notes.lessonComplete=true. Scholar checks the coverage checklist automatically and saves the lesson immediately; there is no review step. If it names gaps, fix exactly those gaps and resubmit.
++- After the lesson is saved, ask exactly 3 short questions, one at a time, with grounding purpose=mastery. Mix kinds (conceptual, computation, application) as the section allows.
++- After each answer, give brief feedback and move on. Do not add follow-up or retry questions. If the learner skips, cancel the question; a skipped question counts.
++- Read the progress returned by notes, assess and scholar_quiz. Never announce completion unless it says Section complete. Later questions are practice only, when the learner asks.
+ - Stop after the current section is established. Do not silently advance multiple sections.`;
+ }
+ 
+@@ -147,7 +151,7 @@ ${EXPLANATION_POLICY}
+ 
+ ${PRESENTATION_POLICY}
+ 
+-${QUESTION_ENGINE_POLICY}
++${SHORT_QUESTION_POLICY}
+ 
+ ${QUESTION_GROUNDING_POLICY}
+ 
+diff --git a/render/section.ts b/render/section.ts
+index 0dcb085..7635819 100644
+--- a/render/section.ts
++++ b/render/section.ts
+@@ -1,5 +1,5 @@
+ import { relative, resolve } from "node:path";
+-import { latestAttemptForKind, latestAttemptForObjectiveCheck, sectionCompletionBlockers } from "../domain.ts";
++import { answeredQuickQuestions, latestAttemptForKind, QUICK_QUESTIONS, sectionCompletionBlockers } from "../domain.ts";
+ import { transcriptBlock } from "../note-records.ts";
+ import { callout } from "./callouts.ts";
+ import { chapterNotePath, sectionNotePath, snapshotAssetPath } from "../obsidian-paths.ts";
+@@ -183,45 +183,25 @@ export function renderSection(config: ScholarConfig, book: ScholarBook, chapter:
+   const notePath = sectionNotePath(config, book, chapter, section);
+   const chapterLabel = chapter.number ? `Chapter ${chapter.number}: ${chapter.title}` : chapter.title;
+   const covered = new Set(section.coveredObjectives);
+-  const passed = passedCheckKinds(section);
+   const remaining = section.status === "complete" || section.status === "not-started" ? [] : sectionCompletionBlockers(section);
+-  const pendingChecks = section.objectiveChecks?.length
+-    ? section.objectiveChecks.reduce((count, { objective, checks }) => count + checks.filter(kind => latestAttemptForObjectiveCheck(section, objective, kind)?.outcome !== "pass").length, 0)
+-    : section.requiredChecks.filter(kind => !passed.has(kind)).length;
++  const answered = Math.min(answeredQuickQuestions(section), QUICK_QUESTIONS);
++  const pendingChecks = section.status === "complete" ? 0 : QUICK_QUESTIONS - answered;
++  const checks = section.status === "not-started" ? [] : [`Short questions answered: ${answered} of ${QUICK_QUESTIONS}`];
+   const lessonProgress = remaining.includes("complete saved instructional lesson") ? "Lesson in progress" : "Lesson saved";
+-  // The objective/check table already identifies missing assessment evidence.
++  // The Learning record already reports short-question progress.
+   // Keep any other blockers inspectable without repeating long objectives above the lesson.
+-  const otherRemaining = remaining.filter(item => !/^(?:conceptual|application|computation|discrimination) evidence for: /.test(item));
++  const otherRemaining = remaining.filter(item => !/^(?:conceptual|application|computation|discrimination) evidence for: /.test(item) && !/more short questions?$/.test(item));
+   const objectives = section.objectives.length ? [
+     "| Objective | Teaching coverage |", "| --- | --- |",
+     ...section.objectives.map((objective) => `| ${tableText(objective)} | ${covered.has(objective) ? "Taught" : "Not yet taught"} |`),
+   ] : [];
+-  const checks = section.objectiveChecks?.length ? [
+-    "| Objective | Understanding check | Result |", "| --- | --- | --- |",
+-    ...section.objectiveChecks.flatMap(({ objective, checks }) => checks.map(kind =>
+-      `| ${tableText(objective)} | ${tableText(titleCase(kind))} | ${latestAttemptForObjectiveCheck(section, objective, kind)?.outcome === "pass" ? "Demonstrated" : "Not yet demonstrated"} |`)),
+-  ] : section.requiredChecks.length ? [
+-    "| Understanding check | Result |", "| --- | --- |",
+-    ...section.requiredChecks.map((kind) => `| ${tableText(titleCase(kind))} | ${passed.has(kind) ? "Demonstrated" : "Not yet demonstrated"} |`),
+-  ] : [];
+   const authored = transcriptBlock(section.transcript || [], section.attempts).trim();
+   const lesson = authored ? authored.split("\n") : [];
+   const summary = uniqueSupplementLines(section.synthesis ? [section.synthesis] : [], lesson);
+   const keyPoints = uniqueSupplementLines(section.keyPoints, [...lesson, ...summary]);
+   const pitfalls = uniqueSupplementLines(section.misconceptions, [...lesson, ...summary, ...keyPoints]);
+   const current = book.currentSectionId === section.id;
+-  const commitWarnings: string[] = [];
+-  if (section.lessonCommit && section.learnQuality?.reviews) {
+-    for (const review of section.learnQuality.reviews) {
+-      if (review.failure) {
+-        commitWarnings.push(`> [!warning] Not independently reviewed: ${review.role} (${review.failure.code})`);
+-      }
+-      if (review.role === "visual" && review.findings.some(f => f.issue === "Figures were not visually checked (text-only model).")) {
+-        commitWarnings.push("> [!warning] Figures were not visually checked (text-only model).");
+-      }
+-    }
+-  }
+-  const lessonLines = commitWarnings.length ? [...commitWarnings, "", ...lesson] : lesson;
++  const lessonLines = lesson;
+   const content = [
+     ...(lessonLines.length ? block("## Lesson", lessonLines) : [section.synthesis?.trim()
+       ? "A recap is saved below. The full explanation has not been saved yet."
+@@ -245,7 +225,7 @@ export function renderSection(config: ScholarConfig, book: ScholarBook, chapter:
+   ]), [
+     `*${statusLabel(section.status)}${current ? " · Current section" : ""} · ${pageRange(section.startPage, section.endPage)}*`, "",
+     ...(section.status === "complete" ? ["**Section complete.** Reopen for practice anytime; practice does not change your earned completion.", ""]
+-      : section.status !== "not-started" ? [`**Progress:** ${lessonProgress}${pendingChecks ? ` · ${pendingChecks} understanding ${pendingChecks === 1 ? "check" : "checks"} remaining` : ""}. Details are in the Learning record below.`, ""] : []),
++      : section.status !== "not-started" ? [`**Progress:** ${lessonProgress}${pendingChecks ? ` · ${pendingChecks} short ${pendingChecks === 1 ? "question" : "questions"} remaining` : ""}. Details are in the Learning record below.`, ""] : []),
+     wikiLink(notePath, chapterNotePath(config, book, chapter), chapterLabel), "",
+     ...(content.some((line) => line.trim()) ? content : ["This section is ready. Notes will appear as you work through it."]),
+   ].join("\n"));
+diff --git a/runtime-coordinator.ts b/runtime-coordinator.ts
+index 63f08dd..5af20f8 100644
+--- a/runtime-coordinator.ts
++++ b/runtime-coordinator.ts
+@@ -63,7 +63,6 @@ import {
+ import { MAX_TOOL_PAGES } from "./tool-contract.ts";
+ import {
+   createScholarToolController,
+-  PROGRESS_STALL_MS,
+   type ScholarToolController,
+ } from "./tool-controller.ts";
+ import {
+@@ -578,19 +577,6 @@ export class ScholarRuntimeCoordinator {
+       this.loadingRound = 0;
+       this.loadingRepair = this.loadingNeedsWriting = false;
+       this.loadingSourcePrepared = false;
+-      if (newLesson) {
+-        const run = this.scholarTurnRun, token = this.loading.token;
+-        const releaseInput = run.releaseInput;
+-        const deadline = setInterval(() => {
+-          if (this.scholarTurnRun !== run || this.loading.token !== token || !this.loading.active) { clearInterval(deadline); return; }
+-          if (this.loading.stallElapsedMs >= PROGRESS_STALL_MS) {
+-            clearInterval(deadline);
+-            this.toolController.stopDelivery(`Scholar stopped: active turn had no progress for 15 minutes. Saved draft preserved; generation stopped. Chat will not resume it. To continue preparation: /scholar learn "${section!.number || section!.id}" continue`, ctx as ExtensionContext);
+-          }
+-        }, 1000);
+-        deadline.unref?.();
+-        run.releaseInput = () => { clearInterval(deadline); releaseInput(); };
+-      }
+     }
+     return this.scholarTurnRun;
+   }
+diff --git a/tool-actions/learning.ts b/tool-actions/learning.ts
+index 2bfafc9..93ad4bb 100644
+--- a/tool-actions/learning.ts
++++ b/tool-actions/learning.ts
+@@ -1,5 +1,6 @@
+ import {
+   appendTranscript,
++  assertShortQuestion,
+   compactStrings,
+   firstIncomplete,
+   learnQuestionGrounding,
+@@ -214,7 +215,6 @@ export async function handleAssess(
+   mutateBook: MutateBook,
+   toolResult: ToolResultFn,
+   responseGate?: OpenResponseGate,
+-  reviewQuestion?: (attempt: AssessmentAttempt, target: ScholarSection | TutorSession) => Promise<(current: ScholarSection | TutorSession) => void>,
+ ): Promise<{ content: Array<{ type: "text"; text: string }>; details: ToolDetails }> {
+   const outcome = params.outcome as AssessmentOutcome | undefined;
+   const attemptId = params.attemptId?.trim();
+@@ -232,6 +232,7 @@ export async function handleAssess(
+     }
+ 
+     const question = prepareOpenQuestionText(params.question);
++    assertShortQuestion(question);
+     const openAssessment = prepareOpenAssessment(params.expectedAnswer, params.criteria);
+     let grounding = normalizeQuestionGrounding(params.grounding) as QuestionGrounding;
+     const preparedId = `assessment-${toolCallId}`;
+@@ -263,23 +264,17 @@ export async function handleAssess(
+       createdAt: now,
+     };
+ 
+-    const targetRecord = session.mode === "tutor"
+-      ? book.tutorSessions.find((item) => item.id === session.recordId && item.status === "active")
+-      : requireLearnSection(book);
+-    const verifyReview = targetRecord && reviewQuestion ? await reviewQuestion(attempt, targetRecord) : undefined;
+     await mutateBook(book.id, (state) => {
+       const target = session.mode === "tutor"
+         ? state.tutorSessions.find((item) => item.id === session.recordId && item.status === "active")
+         : findSection(state, sectionId);
+       if (!target) throw new Error(`The active ${session.mode} record changed while Scholar prepared the question.`);
+       if (session.mode === "learn") {
+-        verifyReview?.(target as ScholarSection);
+         if (sectionId !== session.recordId) throw new Error("The frozen Learn target changed while Scholar prepared the question.");
+         grounding = learnQuestionGrounding(target as ScholarSection, grounding);
+         attempt.grounding = grounding;
+         assertQuestionGrounding(grounding, state, { mode: "learn", section: target as ScholarSection });
+       } else {
+-        verifyReview?.(target as TutorSession);
+         assertQuestionGrounding(grounding, state, { mode: "tutor", tutor: target as TutorSession });
+       }
+       const pending = unansweredQuestionMessage(target.attempts);
+diff --git a/tool-controller.ts b/tool-controller.ts
+index 8e552a6..6e96d05 100644
+--- a/tool-controller.ts
++++ b/tool-controller.ts
+@@ -1,25 +1,18 @@
+ import { createHash } from "node:crypto";
+-import { lessonHash, learnReviewHash, lessonCoverageIssues, commitLesson, learnReviewIssues, lessonReady } from "./lesson.ts";
+-import { reviewCheckpoint, reviewLearnDraft, reviewLearnQuestion, REVIEW_CHECKPOINT_MESSAGE, runReviewPass, planExamReviewPackets, planTutorExplanationPacket, reviewTargetQuestion, type LessonReviewRole, type ReviewPacketRole, type ReviewPacket } from "./learn-review.ts";
+-import { computeFindingKey, isFindingResponse, type ReviewBatchPass } from "./learn-quality.ts";
+-import { DEFAULT_REVIEWER_LIMITS, type ReviewerProgress } from "./review-runtime.ts";
++import { lessonHash, lessonCoverageIssues, commitLesson } from "./lesson.ts";
+ import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
+ import { Text } from "@earendil-works/pi-tui";
+ 
+ import {
+   activeProgressSummary,
+   recomputeProgress,
++  QUICK_QUESTIONS,
+ } from "./domain.ts";
+ import {
+   examAnswerProgress,
+-  examBlueprint,
+-  examBlueprintSummary,
+   examFormFingerprint,
+-  examFormIssues,
+   parseExamResponses,
+-  validateExamQuestions,
+ } from "./exam.ts";
+-import type { ExamQuestion } from "./types.ts";
+ import { ensureExamAnswerNote, readExamAnswerNote } from "./exam-paper.ts";
+ import { isSameVaultPath } from "./transcript-recovery.ts";
+ import { createFigureCaptureTarget, type SourceFigureView } from "./figure-capture.ts";
+@@ -82,7 +75,6 @@ import {
+   handleExamPresent,
+ } from "./tool-actions/exam.ts";
+ 
+-export const PROGRESS_STALL_MS = 15 * 60_000;
+ const MAX_PREREVIEW_REJECTIONS = 4;
+ 
+ export type MutateBook = <T>(
+@@ -119,7 +111,6 @@ export type ScholarToolController = {
+   stopDelivery(message: string, ctx: ExtensionContext): void;
+   captureOpenResponse(text: string, source: string, images?: OpenResponseImage[]): Promise<void>;
+   bindOpenResponseTurn(book: ScholarBook, prompt: string, images?: OpenResponseImage[]): void;
+-  reviewQuestion(book: ScholarBook, target: ScholarSection | TutorSession, value: unknown, sourcePages: number[], ctx: ExtensionContext, signal?: AbortSignal): Promise<(current: ScholarSection | TutorSession) => void>;
+   presentExam(bookId: string, examId: string, ctx?: ExtensionContext): Promise<ExamPresentation>;
+   submitExam(bookId: string, examId: string, ctx: ExtensionContext): Promise<ExamSubmission>;
+ };
+@@ -150,7 +141,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+   const endAgentTurn = (): void => {
+     turnActive = false;
+   };
+-  const continueHint = (section: ScholarSection) => `Chat will not resume it; nothing more runs until the learner explicitly enters /scholar learn "${section.number || section.id}" continue.`;
++  const continueHint = (section: ScholarSection) => `Chat will not resume it; nothing more runs until the learner enters /scholar learn "${section.number || section.id}".`;
+   const stopDelivery = (message: string, ctx: ExtensionContext): void => {
+     if (stoppedDelivery) return;
+     stoppedDelivery = message;
+@@ -162,71 +153,6 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+     // runner can throw here; the latch above still blocks every further action.
+     try { ctx.abort?.(); } catch { /* latch remains authoritative */ }
+   };
+-  const withReview = async <T>(book: ScholarBook, ctx: ExtensionContext, signal: AbortSignal | undefined,
+-    run: (stop: AbortSignal, progress: (event: ReviewerProgress) => void) => Promise<T>, total = 3): Promise<T> => {
+-    const activation = session.state, config = { ...ports.getConfig() }, stop = new AbortController();
+-    const combined = AbortSignal.any([stop.signal, signal, ctx.signal].filter((item): item is AbortSignal => Boolean(item)));
+-    reviewStops.add(stop);
+-    const started = Date.now(), stages = new Map<string, string>();
+-    const show = () => { try { if (ctx.hasUI) ctx.ui.setStatus("scholar-review", `Scholar review · ${Math.floor((Date.now() - started) / 1000)}s · ${[...stages].map(([role, stage]) => `${role}: ${stage}`).join(" · ")}`); } catch { /* UI cannot approve or fail review. */ } };
+-    // Embedders without the shared loading widget retain the footer fallback.
+-    const timer = ports.onReviewProgress ? undefined : setInterval(show, 1000); timer?.unref?.();
+-    try {
+-      try { ports.onReviewProgress?.(undefined, total); } catch { /* display only */ }
+-      const result = await run(combined, event => {
+-        if (combined.aborted || activation !== session.state) return;
+-        if (ports.onReviewProgress) {
+-          try { ports.onReviewProgress(event, total); } catch { /* display only */ }
+-        } else { stages.set(event.role, event.stage === "complete" ? "done" : event.toolName || "checking"); show(); }
+-      });
+-      combined.throwIfAborted();
+-      if (activation !== session.state || !isSameVaultPath(config.obsidianRoot, ports.getConfig().obsidianRoot) || !ports.isActiveAuthority(book)) throw new Error("Scholar's active section or vault changed during review; the result was discarded.");
+-      if (book.source.fingerprint.size !== 1 || book.source.fingerprint.mtimeMs !== 1) {
+-        await assertFreshSource(book);
+-      }
+-      combined.throwIfAborted();
+-      return result;
+-    } finally {
+-      if (timer) clearInterval(timer); reviewStops.delete(stop);
+-      try { if (!ports.onReviewProgress && ctx.hasUI) ctx.ui.setStatus("scholar-review", undefined); } catch { /* best-effort status cleanup */ }
+-    }
+-  };
+-  /** Persist finished crew checks while review continues, so Esc, a timeout or a restart keeps them. */
+-  const saveReviewCheckpoints = (draft: ScholarBook, section: ScholarSection, activation: typeof session.state, ctx: ExtensionContext) => {
+-    const latest = new Map<LessonReviewRole, ReviewBatchPass[]>();
+-    let chain = Promise.resolve(), scheduled = false, closed = false;
+-    const write = () => mutateBook(draft.id, state => {
+-      if (closed || activation !== session.state || !ports.isActiveAuthority(state) || state.source.fingerprint.sha256 !== draft.source.fingerprint.sha256) return;
+-      const current = findSection(state, section.id);
+-      if (!current?.learnQuality) return;
+-      current.learnQuality.reviews = [...current.learnQuality.reviews.filter(receipt => !(receipt.failure?.message === REVIEW_CHECKPOINT_MESSAGE && latest.has(receipt.role as LessonReviewRole))),
+-        ...[...latest].map(([role, batches]) => reviewCheckpoint(section, draft, ctx, role, batches))];
+-    }).then(() => undefined, () => undefined); // best-effort: the returned receipts remain authoritative
+-    return {
+-      save: (role: ReviewPacketRole, batches: ReviewBatchPass[]) => {
+-        if (closed) return;
+-        if (role === "source" || role === "teaching" || role === "visual") latest.set(role, batches);
+-        if (!scheduled) { scheduled = true; chain = chain.then(() => { scheduled = false; return write(); }); }
+-      },
+-      /** Drain pending writes before the approval write, so no checkpoint can land after it. */
+-      close: async () => { await chain; closed = true; },
+-    };
+-  };
+-  const reviewQuestion: ScholarToolController["reviewQuestion"] = async (book, target, value, sourcePages, ctx, signal) => {
+-    if ("objectives" in target ? !target.learnQuality : !target.review) return () => {};
+-    // The scholar_quiz prehook reaches this outside execute; a stop blocks its reviewer too.
+-    if (stoppedDelivery) throw new Error(stoppedDelivery);
+-    const targetKey = `question:${target.id}:${target.attempts.length}`;
+-    if (passCompleted(targetKey)) return () => {};
+-    markPassCompleted(targetKey);
+-    const activation = session.state, vault = ports.getConfig().obsidianRoot;
+-    const verify = await withReview(book, ctx, signal, (stop, onProgress) => reviewTargetQuestion({ book, target, config: { ...ports.getConfig() }, ctx, signal: stop, onProgress }, value, sourcePages), 1);
+-    return current => {
+-      signal?.throwIfAborted(); ctx.signal?.throwIfAborted();
+-      if (activation !== session.state || !isSameVaultPath(vault, ports.getConfig().obsidianRoot)) throw new Error("The active Scholar record changed during question review.");
+-      verify(current);
+-    };
+-  };
+   const captureOpenResponse = async (text: string, source: string, images?: OpenResponseImage[]): Promise<void> => {
+     // Learner answers bind here, but no input (interactive, RPC or extension-sent)
+     // clears a delivery stop or resets the round/time budgets.
+@@ -544,7 +470,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+           if (tone === "retry" || tone === "error") {
+             consecutiveRejections++;
+             if (consecutiveRejections >= 8) {
+-              const breakerMsg = "scholar: paused delivery after 8 consecutive rejections to prevent a runaway loop. Call scholar to resume.";
++              const breakerMsg = "scholar: paused delivery after 8 consecutive rejections to prevent a runaway loop. Run /scholar learn to resume.";
+               stopDelivery(breakerMsg, ctx);
+               return toolResult(params.action, breakerMsg, { tone: "error" });
+             }
+@@ -559,12 +485,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+           try {
+             if (stoppedDelivery && params.action !== "status") throw new Error(stoppedDelivery);
+             if (actionCallCount >= 250 && params.action !== "status") {
+-              const message = "scholar: paused delivery after reaching the 250-action budget limit to prevent a runaway loop. Call scholar to resume.";
+-              stopDelivery(message, ctx);
+-              throw new Error(message);
+-            }
+-            if (turnActive && clock() - lastProgressAt >= PROGRESS_STALL_MS && params.action !== "status") {
+-              const message = "Scholar stopped: active turn had no progress for 15 minutes. Call scholar to resume.";
++              const message = "scholar: paused delivery after reaching the 250-action budget limit to prevent a runaway loop. Run /scholar learn to resume.";
+               stopDelivery(message, ctx);
+               throw new Error(message);
+             }
+@@ -692,69 +613,10 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+               return result;
+             });
+             const saved = await handleNotes(book, session, params, requireLearnSection, saveNotes, toolResult, ports.getConfig(), deferCommit);
+-            if (session.mode === "tutor" && params.lesson) {
+-              const tutor = book.tutorSessions.find(item => item.id === session.recordId);
+-              const existingUnit = tutor?.transcript.some(entry => entry.id === params.lesson!.id && entry.lesson);
+-              if (tutor && !existingUnit) {
+-                const targetKey = `tutor:explanation:${tutor.id}:${params.lesson.id}`;
+-                if (passCompleted(targetKey)) {
+-                  const receipts = (tutor.review?.receipts || []).filter(r => r.role === "teaching");
+-                  const blockingFindings = receipts.filter(r => !r.failure).flatMap(r => r.findings.filter(f => f.severity === "blocking").map(f => ({ role: r.role, finding: f, key: computeFindingKey(r.role, f) })));
+-                  const responses = [...(tutor.review?.responses || []), ...(params.findingResponses || [])];
+-                  const responseKeys = new Set(responses.map(r => r.key));
+-                  const unresponded = blockingFindings.filter(b => !responseKeys.has(b.key));
+-                  if (unresponded.length > 0) {
+-                    return toolResult("notes", `Draft saved; blocking findings require responses before commit: ${unresponded.map(b => `[F-${b.key}] (${b.finding.issue})`).join("; ")}`, { bookId: book.id, tone: "review" });
+-                  }
+-                  return saved;
+-                }
+-
+-                markPassCompleted(targetKey);
+-                const packet = planTutorExplanationPacket(params.lesson as any);
+-                const runResults = await withReview(book, ctx, signal, (stop, onProgress) => runReviewPass({
+-                  book,
+-                  config: ports.getConfig(),
+-                  ctx,
+-                  signal: stop,
+-                  onProgress,
+-                  sourceHash: book.source.fingerprint.sha256,
+-                  contentHash: lessonHash(params.lesson!.markdown),
+-                  sourcePages: params.lesson!.sourcePages,
+-                  prepared: true,
+-                }, [packet]), 1);
+-
+-                const blockingFindings = runResults.filter(r => !r.failure).flatMap(r => r.findings.filter(f => f.severity === "blocking").map(f => ({ role: r.role, finding: f, key: computeFindingKey(r.role, f) })));
+-                await mutateBook(book.id, state => {
+-                  const current = state.tutorSessions.find(item => item.id === tutor.id);
+-                  if (!current) return;
+-                  if (!current.review) current.review = { version: 1, receipts: [], responses: [] };
+-                  current.review.receipts.push(...runResults);
+-                  if (params.findingResponses?.length) {
+-                    const existing = new Map((current.review.responses || []).map(r => [r.key, r]));
+-                    for (const resp of params.findingResponses) existing.set(resp.key, resp);
+-                    current.review.responses = [...existing.values()];
+-                  }
+-                });
+-
+-                if (blockingFindings.length > 0) {
+-                  const result = toolResult("notes", "Saved Tutor explanation draft; specialist review found repairs. Address each blocking finding [F-<key>] by revising the explanation and supplying findingResponses: [{ key, action: 'fixed' | 'declined', note }] before saving again.", { bookId: book.id, tone: "review" });
+-                  result.content.push({ type: "text", text: runResults.flatMap(review => [
+-                    ...(review.failure ? [`${review.role} / execution incomplete: ${review.failure.message}`] : []),
+-                    ...review.findings.filter(finding => !(review.failure && finding.target === "review evidence" && finding.issue === review.failure.message))
+-                      .map(finding => {
+-                        const key = computeFindingKey(review.role, finding);
+-                        return `${review.role} / ${finding.severity} / [F-${key}] / ${finding.target} / PDF ${finding.sourcePages.join(", ")}: ${finding.issue}\nRepair: ${finding.repair}`;
+-                      }),
+-                  ]).join("\n\n") });
+-                  return result;
+-                }
+-                return toolResult("notes", `Saved source-grounded Tutor notes for ${tutor.title}. Full explanation committed after teaching review.`, { bookId: book.id });
+-              }
+-            }
+             if (!deferCommit || !params.lessonComplete) return saved;
+             const draft = await loadBook(book.id);
+             if (!draft || !ports.isActiveAuthority(draft)) throw new Error("The active Scholar book changed before review.");
+-            const section = requireLearnSection(draft), hash = learnReviewHash(section), activation = session.state;
++            const section = requireLearnSection(draft), activation = session.state;
+             const issues = lessonCoverageIssues(section, draft.source.fingerprint.sha256);
+             if (issues.length) {
+               const rejected = (prereviewRejections.get(section.id) || 0) + 1;
+@@ -765,63 +627,15 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+               stopDelivery(message, ctx);
+               throw new Error(`${message}\n${gapMessage}`);
+             }
+-            const targetKey = `lesson:${section.id}`;
+-            if (passCompleted(targetKey)) {
+-              const final = await mutateBook(draft.id, async state => {
+-                const current = requireLearnSection(state);
+-                if (activation !== session.state || !ports.isActiveAuthority(state) || state.source.fingerprint.sha256 !== draft.source.fingerprint.sha256) throw new Error("The active Scholar record changed during commit.");
+-                await assertLearnFigureCoverage(ports.getConfig(), state, current);
+-                signal?.throwIfAborted(); ctx.signal?.throwIfAborted();
+-                const gaps = learnReviewIssues(current, state.source.fingerprint.sha256);
+-                if (!gaps.length) { commitLesson(current, state); recomputeProgress(state, current); }
+-                return gaps;
+-              });
+-              if (final.result.length) {
+-                const message = `Draft saved; blocking findings require responses before commit: ${final.result.join("; ")}`;
+-                return toolResult("notes", message, { bookId: book.id, sectionId: section.id, tone: "review" });
+-              }
+-              try { ports.onReviewOutcome?.(); } catch { /* display only */ }
+-              return toolResult("notes", "Full lesson committed after specialist review and author responses. Begin the planned learner checks; this does not award mastery.", { bookId: book.id, sectionId: section.id });
+-            }
+-
+-            markPassCompleted(targetKey);
+-            const reviewTimeoutMs = DEFAULT_REVIEWER_LIMITS.timeoutMs;
+-            const checkpoints = saveReviewCheckpoints(draft, section, activation, ctx);
+-            const reviews = await withReview(draft, ctx, signal, (stop, onProgress) => reviewLearnDraft({ book: draft, section, config: { ...ports.getConfig() }, ctx, signal: stop, onProgress, reviewTimeoutMs, onCheckpoint: checkpoints.save }))
+-              .finally(() => checkpoints.close());
+-            const final = await mutateBook(draft.id, async state => {
++            await mutateBook(draft.id, async state => {
+               const current = requireLearnSection(state);
+-              if (activation !== session.state || !ports.isActiveAuthority(state) || learnReviewHash(current) !== hash || state.source.fingerprint.sha256 !== draft.source.fingerprint.sha256) throw new Error("The lesson changed during review. The current note was preserved; review it again before committing.");
++              if (activation !== session.state || !ports.isActiveAuthority(state) || state.source.fingerprint.sha256 !== draft.source.fingerprint.sha256) throw new Error("The active Scholar record changed while saving the lesson.");
+               await assertLearnFigureCoverage(ports.getConfig(), state, current);
+-              signal?.throwIfAborted(); ctx.signal?.throwIfAborted();
+-              if (activation !== session.state || !ports.isActiveAuthority(state)) throw new Error("Scholar changed while verifying reviewed figure assets; approval was discarded.");
+-              current.learnQuality!.reviews = reviews;
+-              const gaps = learnReviewIssues(current, state.source.fingerprint.sha256);
+-              if (!gaps.length) { commitLesson(current, state); recomputeProgress(state, current); }
+-              return gaps;
++              commitLesson(current, state);
++              recomputeProgress(state, current);
+             });
+-            if (final.result.length) {
+-              const incomplete = reviews.filter(review => review.failure);
+-              const message = incomplete.length
+-                ? `Draft saved; review incomplete (${incomplete.map(review => `${review.role}: ${review.failure!.code}`).join(", ")}). Generation stopped. ${continueHint(section)} After that command, retry the same draft before any optional edits. No automatic retry or rewrite after an execution failure.`
+-                : "Draft saved; specialist review found repairs. Address each blocking finding [F-<key>] by revising passages in their existing lesson IDs and supplying findingResponses: [{ key, action: 'fixed' | 'declined', note }] before submitting lessonComplete again.";
+-              try { ports.onReviewOutcome?.(incomplete.length ? `Draft saved · review incomplete: ${incomplete.map(review => review.failure!.code).join(", ")}` : "Draft saved · revisions needed"); } catch { /* display only */ }
+-              const result = toolResult("notes", message, { bookId: book.id, sectionId: section.id, tone: "review" });
+-              result.content.push({ type: "text", text: reviews.flatMap(review => [
+-                ...(review.failure ? [`${review.role} / execution incomplete: ${review.failure.message}`] : []),
+-                ...review.findings.filter(finding => !(review.failure && finding.target === "review evidence" && finding.issue === review.failure.message))
+-                  .map(finding => {
+-                    const key = computeFindingKey(review.role, finding);
+-                    return `${review.role} / ${finding.severity} / [F-${key}] / ${finding.target} / PDF ${finding.sourcePages.join(", ")}: ${finding.issue}\nRepair: ${finding.repair}`;
+-                  }),
+-              ]).join("\n\n") });
+-              if (incomplete.length) {
+-                stopDelivery(message, ctx);
+-              }
+-              return result;
+-            }
+             try { ports.onReviewOutcome?.(); } catch { /* display only */ }
+-            return toolResult("notes", "Full lesson committed after source, teaching and visual review. Begin the planned learner checks; this does not award mastery.", { bookId: book.id, sectionId: section.id });
++            return toolResult("notes", `Full lesson saved. Now ask ${QUICK_QUESTIONS} short questions, one at a time.`, { bookId: book.id, sectionId: section.id });
+           }
+ 
+           if (params.action === "assess") {
+@@ -837,86 +651,14 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+               if (section?.status === "complete" && section.figureCoverage) await assertLearnFigureCoverage(ports.getConfig(), state, section);
+               return result;
+             });
+-            return await handleAssess(book, session, toolCallId, params, requireLearnSection, saveAssessment, toolResult, openResponses,
+-              (attempt, section) => reviewQuestion(book, section, attempt, attempt.grounding!.sourcePages, ctx, signal));
++            return await handleAssess(book, session, toolCallId, params, requireLearnSection, saveAssessment, toolResult, openResponses);
+           }
+ 
+           if (params.action === "exam_build") {
+             requireMode("exam");
+             const examId = params.examId || session.recordId;
+             if (!examId || examId !== session.recordId) throw new Error("Scholar exam_build must target the active exam.");
+-            if (params.findingResponses !== undefined) {
+-              if (!Array.isArray(params.findingResponses) || !params.findingResponses.length || !params.findingResponses.every(isFindingResponse)) {
+-                throw new Error("findingResponses must be an array of valid responses with key, action ('fixed' | 'declined'), and note (1-600 chars).");
+-              }
+-            }
+-            const current = book.exams.find((item) => item.id === examId);
+-            if (!current || current.status !== "draft" || current.questions.length) {
+-              throw new Error("The active exam is not an empty draft.");
+-            }
+-            const questions = validateExamQuestions(current, (params.questions || []) as ExamQuestion[]);
+-            const blueprint = examBlueprint(current, questions);
+-            const formIssues = examFormIssues(blueprint);
+-            if (formIssues.length > 0) {
+-              throw new Error(`This exam form does not meet the question engine's standard. ${formIssues.join(" ")}`);
+-            }
+-
+-            const targetKey = `exam:form:${examId}`;
+-            if (passCompleted(targetKey)) {
+-              const receipts = current.review?.receipts || [];
+-              const blockingFindings = receipts.filter(r => !r.failure).flatMap(r => r.findings.filter(f => f.severity === "blocking").map(f => ({ role: r.role, finding: f, key: computeFindingKey(r.role, f) })));
+-              const responses = [...(current.review?.responses || []), ...(params.findingResponses || [])];
+-              const responseKeys = new Set(responses.map(r => r.key));
+-              const unresponded = blockingFindings.filter(b => !responseKeys.has(b.key));
+-              if (unresponded.length > 0) {
+-                return toolResult("exam_build", `Exam form saved; blocking findings require responses before freeze: ${unresponded.map(b => `[F-${b.key}] (${b.finding.issue})`).join("; ")}`, { bookId: book.id, tone: "review" });
+-              }
+-              return await handleExamBuild(book, examId, params.questions || [], ctx, mutateBook, presentExam, toolResult, params.findingResponses);
+-            }
+-
+-            markPassCompleted(targetKey);
+-            const packets = planExamReviewPackets(current, questions, book);
+-            const examPages = [...new Set(packets.flatMap(p => p.reads))].sort((a, b) => a - b);
+-            const runResults = await withReview(book, ctx, signal, (stop, onProgress) => runReviewPass({
+-              book,
+-              config: ports.getConfig(),
+-              ctx,
+-              signal: stop,
+-              onProgress,
+-              sourceHash: book.source.fingerprint.sha256,
+-              contentHash: examFormFingerprint({ ...current, questions } as any),
+-              sourcePages: examPages,
+-              prepared: true,
+-            }, packets), packets.length);
+-
+-            const blockingFindings = runResults.filter(r => !r.failure).flatMap(r => r.findings.filter(f => f.severity === "blocking").map(f => ({ role: r.role, finding: f, key: computeFindingKey(r.role, f) })));
+-            await mutateBook(book.id, (state) => {
+-              const exam = state.exams.find((item) => item.id === examId);
+-              if (!exam) return;
+-              if (!exam.review) exam.review = { version: 1, receipts: [], responses: [] };
+-              exam.review.receipts.push(...runResults);
+-              if (params.findingResponses?.length) {
+-                const existing = new Map((exam.review.responses || []).map((r) => [r.key, r]));
+-                for (const resp of params.findingResponses) existing.set(resp.key, resp);
+-                exam.review.responses = [...existing.values()];
+-              }
+-            });
+-
+-            if (blockingFindings.length > 0) {
+-              const result = toolResult("exam_build", "Exam form built; specialist review found repairs. Address each blocking finding [F-<key>] and supply findingResponses: [{ key, action: 'fixed' | 'declined', note }] with exam_build before freezing.", { bookId: book.id, tone: "review" });
+-              result.content.push({ type: "text", text: runResults.flatMap(review => [
+-                ...(review.failure ? [`${review.role} / execution incomplete: ${review.failure.message}`] : []),
+-                ...review.findings.filter(finding => !(review.failure && finding.target === "review evidence" && finding.issue === review.failure.message))
+-                  .map(finding => {
+-                    const key = computeFindingKey(review.role, finding);
+-                    return `${review.role} / ${finding.severity} / [F-${key}] / ${finding.target} / PDF ${finding.sourcePages.join(", ")}: ${finding.issue}\nRepair: ${finding.repair}`;
+-                  }),
+-              ]).join("\n\n") });
+-              return result;
+-            }
+-
+-            const freshBook = (await loadBook(book.id)) || book;
+-            return await handleExamBuild(freshBook, examId, params.questions || [], ctx, mutateBook, presentExam, toolResult, params.findingResponses);
++            return await handleExamBuild(book, examId, params.questions || [], ctx, mutateBook, presentExam, toolResult);
+           }
+ 
+           if (params.action === "exam_present") {
+@@ -1047,7 +789,6 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+     stopDelivery,
+     captureOpenResponse,
+     bindOpenResponseTurn,
+-    reviewQuestion,
+     presentExam,
+     submitExam,
+   };

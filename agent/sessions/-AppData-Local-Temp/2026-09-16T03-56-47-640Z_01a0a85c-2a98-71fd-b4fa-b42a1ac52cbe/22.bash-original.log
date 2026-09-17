@@ -1,0 +1,44 @@
+diff --git a/tool-controller.ts b/tool-controller.ts
+index 8e552a6..996b4ae 100644
+--- a/tool-controller.ts
++++ b/tool-controller.ts
+@@ -82,7 +82,6 @@ import {
+   handleExamPresent,
+ } from "./tool-actions/exam.ts";
+ 
+-export const PROGRESS_STALL_MS = 15 * 60_000;
+ const MAX_PREREVIEW_REJECTIONS = 4;
+ 
+ export type MutateBook = <T>(
+@@ -150,7 +149,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+   const endAgentTurn = (): void => {
+     turnActive = false;
+   };
+-  const continueHint = (section: ScholarSection) => `Chat will not resume it; nothing more runs until the learner explicitly enters /scholar learn "${section.number || section.id}" continue.`;
++  const continueHint = (section: ScholarSection) => `Chat will not resume it; nothing more runs until the learner enters /scholar learn "${section.number || section.id}".`;
+   const stopDelivery = (message: string, ctx: ExtensionContext): void => {
+     if (stoppedDelivery) return;
+     stoppedDelivery = message;
+@@ -544,7 +543,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+           if (tone === "retry" || tone === "error") {
+             consecutiveRejections++;
+             if (consecutiveRejections >= 8) {
+-              const breakerMsg = "scholar: paused delivery after 8 consecutive rejections to prevent a runaway loop. Call scholar to resume.";
++              const breakerMsg = "scholar: paused delivery after 8 consecutive rejections to prevent a runaway loop. Run /scholar learn to resume.";
+               stopDelivery(breakerMsg, ctx);
+               return toolResult(params.action, breakerMsg, { tone: "error" });
+             }
+@@ -559,12 +558,7 @@ export function createScholarToolController(ports: ScholarToolControllerPorts):
+           try {
+             if (stoppedDelivery && params.action !== "status") throw new Error(stoppedDelivery);
+             if (actionCallCount >= 250 && params.action !== "status") {
+-              const message = "scholar: paused delivery after reaching the 250-action budget limit to prevent a runaway loop. Call scholar to resume.";
+-              stopDelivery(message, ctx);
+-              throw new Error(message);
+-            }
+-            if (turnActive && clock() - lastProgressAt >= PROGRESS_STALL_MS && params.action !== "status") {
+-              const message = "Scholar stopped: active turn had no progress for 15 minutes. Call scholar to resume.";
++              const message = "scholar: paused delivery after reaching the 250-action budget limit to prevent a runaway loop. Run /scholar learn to resume.";
+               stopDelivery(message, ctx);
+               throw new Error(message);
+             }
